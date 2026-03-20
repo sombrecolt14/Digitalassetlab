@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Dark Mode Colors */
+  --color-dark-bg: #0a0a0a;
+  --color-dark-bg-secondary: #1a1a1a;
+  --color-dark-bg-card: #151515;
+  --color-dark-text: #e5e5e5;
+  --color-dark-text-secondary: #a0a0a0;
+  --color-dark-border: #2a2a2a;
+  
+  /* Accent Colors - Updated with Cyan */
+  --color-primary-cyan: #00D9FF;
+  --color-primary-purple: #c10fff;
+  --color-primary-blue: #060097;
+  --color-accent-gradient-start: #00D9FF;
+  --color-accent-gradient-end: #c10fff;
+  
+  /* Original DigitalAssetLab colors */
+  --color-primary-peach: #FFCBB7;
+  --color-primary-lime: #DEF358;
+  --color-primary-pink: #FF9EAB;
+  --color-primary-green: #AAC5AE;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeAmM.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hjp-Ek-_EeAmM.woff2) format('woff2');
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 400;
+    color: var(--color-neutral-dark);
+    background-color: var(--color-neutral-background);
+  }
+
+  h1 {
+    font-size: 64px;
+    line-height: 1.4em;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h2 {
+    font-size: 48px;
+    line-height: 1.3em;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 1.3em;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h4 {
+    font-size: 20px;
+    line-height: 1.2em;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 36px;
+      line-height: 44px;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    h3 {
+      font-size: 22px;
+      line-height: 30px;
+    }
+  }
+}

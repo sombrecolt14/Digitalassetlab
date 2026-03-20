@@ -1,0 +1,35 @@
+import { createBrowserRouter } from "react-router";
+import Root from "./pages/Root";
+import Home from "./pages/Home";
+import Templates from "./pages/Templates";
+import Bundles from "./pages/Bundles";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
+import Success from "./pages/Success";
+import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import Tutorials from "./pages/Tutorials";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import RefundPolicy from "./pages/RefundPolicy";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      { index: true, Component: Home },
+      { path: "templates", Component: Templates },
+      { path: "bundles", Component: Bundles },
+      { path: "checkout", Component: Checkout },
+      { path: "payment", Component: Payment },
+      { path: "success", Component: Success },
+      { path: "contact", Component: Contact },
+      { path: "faq", Component: FAQ },
+      { path: "tutorials", Component: Tutorials },
+      { path: "privacy-policy", Component: PrivacyPolicy },
+      { path: "terms-of-service", Component: TermsOfService },
+      { path: "refund-policy", Component: RefundPolicy },
+    ],
+  },
+]);
