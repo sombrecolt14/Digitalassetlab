@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import svgPaths from "../imports/svg-9i708zpxdq";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
