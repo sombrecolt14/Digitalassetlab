@@ -119,7 +119,12 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-console.log("ABOUT TO LISTEN", { PORT });
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const HOST = "0.0.0.0";
+
+console.log("SERVER BOOTING");
+console.log("ABOUT TO LISTEN", { HOST, PORT });
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT}`);
+});
 });
