@@ -74,15 +74,15 @@ app.post("/api/create-order", async (req, res) => {
 app.post("/api/verify-payment", async (req, res) => {
   try {
     const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature
-    } = req.body;
+  orderId,
+  razorpay_payment_id,
+  razorpay_signature
+} = req.body;
 
-    const expectedSignature = crypto
-      .createHmac("sha256", RAZORPAY_KEY_SECRET)
-      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-      .digest("hex");
+const expectedSignature = crypto
+  .createHmac("sha256", RAZORPAY_KEY_SECRET)
+  .update(`${orderId}|${razorpay_payment_id}`)
+  .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({ ok: false, message: "Signature mismatch" });
