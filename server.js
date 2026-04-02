@@ -1,12 +1,14 @@
-console.log("SERVER BOOTING");
 import express from "express";
 import cors from "cors";
 import crypto from "crypto";
 import path from "path";
 import { fileURLToPath } from "url";
 
+console.log("SERVER BOOTING");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = "0.0.0.0";
 
 const {
   RAZORPAY_KEY_ID,
@@ -23,7 +25,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.use("/api/razorpay-webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
 
 app.get("/health", (req, res) => {
@@ -75,15 +76,15 @@ app.post("/api/create-order", async (req, res) => {
 app.post("/api/verify-payment", async (req, res) => {
   try {
     const {
-  orderId,
-  razorpay_payment_id,
-  razorpay_signature
-} = req.body;
+      orderId,
+      razorpay_payment_id,
+      razorpay_signature
+    } = req.body;
 
-const expectedSignature = crypto
-  .createHmac("sha256", RAZORPAY_KEY_SECRET)
-  .update(`${orderId}|${razorpay_payment_id}`)
-  .digest("hex");
+    const expectedSignature = crypto
+      .createHmac("sha256", RAZORPAY_KEY_SECRET)
+      .update(`${orderId}|${razorpay_payment_id}`)
+      .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({ ok: false, message: "Signature mismatch" });
@@ -95,7 +96,7 @@ const expectedSignature = crypto
   }
 });
 
-app.post("/api/razorpay-webhook", (req, res) => {
+app.post("/api/razorpay-webhook", express.raw({ type: "application/json" }), (req, res) => {
   try {
     const signature = req.headers["x-razorpay-signature"];
 
@@ -119,12 +120,9 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-const HOST = "0.0.0.0";
 
-console.log("SERVER BOOTING");
 console.log("ABOUT TO LISTEN", { HOST, PORT });
 
 app.listen(PORT, HOST, () => {
   console.log(`Server running on http://${HOST}:${PORT}`);
-});
 });
