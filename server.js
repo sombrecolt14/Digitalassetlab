@@ -1,3 +1,4 @@
+console.log("SERVER BOOTING");
 import express from "express";
 import cors from "cors";
 import crypto from "crypto";
@@ -118,7 +119,7 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
+console.log("ABOUT TO LISTEN", { PORT });
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
