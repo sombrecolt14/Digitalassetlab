@@ -1,65 +1,140 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void;
+  prefill: { name: string; email: string; contact: string };
+  notes: { product: string };
+  theme: { color: string };
+  modal: { ondismiss: () => void };
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (document.getElementById("razorpay-script")) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "razorpay-script";
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function Payment() {
   const navigate = useNavigate();
   const [customerData, setCustomerData] = useState({ name: "", email: "", phone: "" });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Get customer data from session storage
     const data = sessionStorage.getItem("checkoutData");
     if (data) {
       setCustomerData(JSON.parse(data));
     } else {
-      // Redirect to checkout if no data found
       navigate("/checkout");
     }
+    // Pre-load the Razorpay script in the background
+    loadRazorpayScript();
   }, [navigate]);
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     setIsProcessing(true);
+    setError("");
 
-    // Simulate Razorpay payment initialization
-    // In production, you would call your backend to create a Razorpay order
-    setTimeout(() => {
-      // Mock Razorpay options
-      const options = {
-        key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay Key ID
-        amount: 49700, // Amount in paise (₹497 = 49700 paise)
-        currency: "INR",
-        name: "DigitalAssetLab",
-        description: "Instagram Reels Bundle - 2500+ Templates",
-        image: "", // Your logo URL
-        order_id: "", // Order ID from backend
-        handler: function (response: any) {
-          // Payment successful
-          sessionStorage.setItem("paymentId", response.razorpay_payment_id);
-          navigate("/success");
-        },
+    try {
+      // 1. Load Razorpay SDK
+      const loaded = await loadRazorpayScript();
+      if (!loaded || !window.Razorpay) {
+        throw new Error("Failed to load Razorpay. Check your internet connection.");
+      }
+
+      // 2. Create order on the backend
+      const orderRes = await fetch("/api/create-order", { method: "POST" });
+      const orderData = await orderRes.json();
+
+      if (!orderData.ok) {
+        throw new Error(orderData.message || "Could not create payment order. Try again.");
+      }
+
+      // 3. Open Razorpay checkout modal
+      const rzp = new window.Razorpay({
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: orderData.name,
+        description: orderData.description,
+        order_id: orderData.orderId,
         prefill: {
           name: customerData.name,
           email: customerData.email,
           contact: customerData.phone,
         },
-        notes: {
-          address: "DigitalAssetLab Purchase",
+        notes: { product: "Instagram Reels Bundle" },
+        theme: { color: "#163300" },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          },
         },
-        theme: {
-          color: "#163300",
-        },
-      };
+        handler: async (response: RazorpayResponse) => {
+          try {
+            // 4. Verify payment signature on the backend
+            const verifyRes = await fetch("/api/verify-payment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+            const verifyData = await verifyRes.json();
 
-      // In production, use: const rzp = new window.Razorpay(options);
-      // For demo purposes, we'll simulate success
-      console.log("Razorpay Options:", options);
-      
-      // Simulate payment success after 2 seconds
-      setTimeout(() => {
-        sessionStorage.setItem("paymentId", "pay_demo_" + Date.now());
-        navigate("/success");
-      }, 2000);
-    }, 1000);
+            if (!verifyData.ok) {
+              throw new Error("Payment verification failed. Contact support.");
+            }
+
+            // 5. Payment verified — go to success page
+            sessionStorage.setItem("paymentId", response.razorpay_payment_id);
+            navigate("/success");
+          } catch (err: any) {
+            setError(err.message || "Payment verification failed.");
+            setIsProcessing(false);
+          }
+        },
+      });
+
+      rzp.open();
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.");
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -154,6 +229,15 @@ export default function Payment() {
             </div>
           </div>
 
+          {/* Error message */}
+          {error && (
+            <div className="mb-6 bg-red-50 border-2 border-red-400 rounded-2xl p-4">
+              <p className="font-['Inter:Bold',sans-serif] font-bold text-red-700 text-sm text-center">
+                {error}
+              </p>
+            </div>
+          )}
+
           {/* Pay Button */}
           <button
             onClick={handlePayment}
@@ -162,7 +246,7 @@ export default function Payment() {
               isProcessing ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {isProcessing ? "PROCESSING..." : "PAY ₹497 WITH RAZORPAY"}
+            {isProcessing ? "OPENING PAYMENT..." : "PAY ₹497 WITH RAZORPAY"}
           </button>
 
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs text-center mt-4">
@@ -199,13 +283,6 @@ export default function Payment() {
               Download in 2 min
             </p>
           </div>
-        </div>
-
-        {/* Integration Note */}
-        <div className="mt-8 bg-[#FFEB69]/20 rounded-2xl p-6 border-3 border-[#FFEB69]">
-          <p className="font-['Inter:Bold',sans-serif] font-bold text-[#3A341C] text-sm text-center">
-            💡 <strong>Demo Mode:</strong> This is a demonstration. In production, clicking "Pay" will open the Razorpay payment modal with real payment options.
-          </p>
         </div>
       </div>
     </div>
