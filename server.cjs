@@ -1,8 +1,7 @@
-import express from "express";
-import cors from "cors";
-import crypto from "crypto";
-import path from "path";
-import { fileURLToPath } from "url";
+const express = require("express");
+const cors = require("cors");
+const crypto = require("crypto");
+const path = require("path");
 
 console.log("SERVER BOOTING");
 
@@ -17,8 +16,6 @@ const {
   SITE_URL
 } = process.env;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const distPath = path.join(__dirname, "dist");
 
 app.use(cors({
