@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+// TODO: Replace with your actual download link (Google Drive, Dropbox, etc.)
+const DOWNLOAD_URL = "https://YOUR_DOWNLOAD_LINK_HERE";
+
 export default function Success() {
   const [paymentId, setPaymentId] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
@@ -105,10 +108,12 @@ export default function Success() {
             </p>
           </div>
 
-          {/* Download Button (Mock) */}
-          <button className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
-            DOWNLOAD YOUR BUNDLE NOW
-          </button>
+          {/* Download Button */}
+          <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+            <button className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
+              DOWNLOAD YOUR BUNDLE NOW
+            </button>
+          </a>
 
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs text-center">
             You can also access your downloads anytime from the email link

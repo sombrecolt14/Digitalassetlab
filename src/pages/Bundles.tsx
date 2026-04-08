@@ -6,6 +6,7 @@ const bundles = [
     price: 497,
     originalPrice: 1650,
     isPopular: true,
+    comingSoon: false,
     color: "#9FE870",
     textColor: "#163300",
     description: "Everything you need to dominate Instagram Reels",
@@ -26,6 +27,7 @@ const bundles = [
     price: 197,
     originalPrice: 597,
     isPopular: false,
+    comingSoon: true,
     color: "#FFD7EF",
     textColor: "#320707",
     description: "Perfect for fashion bloggers & beauty influencers",
@@ -45,6 +47,7 @@ const bundles = [
     price: 297,
     originalPrice: 897,
     isPopular: false,
+    comingSoon: true,
     color: "#260A2F",
     textColor: "#9FE870",
     description: "For entrepreneurs & business coaches",
@@ -64,6 +67,7 @@ const bundles = [
     price: 247,
     originalPrice: 747,
     isPopular: false,
+    comingSoon: true,
     color: "#FFEB69",
     textColor: "#3A341C",
     description: "For daily vloggers & lifestyle content",
@@ -83,6 +87,7 @@ const bundles = [
     price: 247,
     originalPrice: 747,
     isPopular: false,
+    comingSoon: true,
     color: "#A0E1F1",
     textColor: "#21231D",
     description: "For travel vloggers & adventure seekers",
@@ -102,6 +107,7 @@ const bundles = [
     price: 197,
     originalPrice: 597,
     isPopular: false,
+    comingSoon: true,
     color: "#FFC091",
     textColor: "#163300",
     description: "For food bloggers & recipe creators",
@@ -282,29 +288,24 @@ export default function Bundles() {
                 </div>
 
                 <div className="p-8">
-                  <h3
-                    className="font-['Inter:Black',sans-serif] font-black text-3xl mb-3"
-                    style={{ color: bundle.color }}
-                  >
-                    {bundle.name.toUpperCase()}
-                  </h3>
+                  <div className="flex items-start justify-between mb-3">
+                    <h3
+                      className="font-['Inter:Black',sans-serif] font-black text-3xl"
+                      style={{ color: bundle.color }}
+                    >
+                      {bundle.name.toUpperCase()}
+                    </h3>
+                    {bundle.comingSoon && (
+                      <div className="bg-[#FFEB69] px-3 py-1 rounded-full border-2 border-black shrink-0 ml-3 mt-1">
+                        <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-xs">
+                          COMING SOON
+                        </p>
+                      </div>
+                    )}
+                  </div>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base mb-6">
                     {bundle.description}
                   </p>
-
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-2xl line-through">
-                      ₹{bundle.originalPrice}
-                    </span>
-                    <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl">
-                      ₹{bundle.price}
-                    </span>
-                    <div className="bg-[#9FE870] px-3 py-1 rounded-full border-2 border-black">
-                      <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs">
-                        -{Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100)}%
-                      </p>
-                    </div>
-                  </div>
 
                   <div className="mb-6">
                     <ul className="space-y-2">
@@ -325,11 +326,9 @@ export default function Bundles() {
                     </ul>
                   </div>
 
-                  <Link to="/checkout">
-                    <button className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-lg py-4 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                      BUY NOW
-                    </button>
-                  </Link>
+                  <div className="w-full bg-[#f5f5f5] text-[#4a5565] font-['Inter:Black',sans-serif] font-black text-lg py-4 rounded-full border-4 border-[#e0e0e0] text-center">
+                    COMING SOON
+                  </div>
                 </div>
               </div>
             ))}
