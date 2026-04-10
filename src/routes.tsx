@@ -8,7 +8,6 @@ import Payment from "./pages/Payment";
 import Success from "./pages/Success";
 import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
-import Tutorials from "./pages/Tutorials";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -26,7 +25,6 @@ export const router = createBrowserRouter([
       { path: "success", Component: Success },
       { path: "contact", Component: Contact },
       { path: "faq", Component: FAQ },
-      { path: "tutorials", Component: Tutorials },
       { path: "privacy-policy", Component: PrivacyPolicy },
       { path: "terms-of-service", Component: TermsOfService },
       { path: "refund-policy", Component: RefundPolicy },

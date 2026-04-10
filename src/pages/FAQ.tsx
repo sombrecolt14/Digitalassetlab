@@ -11,7 +11,7 @@ const faqs = [
       },
       {
         q: "What software do I need to use these templates?",
-        a: "Our templates work with CapCut (mobile & desktop), Adobe Premiere Pro, Adobe After Effects, and Final Cut Pro. Most templates are optimized for CapCut for easiest editing."
+        a: "It depends on the product. Each product page lists the compatible software. Most of our video templates work with CapCut, Premiere Pro, After Effects, and Final Cut Pro."
       },
       {
         q: "Are the templates really easy to edit?",
@@ -45,7 +45,7 @@ const faqs = [
     questions: [
       {
         q: "Is this a one-time payment or subscription?",
-        a: "It's a one-time payment! Pay ₹497 once and get lifetime access to all 2500+ templates plus all future updates. No monthly fees, no hidden costs."
+        a: "All our products are one-time payments. Pay once and get lifetime access including all future updates. No monthly fees, no hidden costs."
       },
       {
         q: "What payment methods do you accept?",
@@ -57,7 +57,7 @@ const faqs = [
       },
       {
         q: "Are there any discounts available?",
-        a: "The current price of ₹497 (70% off) is our best offer. This limited-time discount saves you ₹1,153 from the regular price of ₹1,650."
+        a: "We run launch discounts on new products. Check the individual product page for the current best price — our launch offers are always our lowest prices."
       },
     ]
   },
@@ -141,7 +141,7 @@ export default function FAQ() {
               FREQUENTLY ASKED <span className="text-[#9FE870]">QUESTIONS</span>
             </h1>
             <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-xl md:text-2xl max-w-[900px] mx-auto">
-              Everything you need to know about our Instagram Reel templates
+              Everything you need to know about Digital Asset Lab products
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function FAQ() {
             <div className="bg-[#A0E1F1]/10 rounded-2xl p-6 text-center border-3 border-[#A0E1F1]">
               <div className="text-3xl mb-2">📚</div>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm">
-                CHECK <Link to="/tutorials" className="text-[#9FE870] hover:underline">TUTORIALS</Link>
+                BROWSE OUR <Link to="/bundles" className="text-[#9FE870] hover:underline">SHOP</Link>
               </p>
             </div>
           </div>
@@ -230,9 +230,9 @@ export default function FAQ() {
                     CONTACT SUPPORT
                   </button>
                 </Link>
-                <Link to="/tutorials">
+                <Link to="/bundles">
                   <button className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-lg px-12 py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                    VIEW TUTORIALS
+                    BROWSE SHOP
                   </button>
                 </Link>
               </div>
@@ -261,7 +261,6 @@ export default function FAQ() {
               <ul className="space-y-2">
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
-                <li><Link to="/tutorials" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Tutorials</Link></li>
               </ul>
             </div>
             <div>
@@ -280,8 +279,6 @@ export default function FAQ() {
               </h4>
               <ul className="space-y-2">
                 <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
-                <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">YouTube</a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Twitter</a></li>
               </ul>
             </div>
           </div>

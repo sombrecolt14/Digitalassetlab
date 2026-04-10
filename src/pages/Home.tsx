@@ -30,7 +30,7 @@ export default function Home() {
       <div className="bg-gradient-to-r from-[#9FE870] to-[#A0E1F1] px-6 py-3 border-b-4 border-black">
         <div className="max-w-[1200px] mx-auto">
           <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-center text-sm md:text-base">
-            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 2500+ Premium Templates • Only ₹497
+            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 6200+ Premium Templates • Only ₹497
           </p>
         </div>
       </div>
@@ -43,12 +43,15 @@ export default function Home() {
               DIGITAL ASSET LAB
             </h1>
           </Link>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-6 items-center">
             <Link to="/templates" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
               Templates
             </Link>
             <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
-              Bundles
+              Shop
+            </Link>
+            <Link to="/checkout" className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm bg-[#9FE870] px-4 py-2 rounded-full border-2 border-[#9FE870] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all">
+              Checkout
             </Link>
           </nav>
         </div>
@@ -136,10 +139,10 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
             <div className="bg-[#9FE870] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-5xl mb-2">
-                2500+
+                6200+
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs md:text-sm tracking-wider">
-                DIGITAL PRODUCTS
+                TEMPLATES IN ONE BUNDLE
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
@@ -155,15 +158,15 @@ export default function Home() {
                 100%
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#21231D] text-xs md:text-sm tracking-wider">
-                COMMERCIAL USE
+                COMMERCIAL LICENSE
               </p>
             </div>
             <div className="bg-[#FFEB69] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-4xl md:text-5xl mb-2">
-                ₹497
+                30
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-xs md:text-sm tracking-wider">
-                ONE-TIME PAYMENT
+                DAY MONEY-BACK GUARANTEE
               </p>
             </div>
           </div>
@@ -275,7 +278,7 @@ export default function Home() {
                   SOCIAL MEDIA TEMPLATES
                 </h3>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                  2500+ Instagram Reels, Stories & Post templates. Ready to edit and post.
+                  6200+ Instagram Reels, Stories 2500+ Instagram Reels, Stories & Post templates. Ready to edit and post. Post templates across 15+ categories. Ready to edit and post.
                 </p>
               </div>
             </div>
@@ -355,245 +358,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Template Categories with Images */}
-      <section className="bg-white px-6 py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-6xl leading-[1.2] mb-4">
-              TEMPLATE CATEGORIES
-            </h2>
-            <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg md:text-xl">
-              Every niche covered. Every trend included.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Fashion */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwaW5zdGFncmFtfGVufDF8fHx8MTc2NDg0NzY4M3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Fashion Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 border-t-4 border-black bg-[#FFD7EF]">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-2xl mb-2">
-                  FASHION & BEAUTY
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#320707] text-base">
-                  250+ trendy outfit & makeup reels
-                </p>
-              </div>
-            </div>
-
-            {/* Travel */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmF2ZWwlMjBpbnN0YWdyYW18ZW58MXx8fHwxNzY0ODQ3Njg2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Travel Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 border-t-4 border-black bg-[#A0E1F1]">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-[#21231D] text-2xl mb-2">
-                  TRAVEL & ADVENTURE
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#21231D] text-base">
-                  300+ destination & vlog templates
-                </p>
-              </div>
-            </div>
-
-            {/* Food */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb29kJTIwaW5zdGFncmFtfGVufDF8fHx8MTc2NDg0NzY4M3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Food Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 border-t-4 border-black bg-[#FFC091]">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-2xl mb-2">
-                  FOOD & RECIPE
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#3A341C] text-base">
-                  200+ cooking & restaurant reels
-                </p>
-              </div>
-            </div>
-
-            {/* Fitness */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmaXRuZXNzJTIwaW5zdGFncmFtfGVufDF8fHx8MTc2NDg0NzY4NHww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Fitness Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 bg-[#9FE870] border-t-4 border-black">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-2xl mb-2">
-                  FITNESS & WELLNESS
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-base">
-                  180+ workout & motivation clips
-                </p>
-              </div>
-            </div>
-
-            {/* Business */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGluc3RhZ3JhbXxlbnwxfHx8fDE3NjQ4NDc2ODR8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Business Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="bg-[#260A2F] border-t-4 border-black p-[24px]">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl mb-2">
-                  BUSINESS & MONEY
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-base">
-                  220+ entrepreneur & finance reels
-                </p>
-              </div>
-            </div>
-
-            {/* Tech */}
-            <div className="rounded-2xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwaW5zdGFncmFtfGVufDF8fHx8MTc2NDg0NzY4Mnww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Tech Templates"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 bg-[#FFEB69] border-t-4 border-black">
-                <h3 className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-2xl mb-2">
-                  TECH & GADGETS
-                </h3>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#3A341C] text-base">
-                  150+ tech review & unboxing clips
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What You Get */}
+      {/* Why Digital Asset Lab */}
       <section className="bg-[#f5f5f5] px-6 py-16 md:py-24">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-6xl leading-[1.2] mb-4">
-              WHAT YOU GET
+              WHY DIGITAL ASSET LAB
             </h2>
+            <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg md:text-xl max-w-[700px] mx-auto">
+              Everything we make is built to help you create faster, look more professional, and grow your business.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Feature 1 */}
             <div className="bg-[#163300] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p20295a00} stroke="#9FE870" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">🎨</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl leading-[1.25] mb-4">
-                FULLY EDITABLE
+                PROFESSIONAL QUALITY
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-lg opacity-90">
-                Customize colors, text, and media. Works with CapCut, Premiere Pro & After Effects.
+                Every product is designed to a professional standard — ready to use straight out of the box.
               </p>
             </div>
 
-            {/* Feature 2 */}
             <div className="bg-[#FFD7EF] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p1893fe0} stroke="#320707" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">⚡</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-2xl leading-[1.25] mb-4">
-                TRENDING SOUNDS
+                INSTANT DOWNLOAD
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#320707] text-lg opacity-90">
-                Updated weekly with viral audio IDs. Stay ahead of algorithm changes.
+                Access your purchase immediately after checkout. No waiting, no delays.
               </p>
             </div>
 
-            {/* Feature 3 */}
             <div className="bg-[#A0E1F1] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p35a44700} stroke="#21231D" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">💼</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#21231D] text-2xl leading-[1.25] mb-4">
-                COMMERCIAL USE
+                COMMERCIAL LICENSE
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#21231D] text-lg opacity-90">
-                Use for clients, sell final videos, monetize content. Full commercial license.
+                Use our products in client work, sell the results, and monetize freely. No restrictions.
               </p>
             </div>
 
-            {/* Feature 4 */}
             <div className="bg-[#260A2F] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p251c7600} stroke="#FFEB69" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">🔄</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl leading-[1.25] mb-4">
                 LIFETIME UPDATES
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-lg opacity-90">
-                New templates added monthly. All future updates included free forever.
+                Buy once and get every future update for free. We keep adding new content regularly.
               </p>
             </div>
 
-            {/* Feature 5 */}
             <div className="bg-[#FFC091] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p30c0f0f0} stroke="#320707" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">🛠️</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-2xl leading-[1.25] mb-4">
-                BONUS PACKS
+                EASY TO CUSTOMISE
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#320707] text-lg opacity-90">
-                500+ hooks, 300+ transitions, viral strategy guide. Worth ₹2,999 FREE.
+                Built for non-designers. Change colours, text, and images in minutes with popular editing tools.
               </p>
             </div>
 
-            {/* Feature 6 */}
             <div className="bg-[#9FE870] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="mb-6">
-                <div className="h-10 w-10">
-                  <svg className="block size-full" fill="none" viewBox="0 0 32 32">
-                    <path d={svgPaths.p268af080} stroke="#163300" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
-                </div>
-              </div>
+              <div className="text-4xl mb-4">🛡️</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-2xl leading-[1.25] mb-4">
-                INSTANT ACCESS
+                30-DAY GUARANTEE
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-lg opacity-90">
-                Download link in 2 minutes. Start creating viral reels today.
+                Not happy? Get a full refund within 30 days. No questions asked.
               </p>
             </div>
           </div>
@@ -605,10 +440,10 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-6xl leading-[1.2] mb-4">
-              CREATOR STORIES
+              WHAT CREATORS SAY
             </h2>
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg md:text-xl">
-              Real results from real creators
+              Real people. Real results.
             </p>
           </div>
 
@@ -631,7 +466,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "These templates saved me HOURS every week! My engagement went from 5K to 50K in just 2 months. Absolutely worth every rupee!"
+                "These digital assets have completely transformed how I create content. I used to spend days on designs — now it takes minutes. Absolutely worth every rupee!"
               </p>
             </div>
 
@@ -653,7 +488,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "I run 5 different Instagram accounts and these templates keep all of them looking professional. My clients love the quality!"
+                "I use these for client projects and the quality always impresses. Everything is easy to customise and looks premium right out of the box."
               </p>
             </div>
 
@@ -675,7 +510,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "The variety is incredible! I never run out of fresh content ideas. My reels now consistently hit 100K+ views. Game changer!"
+                "The range of products covers everything I need. My content looks consistent, professional, and on-brand every single time. Total game changer!"
               </p>
             </div>
 
@@ -697,7 +532,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "Best investment I made for my content creation! The travel templates perfectly match my aesthetic. Followers doubled in 3 months!"
+                "Best investment I have made for my content. The quality is outstanding and the instant download made it so easy to get started right away."
               </p>
             </div>
           </div>
@@ -708,8 +543,9 @@ export default function Home() {
       <section id="pricing" className="bg-[#f5f5f5] px-6 py-16 md:py-24">
         <div className="max-w-[900px] mx-auto">
           <div className="text-center mb-12">
+            <div className="inline-block bg-[#9FE870] px-6 py-2 rounded-full border-3 border-black mb-4"><p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm tracking-wider">🚀 LAUNCH PRODUCT</p></div>
             <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-6xl leading-[1.2] mb-4">
-              GET STARTED NOW
+              INSTAGRAM REELS BUNDLE
             </h2>
           </div>
 
@@ -740,7 +576,7 @@ export default function Home() {
                     <span className="font-['Inter:Black',sans-serif] font-black text-white text-base">✓</span>
                   </div>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg pt-1">
-                    2500+ Instagram Reel Templates
+                    6200+ Instagram Reel Templates
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -792,7 +628,9 @@ export default function Home() {
               </h4>
               <ul className="space-y-2">
                 <li><Link to="/templates" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram Reels</Link></li>
-                <li><Link to="/bundles" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Template Bundles</Link></li>
+                <li><Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">Bundles</Link>
+            <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">Shop</Link>
+            <Link to="/checkout" className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-sm border-2 border-[#9FE870] px-4 py-1 rounded-full hover:bg-[#9FE870] hover:text-[#163300] transition-all">Checkout</Link></li>
               </ul>
             </div>
             <div>
@@ -802,7 +640,6 @@ export default function Home() {
               <ul className="space-y-2">
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
-                <li><Link to="/tutorials" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Tutorials</Link></li>
               </ul>
             </div>
             <div>
@@ -821,8 +658,6 @@ export default function Home() {
               </h4>
               <ul className="space-y-2">
                 <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
-                <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">YouTube</a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Twitter</a></li>
               </ul>
             </div>
           </div>
