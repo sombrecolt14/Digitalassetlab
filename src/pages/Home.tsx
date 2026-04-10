@@ -40,7 +40,7 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
           <Link to="/">
             <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITAL ASSET LABS
+              DIGITAL ASSET LAB
             </h1>
           </Link>
           <nav className="hidden md:flex gap-6">
@@ -190,7 +190,7 @@ export default function Home() {
               What We Offer
             </h2>
             <p className="font-['Inter:Regular',sans-serif] text-[#4a5565] text-base md:text-lg max-w-[900px] border-b-2 border-black pb-6">
-              Digital Asset Labs specialises in high-quality digital products designed for content creators, marketers, and businesses. From social media templates to professional planners, our products help you work smarter and achieve your goals faster.
+              Digital Asset Lab specialises in high-quality digital products designed for content creators, marketers, and businesses. From social media templates to professional planners, our products help you work smarter and achieve your goals faster.
             </p>
           </div>
 
@@ -829,7 +829,7 @@ export default function Home() {
 
           <div className="border-t border-white/20 pt-8 text-center">
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm">
-              © 2025 Digital Asset Labs. All rights reserved.
+              © 2025 Digital Asset Lab. All rights reserved.
             </p>
           </div>
         </div>
