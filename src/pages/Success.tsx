@@ -1,3 +1,4 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -25,15 +26,7 @@ export default function Success() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Success Content */}
       <div className="max-w-[900px] mx-auto px-6 py-12 md:py-20">
@@ -46,7 +39,7 @@ export default function Success() {
             PAYMENT SUCCESSFUL!
           </h1>
           <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-xl">
-            Welcome to the DigitalAssetLab family! 🎉
+            Welcome to the Digital Asset Lab family! 🎉
           </p>
         </div>
 

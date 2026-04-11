@@ -1,3 +1,4 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 
 const bundles = [
@@ -128,24 +129,7 @@ export default function Bundles() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-          <nav className="hidden md:flex gap-6">
-            <Link to="/templates" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
-              Templates
-            </Link>
-            <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-sm transition-colors">
-              Bundles
-            </Link>
-            
-          </nav>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Hero Section */}
       <section className="bg-white px-6 py-16 md:py-24">
@@ -491,15 +475,13 @@ export default function Bundles() {
               </h4>
               <ul className="space-y-2">
                 <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
-                <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">YouTube</a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Twitter</a></li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-white/20 pt-8 text-center">
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm">
-              © 2025 DigitalAssetLab. All rights reserved.
+              © 2025 Digital Asset Lab. All rights reserved.
             </p>
           </div>
         </div>

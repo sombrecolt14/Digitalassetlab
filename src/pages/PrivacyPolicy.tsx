@@ -1,18 +1,11 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Content */}
       <section className="bg-white px-6 py-16 md:py-24">
@@ -30,7 +23,7 @@ export default function PrivacyPolicy() {
                 Introduction
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                DigitalAssetLab ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and purchase our products.
+                Digital Asset Lab ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and purchase our products.
               </p>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
                 By using our services, you agree to the collection and use of information in accordance with this policy.
@@ -159,7 +152,7 @@ export default function PrivacyPolicy() {
                 If you have questions about this Privacy Policy, please contact us:
               </p>
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
-                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">DigitalAssetLab</p>
+                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.com</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
                   Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
@@ -217,7 +210,7 @@ export default function PrivacyPolicy() {
 
           <div className="border-t border-white/20 pt-8 text-center">
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm">
-              © 2025 DigitalAssetLab. All rights reserved.
+              © 2025 Digital Asset Lab. All rights reserved.
             </p>
           </div>
         </div>

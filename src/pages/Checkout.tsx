@@ -1,3 +1,4 @@
+import NavHeader from "../components/NavHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -19,15 +20,7 @@ export default function Checkout() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Checkout Content */}
       <div className="max-w-[1200px] mx-auto px-6 py-12 md:py-20">

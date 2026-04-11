@@ -1,3 +1,4 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 import svgPaths from "../imports/svg-9i708zpxdq";
 import { motion } from "motion/react";
@@ -34,28 +35,8 @@ export default function Home() {
           </p>
         </div>
       </div>
-
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITAL ASSET LAB
-            </h1>
-          </Link>
-          <nav className="hidden md:flex gap-6 items-center">
-            <Link to="/templates" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
-              Templates
-            </Link>
-            <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
-              Shop
-            </Link>
-            <Link to="/checkout" className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm bg-[#9FE870] px-4 py-2 rounded-full border-2 border-[#9FE870] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all">
-              Checkout
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Hero Section */}
       <section className="bg-white px-6 py-16 md:py-24 relative overflow-hidden min-h-[600px]">

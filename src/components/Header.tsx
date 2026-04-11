@@ -26,7 +26,7 @@ export function Header() {
                 className="text-xl bg-gradient-to-r from-[#00D9FF] to-[#c10fff] bg-clip-text text-transparent"
                 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 600, lineHeight: 1 }}
               >
-                DigitalAssetLab
+                Digital Asset Lab
               </span>
               <span className="text-xs text-[#a0a0a0]" style={{ fontFamily: 'Inter' }}>
                 Premium Digital Assets

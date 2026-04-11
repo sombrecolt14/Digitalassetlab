@@ -1,18 +1,11 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Content */}
       <section className="bg-white px-6 py-16 md:py-24">
@@ -30,7 +23,7 @@ export default function TermsOfService() {
                 Agreement to Terms
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                By accessing or using DigitalAssetLab's website and purchasing our digital products, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+                By accessing or using Digital Asset Lab's website and purchasing our digital products, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
               </p>
             </div>
 
@@ -39,7 +32,7 @@ export default function TermsOfService() {
                 Products and Services
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                DigitalAssetLab provides digital Instagram Reel templates and related assets for purchase and download. All products are delivered digitally.
+                Digital Asset Lab provides digital Instagram Reel templates and related assets for purchase and download. All products are delivered digitally.
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Products are available for immediate download after purchase</li>
@@ -103,7 +96,7 @@ export default function TermsOfService() {
                 Intellectual Property
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                All content on DigitalAssetLab, including templates, graphics, logos, and text, is the property of DigitalAssetLab and protected by copyright laws.
+                All content on Digital Asset Lab, including templates, graphics, logos, and text, is the property of Digital Asset Lab and protected by copyright laws.
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
                 <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Templates remain our intellectual property; you receive a license to use them</li>
@@ -148,7 +141,7 @@ export default function TermsOfService() {
                 Limitation of Liability
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                DigitalAssetLab shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our products or services. Our total liability is limited to the amount you paid for the product.
+                Digital Asset Lab shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our products or services. Our total liability is limited to the amount you paid for the product.
               </p>
             </div>
 
@@ -192,7 +185,7 @@ export default function TermsOfService() {
                 For questions about these Terms of Service, please contact us:
               </p>
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
-                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">DigitalAssetLab</p>
+                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.com</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
                   Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
@@ -250,7 +243,7 @@ export default function TermsOfService() {
 
           <div className="border-t border-white/20 pt-8 text-center">
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm">
-              © 2025 DigitalAssetLab. All rights reserved.
+              © 2025 Digital Asset Lab. All rights reserved.
             </p>
           </div>
         </div>

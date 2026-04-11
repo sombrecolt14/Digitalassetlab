@@ -1,3 +1,4 @@
+import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -134,24 +135,7 @@ export default function Templates() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* Header */}
-      <header className="bg-[#163300] px-6 py-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link to="/">
-            <h1 className="font-['Inter:Black',sans-serif] font-black text-white text-2xl">
-              DIGITALASSETLAB
-            </h1>
-          </Link>
-          <nav className="hidden md:flex gap-6">
-            <Link to="/templates" className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-sm transition-colors">
-              Templates
-            </Link>
-            <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">
-              Bundles
-            </Link>
-            
-          </nav>
-        </div>
-      </header>
+      <NavHeader />
 
       {/* Hero Section */}
       <section className="bg-white px-6 py-16 md:py-24">
@@ -422,7 +406,7 @@ export default function Templates() {
 
           <div className="border-t border-white/20 pt-8 text-center">
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm">
-              © 2025 DigitalAssetLab. All rights reserved.
+              © 2025 Digital Asset Lab. All rights reserved.
             </p>
           </div>
         </div>
