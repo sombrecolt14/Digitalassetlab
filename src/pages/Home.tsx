@@ -144,10 +144,10 @@ export default function Home() {
             </div>
             <div className="bg-[#FFEB69] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-4xl md:text-5xl mb-2">
-                30
+                ⚡
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-xs md:text-sm tracking-wider">
-                DAY MONEY-BACK GUARANTEE
+                INSTANT DELIVERY
               </p>
             </div>
           </div>
@@ -404,12 +404,12 @@ export default function Home() {
             </div>
 
             <div className="bg-[#9FE870] rounded-3xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <div className="text-4xl mb-4">🛡️</div>
+              <div className="text-4xl mb-4">🔒</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-2xl leading-[1.25] mb-4">
-                30-DAY GUARANTEE
+                SECURE PURCHASE
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-lg opacity-90">
-                Not happy? Get a full refund within 30 days. No questions asked.
+                Every transaction is fully encrypted and processed through India's most trusted payment gateway.
               </p>
             </div>
           </div>

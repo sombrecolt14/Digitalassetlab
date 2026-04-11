@@ -17,45 +17,52 @@ export default function RefundPolicy() {
             Last Updated: March 17, 2026
           </p>
 
-          <div className="bg-[#9FE870]/10 rounded-2xl p-8 border-3 border-[#9FE870] mb-12">
-            <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-2xl mb-4">
-              30-DAY MONEY-BACK GUARANTEE
+          <div className="bg-[#163300] rounded-2xl p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-12">
+            <h2 className="font-['Inter:Black',sans-serif] font-black text-[#9FE870] text-2xl mb-4">
+              OUR REFUND POSITION
             </h2>
-            <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg">
-              We stand behind the quality of our templates. If you're not satisfied, we'll refund your purchase within 30 days.
+            <p className="font-['Inter:Bold',sans-serif] font-bold text-white text-lg">
+              Digital Asset Lab issues refunds where there is a clear service failure, technical error, or genuine inconvenience caused on our end. We do not offer open-ended satisfaction-based refunds. Every product is accurately described, and all sales are considered final once the download has been accessed.
             </p>
           </div>
 
           <div className="prose max-w-none">
             <div className="mb-12">
               <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                Our Commitment
+                When We Will Refund
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                At Digital Asset Lab, we want you to be completely satisfied with your purchase. We offer a hassle-free 30-day money-back guarantee on all template bundles.
+                A refund will be granted in the following circumstances:
               </p>
+              <ul className="list-disc pl-6 mb-6 space-y-2">
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">A technical fault on our platform prevented you from accessing or downloading your purchase</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You were charged more than once for the same order due to a payment processing error</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">The product delivered was materially different from what was described on the product page</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">A technical issue with the template files cannot be resolved by our support team within a reasonable timeframe</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">An error on our end resulted in an incorrect or failed order</li>
+              </ul>
+
+              <div className="bg-[#FFD7EF]/20 rounded-2xl p-6 border-2 border-[#FFD7EF] mb-4">
+                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#320707] text-sm">
+                  ⚠️ All refund requests are reviewed individually. We reserve the right to request supporting information to verify the issue before processing any refund.
+                </p>
+              </div>
             </div>
 
             <div className="mb-12">
               <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                Eligibility for Refunds
+                When We Will Not Refund
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                You are eligible for a full refund if:
+                Refunds will not be issued in the following cases:
               </p>
-              <ul className="list-disc pl-6 mb-6 space-y-2">
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You request a refund within 30 days of purchase</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">The templates have a technical issue we cannot resolve</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">The product was significantly misrepresented</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You experienced payment errors resulting in duplicate charges</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You're not satisfied with the quality (no questions asked)</li>
+              <ul className="list-disc pl-6 mb-4 space-y-2">
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Change of mind after purchase or after download has been initiated</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Inability to use editing software — our templates work with widely available tools clearly stated on the product page</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Partial use of the bundle followed by a claim of dissatisfaction</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Evidence that template files have been redistributed, shared, or resold</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Repeated refund requests that indicate policy abuse</li>
               </ul>
-
-              <div className="bg-[#FFD7EF]/10 rounded-2xl p-6 border-2 border-[#FFD7EF] mb-4">
-                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#320707] text-sm">
-                  ⚠️ Note: While we don't require a detailed explanation, we appreciate feedback to help us improve our products.
-                </p>
-              </div>
             </div>
 
             <div className="mb-12">
@@ -63,9 +70,9 @@ export default function RefundPolicy() {
                 How to Request a Refund
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                To request a refund, follow these simple steps:
+                If you believe you are eligible for a refund, contact us promptly:
               </p>
-              
+
               <div className="space-y-6 mb-6">
                 <div className="flex gap-4">
                   <div className="bg-[#9FE870] rounded-full h-12 w-12 flex items-center justify-center shrink-0 border-3 border-black">
@@ -90,7 +97,7 @@ export default function RefundPolicy() {
                       Provide Order Details
                     </h3>
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                      Include your order number, email address used for purchase, and reason for refund request
+                      Include your order number, the email used for purchase, and a clear description of the issue you experienced
                     </p>
                   </div>
                 </div>
@@ -101,10 +108,10 @@ export default function RefundPolicy() {
                   </div>
                   <div>
                     <h3 className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-2">
-                      Receive Confirmation
+                      Review & Decision
                     </h3>
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                      We'll process your request within 24-48 hours and send you a confirmation email
+                      We will review your request and respond within 24–48 hours with a decision and next steps
                     </p>
                   </div>
                 </div>
@@ -115,30 +122,14 @@ export default function RefundPolicy() {
                   </div>
                   <div>
                     <h3 className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-2">
-                      Get Your Refund
+                      Refund Processed
                     </h3>
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                      Refunds are processed to your original payment method within 5-7 business days
+                      Approved refunds are returned to your original payment method within 5–7 business days
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="mb-12">
-              <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                Refund Exceptions
-              </h2>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                Refunds may not be granted in the following cases:
-              </p>
-              <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Requests made after the 30-day guarantee period</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Evidence of template file redistribution or resale</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Abuse of refund policy (multiple refund requests)</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Lack of technical knowledge to use editing software (we offer free tutorials)</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Changed mind after extensively using templates (beyond testing)</li>
-              </ul>
             </div>
 
             <div className="mb-12">
@@ -151,7 +142,7 @@ export default function RefundPolicy() {
                     Request Review
                   </h3>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                    24-48 hours for initial response
+                    24–48 hours for initial response
                   </p>
                 </div>
                 <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
@@ -159,7 +150,7 @@ export default function RefundPolicy() {
                     Refund Processing
                   </h3>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                    5-7 business days to your account
+                    5–7 business days to your account
                   </p>
                 </div>
               </div>
@@ -167,55 +158,33 @@ export default function RefundPolicy() {
 
             <div className="mb-12">
               <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                Partial Refunds
+                After a Refund is Issued
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                We do not offer partial refunds. Our products are sold as complete bundles. However:
+                Once a refund is confirmed and processed:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">If you purchased the wrong bundle, contact us within 48 hours for an exchange</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Duplicate purchases can be refunded within 7 days</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Technical errors resulting in overcharges will be fully refunded</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Your licence to use the purchased templates is immediately revoked</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">All downloaded template files must be deleted from your devices</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Any commercial use of content created using the templates must cease</li>
+                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Access to future updates for the refunded product will not be available</li>
               </ul>
             </div>
 
             <div className="mb-12">
               <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                After Refund
+                Before You Request a Refund
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                Once a refund is processed:
-              </p>
-              <ul className="list-disc pl-6 mb-4 space-y-2">
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Your license to use the templates is revoked</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You must delete all downloaded template files</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Access to tutorials and updates will be removed</li>
-                <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">You may not use any content created with the templates commercially</li>
-              </ul>
-            </div>
-
-            <div className="mb-12">
-              <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl mb-4">
-                Alternative Solutions
-              </h2>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                Before requesting a refund, consider these options:
+                Many issues can be resolved quickly without a refund:
               </p>
               <div className="space-y-4">
-                <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
-                  <h3 className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-2">
-                    📚 Free Tutorials
-                  </h3>
-                  <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                    Access our comprehensive video tutorials to learn how to use templates effectively
-                  </p>
-                </div>
                 <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
                   <h3 className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-2">
                     💬 Technical Support
                   </h3>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                    Our support team can help resolve technical issues or answer questions
+                    Contact our support team directly — we will do our best to resolve any technical issue with your files or download
                   </p>
                 </div>
                 <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
@@ -223,7 +192,7 @@ export default function RefundPolicy() {
                     🔄 Bundle Exchange
                   </h3>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                    If you purchased the wrong bundle, we can help you exchange it for the right one
+                    If you purchased the wrong product, contact us within 48 hours and we will arrange an exchange where possible
                   </p>
                 </div>
               </div>
@@ -234,7 +203,7 @@ export default function RefundPolicy() {
                 Contact Us
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                For refund requests or questions about our refund policy:
+                For refund requests or questions about this policy:
               </p>
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
                 <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab Support</p>
@@ -245,14 +214,14 @@ export default function RefundPolicy() {
                   Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
                 </p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base mt-3">
-                  Response Time: 24-48 hours
+                  Response Time: 24–48 hours
                 </p>
               </div>
             </div>
 
-            <div className="bg-[#9FE870]/10 rounded-2xl p-8 border-3 border-[#9FE870]">
-              <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base text-center">
-                💚 Our goal is your success! If you're unhappy for any reason, we'll make it right.
+            <div className="bg-[#163300] rounded-2xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              <p className="font-['Inter:Bold',sans-serif] font-bold text-white text-base text-center">
+                We take every concern seriously. If something went wrong on our end, we will make it right — promptly and without friction.
               </p>
             </div>
           </div>
@@ -279,7 +248,6 @@ export default function RefundPolicy() {
               <ul className="space-y-2">
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
-                <li><Link to="/tutorials" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Tutorials</Link></li>
               </ul>
             </div>
             <div>
@@ -298,8 +266,6 @@ export default function RefundPolicy() {
               </h4>
               <ul className="space-y-2">
                 <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
-                <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">YouTube</a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Twitter</a></li>
               </ul>
             </div>
           </div>

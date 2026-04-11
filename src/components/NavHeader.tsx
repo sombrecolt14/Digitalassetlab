@@ -152,12 +152,6 @@ export default function NavHeader() {
             </svg>
           </Link>
 
-          <Link
-            to="/checkout"
-            className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm bg-[#9FE870] px-4 py-2 rounded-full border-2 border-[#9FE870] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all"
-          >
-            Checkout
-          </Link>
         </nav>
 
         {/* Mobile hamburger */}
@@ -203,9 +197,6 @@ export default function NavHeader() {
           <div className="pt-2 space-y-1">
             <Link to="/bundles" onClick={() => setMobileOpen(false)} className="block px-4 py-3 font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870]">
               Bundles
-            </Link>
-            <Link to="/checkout" onClick={() => setMobileOpen(false)} className="block px-4 py-3 font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm bg-[#9FE870] rounded-full text-center border-2 border-black mt-2">
-              Checkout
             </Link>
           </div>
         </div>
