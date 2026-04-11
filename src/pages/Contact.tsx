@@ -53,20 +53,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="bg-[#FFD7EF] rounded-2xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="text-4xl mb-4">💬</div>
-              <h3 className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-xl mb-2">
-                LIVE CHAT
-              </h3>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#320707] text-base">
-                Available Mon-Fri
-              </p>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#320707] text-sm mt-2">
-                9 AM - 6 PM IST
-              </p>
-            </div>
-
-            <div className="bg-[#A0E1F1] rounded-2xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+<div className="bg-[#A0E1F1] rounded-2xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <div className="text-4xl mb-4">📱</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#21231D] text-xl mb-2">
                 SOCIAL MEDIA
