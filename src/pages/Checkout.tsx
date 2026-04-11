@@ -48,7 +48,7 @@ export default function Checkout() {
                       Instagram Reels Bundle
                     </h3>
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                      2500+ Templates + Bonuses
+                      6200+ Templates + Bonuses
                     </p>
                   </div>
                   <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl">
@@ -63,7 +63,7 @@ export default function Checkout() {
                   <ul className="space-y-2">
                     <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm flex items-start gap-2">
                       <span className="text-[#9FE870]">✓</span>
-                      2500+ Instagram Reel Templates
+                      6200+ Instagram Reel Templates
                     </li>
                     <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm flex items-start gap-2">
                       <span className="text-[#9FE870]">✓</span>
@@ -137,9 +137,9 @@ export default function Checkout() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl mb-1">🔄</div>
+                  <div className="text-2xl mb-1">🛡️</div>
                   <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-xs">
-                    30-Day Refund
+                    Lifetime License
                   </p>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { CartProvider } from "../context/CartContext";
 
 export default function Root() {
   const { pathname } = useLocation();
@@ -8,5 +9,9 @@ export default function Root() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  return <Outlet />;
+  return (
+    <CartProvider>
+      <Outlet />
+    </CartProvider>
+  );
 }

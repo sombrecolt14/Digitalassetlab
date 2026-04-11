@@ -1,11 +1,15 @@
 import NavHeader from "../components/NavHeader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import svgPaths from "../imports/svg-9i708zpxdq";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Home() {
   const [zoomStage, setZoomStage] = useState(0);
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const handleBuy = () => { addToCart(); navigate("/checkout"); };
 
   useEffect(() => {
     // Stage 0: Digital nomad working (0-3s)
@@ -154,11 +158,9 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="text-center">
-            <Link to="/checkout">
-              <button className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-lg px-12 py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                GET INSTANT ACCESS - ₹497
-              </button>
-            </Link>
+            <button onClick={handleBuy} className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-lg px-12 py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
+              GET INSTANT ACCESS - ₹497
+            </button>
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm mt-4 drop-shadow">
               ✓ Instant Download  ✓ Lifetime Access  ✓ Full Commercial License
             </p>
@@ -586,13 +588,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <Link to="/checkout">
-                <button className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                  GET INSTANT ACCESS - ₹497
-                </button>
-              </Link>
+              <button onClick={handleBuy} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
+                GET INSTANT ACCESS - ₹497
+              </button>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm text-center mt-4">
-                ✓ Instant Download  ✓ 30-Day Money-Back Guarantee  ✓ Secure Payment
+                ✓ Instant Download  ✓ Lifetime Access  ✓ Secure Payment
               </p>
             </div>
           </div>

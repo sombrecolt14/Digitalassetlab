@@ -1,6 +1,7 @@
 import NavHeader from "../components/NavHeader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useCart } from "../context/CartContext";
 
 const categories = [
   {
@@ -126,6 +127,9 @@ const categories = [
 ];
 
 export default function Templates() {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const handleBuy = () => { addToCart(); navigate("/checkout"); };
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const filteredCategories = selectedCategory === "all" 
@@ -348,13 +352,11 @@ export default function Templates() {
           <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-xl md:text-2xl mb-8">
             One-time payment. Lifetime access. All updates included.
           </p>
-          <Link to="/checkout">
-            <button className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-xl px-12 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              GET INSTANT ACCESS - ₹497
-            </button>
-          </Link>
+          <button onClick={handleBuy} className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-xl px-12 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
+            GET INSTANT ACCESS - ₹497
+          </button>
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm mt-4">
-            ✓ Instant Download  ✓ 30-Day Refund  ✓ Commercial License
+            ✓ Instant Download  ✓ Lifetime Access  ✓ Commercial License
           </p>
         </div>
       </section>

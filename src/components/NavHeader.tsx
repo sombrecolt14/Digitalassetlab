@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const products = [
   {
@@ -44,6 +45,7 @@ export default function NavHeader() {
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { cartCount } = useCart();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -141,16 +143,30 @@ export default function NavHeader() {
             Bundles
           </Link>
 
-          {/* Basket icon → checkout */}
-          <Link
-            to="/checkout"
-            className="relative flex items-center justify-center w-9 h-9 rounded-full border-2 border-white/40 hover:border-[#9FE870] hover:text-[#9FE870] text-white transition-all"
-            aria-label="Checkout"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </Link>
+          {/* Basket icon → checkout (only active when cart has items) */}
+          {cartCount > 0 ? (
+            <Link
+              to="/checkout"
+              className="relative flex items-center justify-center w-9 h-9 rounded-full border-2 border-[#9FE870] text-[#9FE870] hover:bg-[#9FE870]/10 transition-all"
+              aria-label="Checkout"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="absolute -top-1.5 -right-1.5 bg-[#9FE870] text-[#163300] text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-black">
+                {cartCount}
+              </span>
+            </Link>
+          ) : (
+            <div
+              className="relative flex items-center justify-center w-9 h-9 rounded-full border-2 border-white/20 text-white/30 cursor-not-allowed"
+              aria-label="Cart empty"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+          )}
 
         </nav>
 

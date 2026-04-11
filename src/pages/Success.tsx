@@ -1,6 +1,7 @@
 import NavHeader from "../components/NavHeader";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCart } from "../context/CartContext";
 
 // TODO: Replace with your actual download link (Google Drive, Dropbox, etc.)
 const DOWNLOAD_URL = "https://YOUR_DOWNLOAD_LINK_HERE";
@@ -8,8 +9,10 @@ const DOWNLOAD_URL = "https://YOUR_DOWNLOAD_LINK_HERE";
 export default function Success() {
   const [paymentId, setPaymentId] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
+  const { clearCart } = useCart();
 
   useEffect(() => {
+    clearCart();
     const pId = sessionStorage.getItem("paymentId");
     const checkoutData = sessionStorage.getItem("checkoutData");
     
