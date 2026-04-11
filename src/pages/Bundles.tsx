@@ -12,7 +12,7 @@ const bundles = [
     textColor: "#163300",
     description: "Everything you need to dominate Instagram Reels",
     includes: [
-      "2500+ Instagram Reel Templates",
+      "6200+ Instagram Reel Templates",
       "15+ Content Categories",
       "500+ Hook Templates (Bonus)",
       "300+ Transition Pack (Bonus)",
@@ -203,7 +203,7 @@ export default function Bundles() {
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm mb-4">
                       {bundle.description}
                     </p>
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-5">
                       <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-lg line-through">₹{bundle.originalPrice}</span>
                       <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl">₹{bundle.price}</span>
                       <div className="bg-[#9FE870] px-2 py-1 rounded-full border-2 border-black">
@@ -212,13 +212,25 @@ export default function Bundles() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs">
-                        {bundle.includes.length} items included
-                      </p>
-                      <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm group-hover:text-[#9FE870] transition-colors">
-                        View Details →
-                      </span>
+
+                    <div className="mb-6">
+                      <ul className="space-y-2">
+                        {bundle.includes.slice(0, 5).map((item, idx) => (
+                          <li key={idx} className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm flex items-start gap-2">
+                            <span className="text-[#9FE870]">✓</span>
+                            {item}
+                          </li>
+                        ))}
+                        {bundle.includes.length > 5 && (
+                          <li className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-sm">
+                            + {bundle.includes.length - 5} more...
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+
+                    <div className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-base py-4 rounded-full border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center group-hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                      VIEW DETAILS →
                     </div>
                   </div>
                 </div>

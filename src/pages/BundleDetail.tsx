@@ -8,7 +8,7 @@ const bundle = {
   description: "Everything you need to dominate Instagram Reels",
   image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdG9yJTIwYnVuZGxlfGVufDF8fHx8MTc2NDg0NzY4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
   includes: [
-    "2500+ Instagram Reel Templates",
+    "6200+ Instagram Reel Templates",
     "15+ Content Categories",
     "500+ Hook Templates (Bonus)",
     "300+ Transition Pack (Bonus)",
@@ -180,7 +180,7 @@ export default function BundleDetail() {
                 EVERYTHING INCLUDED
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-base">
-                2500+ templates, hooks, transitions, and a viral strategy guide — all in one download.
+                6200+ templates, hooks, transitions, and a viral strategy guide — all in one download.
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
@@ -233,7 +233,7 @@ export default function BundleDetail() {
             READY TO GET STARTED?
           </h2>
           <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-8">
-            One payment. 2500+ templates. Lifetime access.
+            One payment. 6200+ templates. Lifetime access.
           </p>
           <Link to="/checkout">
             <button className="bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl px-16 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
