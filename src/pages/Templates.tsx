@@ -327,12 +327,12 @@ export default function Templates() {
             </div>
 
             <div className="bg-[#f5f5f5] rounded-2xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="text-4xl mb-4">📚</div>
+              <div className="text-4xl mb-4">🛡️</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl mb-3">
-                TUTORIAL INCLUDED
+                COMMERCIAL LICENSE
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                Step-by-step video tutorials showing exactly how to customize each template.
+                Use in client work, brand content, and paid projects. Full commercial rights included.
               </p>
             </div>
           </div>

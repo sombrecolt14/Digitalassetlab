@@ -609,9 +609,7 @@ export default function Home() {
               </h4>
               <ul className="space-y-2">
                 <li><Link to="/templates" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram Reels</Link></li>
-                <li><Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">Bundles</Link>
-            <Link to="/bundles" className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors">Shop</Link>
-            <Link to="/checkout" className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-sm border-2 border-[#9FE870] px-4 py-1 rounded-full hover:bg-[#9FE870] hover:text-[#163300] transition-all">Checkout</Link></li>
+                <li><Link to="/bundles" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Template Bundles</Link></li>
               </ul>
             </div>
             <div>
