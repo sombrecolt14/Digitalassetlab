@@ -11,6 +11,7 @@ import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
+import BundleDetail from "./pages/BundleDetail";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       { path: "privacy-policy", Component: PrivacyPolicy },
       { path: "terms-of-service", Component: TermsOfService },
       { path: "refund-policy", Component: RefundPolicy },
+      { path: "bundles/complete-creator-bundle", Component: BundleDetail },
     ],
   },
 ]);

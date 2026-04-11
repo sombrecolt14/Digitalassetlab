@@ -179,86 +179,51 @@ export default function Bundles() {
       {/* Bundles Grid */}
       <section className="bg-[#f5f5f5] px-6 py-16">
         <div className="max-w-[1200px] mx-auto">
-          {/* Popular Bundle - Featured */}
-          <div className="mb-12">
-            {bundles.filter(b => b.isPopular).map((bundle) => (
-              <div
+          {/* All Bundles Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {bundles.map((bundle) => bundle.isPopular ? (
+              <Link
                 key={bundle.name}
-                className="bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative"
+                to="/bundles/complete-creator-bundle"
+                className="block group"
               >
-                <div className="absolute top-6 right-6 z-10">
-                  <div className="bg-[#9FE870] px-6 py-3 rounded-full border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                    <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm">
-                      ⭐ MOST POPULAR
-                    </p>
+                <div className="bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition-all relative h-full">
+                  <div className="absolute top-4 left-4 z-10">
+                    <div className="bg-[#9FE870] px-4 py-2 rounded-full border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                      <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs">⭐ MOST POPULAR</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="h-[400px] overflow-hidden">
-                    <img
-                      src={bundle.image}
-                      alt={bundle.name}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="h-56 overflow-hidden">
+                    <img src={bundle.image} alt={bundle.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
-
-                  <div className="p-8 md:p-12 flex flex-col justify-center">
-                    <h2
-                      className="font-['Inter:Black',sans-serif] font-black text-4xl md:text-5xl mb-4"
-                      style={{ color: bundle.color }}
-                    >
+                  <div className="p-6">
+                    <h3 className="font-['Inter:Black',sans-serif] font-black text-2xl mb-2" style={{ color: bundle.color }}>
                       {bundle.name.toUpperCase()}
-                    </h2>
-                    <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-xl mb-6">
+                    </h3>
+                    <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm mb-4">
                       {bundle.description}
                     </p>
-
-                    <div className="flex items-center gap-4 mb-6">
-                      <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-3xl line-through">
-                        ₹{bundle.originalPrice}
-                      </span>
-                      <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-5xl">
-                        ₹{bundle.price}
-                      </span>
-                      <div className="bg-[#9FE870] px-3 py-1 rounded-full border-2 border-black">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-lg line-through">₹{bundle.originalPrice}</span>
+                      <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl">₹{bundle.price}</span>
+                      <div className="bg-[#9FE870] px-2 py-1 rounded-full border-2 border-black">
                         <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs">
                           SAVE {Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100)}%
                         </p>
                       </div>
                     </div>
-
-                    <div className="mb-8">
-                      <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm mb-4">
-                        WHAT'S INCLUDED:
+                    <div className="flex items-center justify-between">
+                      <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs">
+                        {bundle.includes.length} items included
                       </p>
-                      <ul className="space-y-2">
-                        {bundle.includes.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm flex items-start gap-2"
-                          >
-                            <span className="text-[#9FE870] text-lg">✓</span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                      <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm group-hover:text-[#9FE870] transition-colors">
+                        View Details →
+                      </span>
                     </div>
-
-                    <Link to="/checkout">
-                      <button className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                        GET THIS BUNDLE NOW
-                      </button>
-                    </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Other Bundles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {bundles.filter(b => !b.isPopular).map((bundle) => (
+              </Link>
+            ) : (
               <div
                 key={bundle.name}
                 className="bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all"
