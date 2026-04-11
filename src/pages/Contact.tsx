@@ -39,7 +39,7 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-[700px] mx-auto">
             <div className="bg-[#9FE870] rounded-2xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <div className="text-4xl mb-4">📧</div>
               <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl mb-2">
