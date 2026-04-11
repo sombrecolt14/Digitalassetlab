@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const crypto = require("crypto");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 console.log("SERVER BOOTING");
 
@@ -13,8 +14,133 @@ const {
   RAZORPAY_KEY_ID,
   RAZORPAY_KEY_SECRET,
   RAZORPAY_WEBHOOK_SECRET,
-  SITE_URL
+  SITE_URL,
+  SMTP_HOST,
+  SMTP_PORT,
+  SMTP_USER,
+  SMTP_PASS,
+  FROM_EMAIL,
+  FROM_NAME
 } = process.env;
+
+const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link";
+
+// Create email transporter (only if SMTP credentials are set)
+function createTransporter() {
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
+  return nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: parseInt(SMTP_PORT || "587"),
+    secure: SMTP_PORT === "465",
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  });
+}
+
+async function sendDeliveryEmail(toEmail, toName, paymentId) {
+  const transporter = createTransporter();
+  if (!transporter) {
+    console.log("SMTP not configured — skipping delivery email");
+    return;
+  }
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Inter,Arial,sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;border:3px solid #000;overflow:hidden;">
+    <!-- Header -->
+    <div style="background:#163300;padding:32px;text-align:center;">
+      <h1 style="color:#9FE870;font-size:28px;font-weight:900;margin:0;letter-spacing:-0.5px;">
+        DIGITAL ASSET LAB
+      </h1>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:40px 32px;">
+      <div style="background:#9FE870;border-radius:50%;width:64px;height:64px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:64px;font-size:32px;border:3px solid #000;">
+        ✓
+      </div>
+
+      <h2 style="color:#163300;font-size:26px;font-weight:900;text-align:center;margin:0 0 8px;">
+        PAYMENT CONFIRMED!
+      </h2>
+      <p style="color:#4a5565;text-align:center;margin:0 0 32px;font-size:16px;">
+        Hi ${toName || "there"}, your purchase is complete.
+      </p>
+
+      <!-- Download box -->
+      <div style="background:#163300;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;border:3px solid #000;">
+        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 8px;letter-spacing:1px;">
+          YOUR DOWNLOAD IS READY
+        </p>
+        <p style="color:#fff;font-size:14px;margin:0 0 20px;">
+          Click the button below to access your complete bundle
+        </p>
+        <a href="${DOWNLOAD_URL}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
+          DOWNLOAD YOUR BUNDLE →
+        </a>
+      </div>
+
+      <!-- What's included -->
+      <div style="background:#f5f5f5;border-radius:12px;padding:20px;margin-bottom:24px;">
+        <p style="color:#163300;font-weight:900;font-size:13px;letter-spacing:1px;margin:0 0 12px;">
+          WHAT'S INCLUDED:
+        </p>
+        <ul style="margin:0;padding:0;list-style:none;">
+          ${[
+            "6200+ Instagram Reel Templates",
+            "15+ Content Categories",
+            "500+ Hook Templates (Bonus)",
+            "300+ Transition Pack (Bonus)",
+            "Viral Strategy Guide (Bonus)",
+            "Commercial License",
+            "Lifetime Updates",
+          ].map(item => `<li style="color:#4a5565;font-size:14px;padding:4px 0;">✓ &nbsp;${item}</li>`).join("")}
+        </ul>
+      </div>
+
+      <!-- Order details -->
+      <div style="border-top:2px solid #f5f5f5;padding-top:20px;margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span style="color:#4a5565;font-size:13px;">Payment ID</span>
+          <span style="color:#163300;font-size:13px;font-weight:700;">${paymentId}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="color:#4a5565;font-size:13px;">Amount Paid</span>
+          <span style="color:#163300;font-size:15px;font-weight:900;">₹497</span>
+        </div>
+      </div>
+
+      <p style="color:#4a5565;font-size:13px;text-align:center;margin:0;">
+        Questions? Email us at
+        <a href="mailto:support@digitalassetlab.com" style="color:#163300;font-weight:700;">support@digitalassetlab.com</a>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#f5f5f5;padding:20px;text-align:center;border-top:2px solid #e0e0e0;">
+      <p style="color:#4a5565;font-size:12px;margin:0;">
+        © 2025 Digital Asset Lab. All rights reserved.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+  `.trim();
+
+  await transporter.sendMail({
+    from: `"${FROM_NAME || "Digital Asset Lab"}" <${FROM_EMAIL || SMTP_USER}>`,
+    to: toEmail,
+    subject: "✅ Your Digital Asset Lab Bundle is Ready to Download!",
+    html,
+  });
+
+  console.log(`Delivery email sent to ${toEmail}`);
+}
 
 const distPath = path.join(__dirname, "dist");
 
@@ -137,6 +263,13 @@ app.post("/api/verify-payment", async (req, res) => {
         ok: false,
         message: "Signature mismatch"
       });
+    }
+
+    // Send download link to buyer
+    const { customerEmail, customerName } = req.body;
+    if (customerEmail) {
+      sendDeliveryEmail(customerEmail, customerName, razorpay_payment_id)
+        .catch(err => console.error("Email send error:", err));
     }
 
     return res.json({ ok: true });

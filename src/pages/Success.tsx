@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 
-// TODO: Replace with your actual download link (Google Drive, Dropbox, etc.)
-const DOWNLOAD_URL = "https://YOUR_DOWNLOAD_LINK_HERE";
+const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link";
 
 export default function Success() {
   const [paymentId, setPaymentId] = useState("");
