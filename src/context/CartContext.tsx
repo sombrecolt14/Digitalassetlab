@@ -5,12 +5,14 @@ interface CartContextType {
   cartCount: number;
   addToCart: () => void;
   clearCart: () => void;
+  removeFromCart: () => void;
 }
 
 const CartContext = createContext<CartContextType>({
   cartCount: 0,
   addToCart: () => {},
   clearCart: () => {},
+  removeFromCart: () => {},
 });
 
 export function CartProvider({ children }: { children: ReactNode }) {
@@ -31,8 +33,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("cartCount");
   };
 
+  const removeFromCart = () => {
+    setCartCount(0);
+    localStorage.removeItem("cartCount");
+  };
+
   return (
-    <CartContext.Provider value={{ cartCount, addToCart, clearCart }}>
+    <CartContext.Provider value={{ cartCount, addToCart, clearCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,9 +1,12 @@
 import NavHeader from "../components/NavHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Checkout() {
   const navigate = useNavigate();
+  const { removeFromCart } = useCart();
+  const handleRemove = () => { removeFromCart(); navigate("/bundles"); };
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,9 +50,18 @@ export default function Checkout() {
                     <h3 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-lg mb-1">
                       Instagram Reels Bundle
                     </h3>
-                    <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
+                    <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm mb-3">
                       6200+ Templates + Bonuses
                     </p>
+                    <button
+                      onClick={handleRemove}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-red-50 border-2 border-red-400 text-red-500 font-['Inter:Bold',sans-serif] font-bold text-xs hover:bg-red-100 transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      REMOVE FROM CART
+                    </button>
                   </div>
                   <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl">
                     ₹497

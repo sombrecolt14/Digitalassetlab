@@ -59,8 +59,9 @@ const bundle = {
 export default function BundleDetail() {
   const savePercent = Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100);
   const navigate = useNavigate();
-  const { addToCart } = useCart();
-  const handleBuy = () => { addToCart(); navigate("/checkout"); };
+  const { addToCart, cartCount } = useCart();
+  const inCart = cartCount > 0;
+  const handleAddToCart = () => { addToCart(); };
 
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
@@ -112,9 +113,20 @@ export default function BundleDetail() {
               ))}
             </ul>
 
-            <button onClick={handleBuy} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-3">
-              GET THIS BUNDLE — ₹497
-            </button>
+            {inCart ? (
+              <div className="space-y-3 mb-3">
+                <div className="w-full bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-center">
+                  ✓ ADDED TO CART
+                </div>
+                <button onClick={() => navigate("/checkout")} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
+                  PROCEED TO CHECKOUT →
+                </button>
+              </div>
+            ) : (
+              <button onClick={handleAddToCart} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-3">
+                ADD TO CART — ₹497
+              </button>
+            )}
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs text-center">
               🔒 Secure payment · Instant download · One-time payment
             </p>
@@ -237,9 +249,15 @@ export default function BundleDetail() {
           <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-lg mb-8">
             One payment. 6200+ templates. Lifetime access.
           </p>
-          <button onClick={handleBuy} className="bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl px-16 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
-            GET THE BUNDLE — ₹497
-          </button>
+          {inCart ? (
+            <button onClick={() => navigate("/checkout")} className="bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl px-16 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
+              PROCEED TO CHECKOUT →
+            </button>
+          ) : (
+            <button onClick={handleAddToCart} className="bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl px-16 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
+              ADD TO CART — ₹497
+            </button>
+          )}
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-sm">
             🔒 Secure payment via Razorpay · Instant download
           </p>
