@@ -127,7 +127,7 @@ export default function Home() {
                 6200+
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs md:text-sm tracking-wider">
-                PREMIUM TEMPLATES
+                READY-TO-POST REELS
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
