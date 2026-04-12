@@ -131,7 +131,7 @@ export default function Success() {
                   Download Your Bundle
                 </h4>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                  Click the download link in your email to get all 2500+ templates plus bonuses
+                  Click the download link in your email to get all 6200+ templates plus bonuses
                 </p>
               </div>
             </div>

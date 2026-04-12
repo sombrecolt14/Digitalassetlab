@@ -146,7 +146,7 @@ export default function Templates() {
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-12">
             <h1 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-5xl md:text-7xl leading-[1.1] mb-6">
-              BROWSE <span className="text-[#9FE870]">2500+</span><br />
+              BROWSE <span className="text-[#9FE870]">6200+</span><br />
               DIGITAL ASSETS
             </h1>
             <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-xl md:text-2xl max-w-[900px] mx-auto">
@@ -185,7 +185,7 @@ export default function Templates() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             <div className="bg-[#9FE870] rounded-2xl p-6 text-center border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl mb-1">
-                2500+
+                6200+
               </p>
               <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-sm">
                 Total Templates
@@ -347,7 +347,7 @@ export default function Templates() {
       <section className="bg-[#163300] px-6 py-16 md:py-24">
         <div className="max-w-[900px] mx-auto text-center">
           <h2 className="font-['Inter:Black',sans-serif] font-black text-white text-4xl md:text-6xl mb-6">
-            GET ALL 2500+ TEMPLATES
+            GET ALL 6200+ TEMPLATES
           </h2>
           <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-xl md:text-2xl mb-8">
             One-time payment. Lifetime access. All updates included.

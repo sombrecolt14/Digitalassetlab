@@ -188,7 +188,7 @@ export default function Payment() {
                     Instagram Reels Bundle
                   </h3>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                    2500+ Templates + All Bonuses
+                    6200+ Templates + All Bonuses
                   </p>
                 </div>
               </div>

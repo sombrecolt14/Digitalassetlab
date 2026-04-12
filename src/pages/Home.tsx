@@ -124,10 +124,10 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
             <div className="bg-[#9FE870] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-5xl mb-2">
-                6200+
+                ₹497
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs md:text-sm tracking-wider">
-                PREMIUM TEMPLATES
+                ONE-TIME PAYMENT
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
@@ -261,7 +261,7 @@ export default function Home() {
                   SOCIAL MEDIA TEMPLATES
                 </h3>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                  6200+ Instagram Reels, Stories 2500+ Instagram Reels, Stories & Post templates. Ready to edit and post. Post templates across 15+ categories. Ready to edit and post.
+                  6200+ Instagram Reel templates across 15+ content categories. Ready to edit and post.
                 </p>
               </div>
             </div>
