@@ -142,6 +142,74 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
   console.log(`Delivery email sent to ${toEmail}`);
 }
 
+async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId) {
+  const transporter = createTransporter();
+  if (!transporter) return;
+
+  const ownerEmail = FROM_EMAIL || SMTP_USER;
+  if (!ownerEmail) return;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Inter,Arial,sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;border:3px solid #000;overflow:hidden;">
+    <div style="background:#163300;padding:24px 32px;">
+      <h1 style="color:#9FE870;font-size:22px;font-weight:900;margin:0;">
+        💰 NEW SALE — Digital Asset Lab
+      </h1>
+    </div>
+    <div style="padding:32px;">
+      <p style="color:#163300;font-size:18px;font-weight:900;margin:0 0 24px;">
+        You just made a sale!
+      </p>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="border-bottom:2px solid #f5f5f5;">
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Customer Name</td>
+          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${customerName || "—"}</td>
+        </tr>
+        <tr style="border-bottom:2px solid #f5f5f5;">
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Customer Email</td>
+          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${customerEmail}</td>
+        </tr>
+        <tr style="border-bottom:2px solid #f5f5f5;">
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Product</td>
+          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">Instagram Reels Bundle</td>
+        </tr>
+        <tr style="border-bottom:2px solid #f5f5f5;">
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Amount</td>
+          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">₹497</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Payment ID</td>
+          <td style="padding:12px 0;color:#163300;font-size:13px;font-weight:700;text-align:right;">${paymentId}</td>
+        </tr>
+      </table>
+      <div style="margin-top:24px;background:#9FE870;border-radius:12px;padding:16px;text-align:center;border:2px solid #000;">
+        <p style="color:#163300;font-weight:900;font-size:14px;margin:0;">
+          Delivery email sent automatically to the customer ✓
+        </p>
+      </div>
+    </div>
+    <div style="background:#f5f5f5;padding:16px;text-align:center;border-top:2px solid #e0e0e0;">
+      <p style="color:#4a5565;font-size:12px;margin:0;">Digital Asset Lab — Order Notification</p>
+    </div>
+  </div>
+</body>
+</html>
+  `.trim();
+
+  await transporter.sendMail({
+    from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
+    to: ownerEmail,
+    subject: `💰 New Sale — ₹497 from ${customerName || customerEmail}`,
+    html,
+  });
+
+  console.log(`Owner notification sent to ${ownerEmail}`);
+}
+
 const distPath = path.join(__dirname, "dist");
 
 app.use(cors({
@@ -265,12 +333,14 @@ app.post("/api/verify-payment", async (req, res) => {
       });
     }
 
-    // Send download link to buyer
+    // Send download link to buyer + notify owner
     const { customerEmail, customerName } = req.body;
     if (customerEmail) {
       sendDeliveryEmail(customerEmail, customerName, razorpay_payment_id)
-        .catch(err => console.error("Email send error:", err));
+        .catch(err => console.error("Delivery email error:", err));
     }
+    sendOwnerNotificationEmail(customerEmail, customerName, razorpay_payment_id)
+      .catch(err => console.error("Owner notification error:", err));
 
     return res.json({ ok: true });
   } catch (error) {
