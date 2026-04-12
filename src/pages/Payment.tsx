@@ -197,7 +197,7 @@ export default function Payment() {
                   Total Amount
                 </p>
                 <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl">
-                  ₹497
+                  ₹530
                 </p>
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function Payment() {
               isProcessing ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {isProcessing ? "OPENING PAYMENT..." : "PAY ₹497 WITH RAZORPAY"}
+            {isProcessing ? "OPENING PAYMENT..." : "PAY ₹530 WITH RAZORPAY"}
           </button>
 
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs text-center mt-4">

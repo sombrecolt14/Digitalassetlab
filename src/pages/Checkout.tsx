@@ -64,7 +64,7 @@ export default function Checkout() {
                     </button>
                   </div>
                   <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl">
-                    ₹497
+                    ₹530
                   </p>
                 </div>
 
@@ -116,10 +116,10 @@ export default function Checkout() {
                 </div>
                 <div className="flex justify-between items-center mb-4">
                   <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-base">
-                    Discount (70% OFF)
+                    Discount (68% OFF)
                   </p>
                   <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-base">
-                    -₹1,153
+                    -₹1,120
                   </p>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t-2 border-black">
@@ -127,7 +127,7 @@ export default function Checkout() {
                     Total
                   </p>
                   <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl">
-                    ₹497
+                    ₹530
                   </p>
                 </div>
               </div>

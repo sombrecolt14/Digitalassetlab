@@ -77,7 +77,7 @@ export default function Success() {
                 Amount Paid
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xl">
-                ₹497
+                ₹530
               </p>
             </div>
 

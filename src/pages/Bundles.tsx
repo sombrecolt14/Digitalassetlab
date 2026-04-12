@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 const bundles = [
   {
     name: "Complete Creator Bundle",
-    price: 497,
+    price: 530,
     originalPrice: 1650,
     isPopular: true,
     comingSoon: false,
@@ -411,7 +411,7 @@ export default function Bundles() {
               </button>
             ) : (
               <button onClick={handleAddToCart} className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-xl px-12 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                ADD TO CART - ₹497
+                ADD TO CART - ₹530
               </button>
             )}
             <Link to="/templates">

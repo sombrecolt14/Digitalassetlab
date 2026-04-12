@@ -35,7 +35,7 @@ export default function Home() {
       <div className="bg-gradient-to-r from-[#9FE870] to-[#A0E1F1] px-6 py-3 border-b-4 border-black">
         <div className="max-w-[1200px] mx-auto">
           <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-center text-sm md:text-base">
-            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 6200+ Premium Templates • Only ₹497
+            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 6200+ Premium Templates • Only ₹530
           </p>
         </div>
       </div>
@@ -124,18 +124,18 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
             <div className="bg-[#9FE870] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-5xl mb-2">
-                ₹497
+                6200+
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs md:text-sm tracking-wider">
-                ONE-TIME PAYMENT
+                PREMIUM TEMPLATES
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-4xl md:text-5xl mb-2">
-                15+
+                ∞
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-xs md:text-sm tracking-wider">
-                CONTENT CATEGORIES
+                LIFETIME UPDATES
               </p>
             </div>
             <div className="bg-[#A0E1F1] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
@@ -159,7 +159,7 @@ export default function Home() {
           {/* CTA Button */}
           <div className="text-center">
             <button onClick={handleBuy} className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-lg px-12 py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-              GET INSTANT ACCESS - ₹497
+              GET INSTANT ACCESS - ₹530
             </button>
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm mt-4 drop-shadow">
               ✓ Instant Download  ✓ Lifetime Access  ✓ Full Commercial License
@@ -543,7 +543,7 @@ export default function Home() {
                     ₹1,650
                   </span>
                   <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-6xl md:text-7xl">
-                    ₹497
+                    ₹530
                   </span>
                 </div>
                 <div className="inline-block bg-[#9FE870] px-6 py-3 rounded-full border-3 border-black">
@@ -589,7 +589,7 @@ export default function Home() {
               </div>
 
               <button onClick={handleBuy} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-                GET INSTANT ACCESS - ₹497
+                GET INSTANT ACCESS - ₹530
               </button>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm text-center mt-4">
                 ✓ Instant Download  ✓ Lifetime Access  ✓ Secure Payment

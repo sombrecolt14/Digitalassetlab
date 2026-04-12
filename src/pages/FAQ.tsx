@@ -29,7 +29,7 @@ const faqs = [
     questions: [
       {
         q: "How much does the bundle cost?",
-        a: "The Complete Creator Bundle is ₹497 — a one-time payment. No subscriptions, no hidden fees. You get lifetime access to everything included, plus all future updates for free."
+        a: "The Complete Creator Bundle is ₹530 — a one-time payment. No subscriptions, no hidden fees. You get lifetime access to everything included, plus all future updates for free."
       },
       {
         q: "What payment methods do you accept?",

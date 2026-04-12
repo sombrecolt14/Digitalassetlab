@@ -353,7 +353,7 @@ export default function Templates() {
             One-time payment. Lifetime access. All updates included.
           </p>
           <button onClick={handleBuy} className="bg-[#9FE870] text-[#163300] font-['Inter:Black',sans-serif] font-black text-xl px-12 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-            GET INSTANT ACCESS - ₹497
+            GET INSTANT ACCESS - ₹530
           </button>
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm mt-4">
             ✓ Instant Download  ✓ Lifetime Access  ✓ Commercial License

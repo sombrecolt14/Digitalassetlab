@@ -4,7 +4,7 @@ import { useCart } from "../context/CartContext";
 
 const bundle = {
   name: "Complete Creator Bundle",
-  price: 497,
+  price: 530,
   originalPrice: 1650,
   description: "Everything you need to dominate Instagram Reels",
   image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdG9yJTIwYnVuZGxlfGVufDF8fHx8MTc2NDg0NzY4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -124,7 +124,7 @@ export default function BundleDetail() {
               </div>
             ) : (
               <button onClick={handleAddToCart} className="w-full bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl py-5 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-3">
-                ADD TO CART — ₹497
+                ADD TO CART — ₹530
               </button>
             )}
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-xs text-center">
@@ -255,7 +255,7 @@ export default function BundleDetail() {
             </button>
           ) : (
             <button onClick={handleAddToCart} className="bg-[#163300] text-white font-['Inter:Black',sans-serif] font-black text-xl px-16 py-6 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all mb-4">
-              ADD TO CART — ₹497
+              ADD TO CART — ₹530
             </button>
           )}
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-sm">

@@ -111,7 +111,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
         </div>
         <div style="display:flex;justify-content:space-between;">
           <span style="color:#4a5565;font-size:13px;">Amount Paid</span>
-          <span style="color:#163300;font-size:15px;font-weight:900;">₹497</span>
+          <span style="color:#163300;font-size:15px;font-weight:900;">₹530</span>
         </div>
       </div>
 
@@ -179,7 +179,7 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
         </tr>
         <tr style="border-bottom:2px solid #f5f5f5;">
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Amount</td>
-          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">₹497</td>
+          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">₹530</td>
         </tr>
         <tr>
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Payment ID</td>
@@ -203,7 +203,7 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
   await transporter.sendMail({
     from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
     to: ownerEmail,
-    subject: `💰 New Sale — ₹497 from ${customerName || customerEmail}`,
+    subject: `💰 New Sale — ₹530 from ${customerName || customerEmail}`,
     html,
   });
 
@@ -261,7 +261,7 @@ app.post("/api/create-order", async (req, res) => {
       });
     }
 
-    const amount = 49700; // ₹497 in paise
+    const amount = 53000; // ₹530 in paise
     const currency = "INR";
 
     const auth = Buffer.from(
