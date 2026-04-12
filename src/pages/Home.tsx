@@ -127,15 +127,15 @@ export default function Home() {
                 6200+
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs md:text-sm tracking-wider">
-                TEMPLATES IN ONE BUNDLE
+                PREMIUM TEMPLATES
               </p>
             </div>
             <div className="bg-[#FFD7EF] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <p className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-4xl md:text-5xl mb-2">
-                5+
+                15+
               </p>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#320707] text-xs md:text-sm tracking-wider">
-                PRODUCT LINES
+                CONTENT CATEGORIES
               </p>
             </div>
             <div className="bg-[#A0E1F1] rounded-3xl p-6 md:p-8 relative border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
@@ -636,7 +636,7 @@ export default function Home() {
                 CONNECT
               </h4>
               <ul className="space-y-2">
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
+                <li><a href="https://www.instagram.com/digitalasset.lab/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
               </ul>
             </div>
           </div>

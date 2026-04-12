@@ -7,37 +7,20 @@ const faqs = [
     category: "Getting Started",
     questions: [
       {
-        q: "How do I download my templates after purchase?",
-        a: "After completing your purchase, you'll receive an instant download link via email. Click the link to download your complete template bundle. You can also access downloads from your purchase confirmation page."
+        q: "What exactly is the Complete Creator Bundle?",
+        a: "The Complete Creator Bundle is our flagship product — a single download containing 6200+ Instagram Reel templates across 15+ content categories, plus bonuses including 500+ Hook Templates, 300+ Transition Pack, and a Viral Strategy Guide. Everything is included in one purchase."
       },
       {
-        q: "What software do I need to use these templates?",
-        a: "It depends on the product. Each product page lists the compatible software. Most of our video templates work with CapCut, Premiere Pro, After Effects, and Final Cut Pro."
+        q: "How do I get the bundle after purchase?",
+        a: "Immediately after payment is confirmed, a download link is sent to your email. Click it to access the complete bundle on Google Drive. The link is also shown on your confirmation page."
       },
       {
-        q: "Are the templates really easy to edit?",
-        a: "Absolutely! Each template includes a step-by-step tutorial video showing exactly how to customize it. Most edits take just 5-10 minutes - simply replace text, images, and videos with your own content."
-      },
-    ]
-  },
-  {
-    category: "Templates & Usage",
-    questions: [
-      {
-        q: "Can I use these templates for client work?",
-        a: "Yes! All bundles include a full commercial license. You can use templates for client projects, sell the final videos, and monetize your content on any platform without restrictions."
+        q: "What software do I need?",
+        a: "The templates work with CapCut (free), Adobe Premiere Pro, After Effects, and Final Cut Pro. CapCut is recommended for beginners — it's free and handles all the templates perfectly."
       },
       {
-        q: "How often are new templates added?",
-        a: "We add new templates monthly to keep up with trending styles and viral formats. All updates are included free with your purchase - you'll receive email notifications when new templates are released."
-      },
-      {
-        q: "Can I customize the colors and fonts?",
-        a: "Yes, everything is fully customizable! Change colors, fonts, text, images, videos, timing, and effects. Our templates are designed to match your unique brand aesthetic."
-      },
-      {
-        q: "Do templates come with music/audio?",
-        a: "Templates include viral audio IDs and trending sound suggestions updated weekly. You'll need to add the actual audio from Instagram/TikTok using the provided IDs for copyright-free usage."
+        q: "Are the templates easy to edit?",
+        a: "Yes! Simply open a template in your editing app, swap in your own text, images, or video clips, and export. Most customizations take under 10 minutes."
       },
     ]
   },
@@ -45,8 +28,8 @@ const faqs = [
     category: "Pricing & Payment",
     questions: [
       {
-        q: "Is this a one-time payment or subscription?",
-        a: "All our products are one-time payments. Pay once and get lifetime access including all future updates. No monthly fees, no hidden costs."
+        q: "How much does the bundle cost?",
+        a: "The Complete Creator Bundle is ₹497 — a one-time payment. No subscriptions, no hidden fees. You get lifetime access to everything included, plus all future updates for free."
       },
       {
         q: "What payment methods do you accept?",
@@ -54,11 +37,28 @@ const faqs = [
       },
       {
         q: "Is there a money-back guarantee?",
-        a: "Yes! We offer a 30-day money-back guarantee. If you're not satisfied with the templates for any reason, contact us within 30 days for a full refund."
+        a: "Yes! We offer a 30-day money-back guarantee. If you're not satisfied for any reason, contact us within 30 days at support@digitalassetlab.com for a full refund."
+      },
+    ]
+  },
+  {
+    category: "Usage & Licensing",
+    questions: [
+      {
+        q: "Can I use these templates for client work?",
+        a: "Yes! The bundle includes a full commercial license. Use the templates for client projects, monetized content, paid campaigns — no restrictions."
       },
       {
-        q: "Are there any discounts available?",
-        a: "We run launch discounts on new products. Check the individual product page for the current best price — our launch offers are always our lowest prices."
+        q: "Can I customize the templates?",
+        a: "Absolutely. Change colors, fonts, text, images, video clips, timing, and effects freely. The templates are designed to be fully customizable to match any brand."
+      },
+      {
+        q: "Can I resell or redistribute the templates?",
+        a: "No. You can sell final videos or content created with the templates, but you cannot resell, redistribute, or share the original template files themselves."
+      },
+      {
+        q: "Do I get future templates too?",
+        a: "Yes — lifetime updates means every new template added to the bundle is yours automatically, at no extra charge."
       },
     ]
   },
@@ -66,37 +66,16 @@ const faqs = [
     category: "Technical Support",
     questions: [
       {
-        q: "I'm having trouble downloading. What should I do?",
-        a: "First, check your spam folder for the download email. If you still can't find it, contact us at support@digitalassetlab.com with your order details, and we'll resend the link immediately."
+        q: "I didn't receive my download email. What do I do?",
+        a: "First, check your spam or promotions folder. If it's not there, email us at support@digitalassetlab.com with your payment details and we'll resend the link right away."
       },
       {
-        q: "The template won't open in my software. Help!",
-        a: "Make sure you're using a compatible version of your editing software. Each template folder includes a README file with system requirements. Contact support if issues persist - we're here to help!"
+        q: "A template isn't opening correctly. Help!",
+        a: "Make sure you're using a supported app (CapCut, Premiere Pro, After Effects, or Final Cut Pro) and that it's up to date. If the issue persists, contact support and we'll sort it out."
       },
       {
-        q: "How do I install the templates?",
-        a: "Each template bundle includes detailed installation instructions for your specific software. Generally, you'll unzip the downloaded folder and import the project files into your editor."
-      },
-      {
-        q: "Can I re-download my templates if I lose them?",
-        a: "Yes! Your download link remains active. Simply use the original email link or contact support to get a fresh download link sent to you."
-      },
-    ]
-  },
-  {
-    category: "Licensing & Usage Rights",
-    questions: [
-      {
-        q: "Can I share templates with my team?",
-        a: "The license covers one individual or business entity. If multiple team members need access, each person requires their own license. Contact us for team/agency pricing."
-      },
-      {
-        q: "Can I resell or redistribute the templates?",
-        a: "No. You can sell final videos created with the templates, but you cannot resell, redistribute, or share the original template files themselves."
-      },
-      {
-        q: "Am I allowed to modify the templates?",
-        a: "Yes! You're encouraged to customize templates to match your brand. Change anything you want - colors, text, layout, timing, effects, etc."
+        q: "Can I re-download if I lose the files?",
+        a: "Yes. Your Google Drive link stays active. Just use the original email link or contact us to get it resent."
       },
     ]
   },
@@ -260,7 +239,7 @@ export default function FAQ() {
                 CONNECT
               </h4>
               <ul className="space-y-2">
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
+                <li><a href="https://www.instagram.com/digitalasset.lab/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Instagram</a></li>
               </ul>
             </div>
           </div>
