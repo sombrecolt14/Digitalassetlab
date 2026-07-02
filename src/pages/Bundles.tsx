@@ -160,10 +160,10 @@ export default function Bundles() {
             <div className="bg-[#9FE870]/10 rounded-2xl p-6 text-center border-3 border-[#9FE870]">
               <div className="text-3xl mb-2">💰</div>
               <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-lg mb-1">
-                SAVE UP TO 70%
+                LAUNCH PRICING
               </p>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                Bundles offer massive savings
+                Early prices before they increase
               </p>
             </div>
             <div className="bg-[#FFD7EF]/10 rounded-2xl p-6 text-center border-3 border-[#FFD7EF]">
@@ -216,11 +216,10 @@ export default function Bundles() {
                       {bundle.description}
                     </p>
                     <div className="flex items-center gap-3 mb-5">
-                      <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-lg line-through">₹{bundle.originalPrice}</span>
                       <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-3xl">₹{bundle.price}</span>
-                      <div className="bg-[#9FE870] px-2 py-1 rounded-full border-2 border-black">
-                        <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs">
-                          SAVE {Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100)}%
+                      <div className="bg-[#FFEB69] px-2 py-1 rounded-full border-2 border-black">
+                        <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-xs">
+                          LAUNCH PRICE
                         </p>
                       </div>
                     </div>

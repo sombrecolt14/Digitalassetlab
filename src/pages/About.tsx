@@ -69,7 +69,7 @@ export default function About() {
               <div className="flex items-start gap-4">
                 <div className="bg-[#A0E1F1] rounded-full w-10 h-10 flex items-center justify-center border-2 border-black shrink-0 font-black text-[#21231D]">3</div>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed pt-2">
-                  <strong className="text-[#163300]">Buyer-first policies.</strong> 30-day money-back guarantee, 24-hour support replies, and lifetime access with free updates.
+                  <strong className="text-[#163300]">Buyer-first policies.</strong> Prompt refunds when something goes wrong on our end, 24-hour support replies, and lifetime access with free updates.
                 </p>
               </div>
             </div>

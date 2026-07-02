@@ -117,7 +117,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
 
       <p style="color:#4a5565;font-size:13px;text-align:center;margin:0;">
         Questions? Email us at
-        <a href="mailto:support@digitalassetlab.com" style="color:#163300;font-weight:700;">support@digitalassetlab.com</a>
+        <a href="mailto:support@digitalassetlab.in" style="color:#163300;font-weight:700;">support@digitalassetlab.in</a>
       </p>
     </div>
 

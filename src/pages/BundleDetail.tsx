@@ -63,7 +63,6 @@ export default function BundleDetail() {
     "Everything inside the Complete Creator Bundle: 6200+ Instagram Reel templates across 15+ categories plus bonuses. Commercial license, lifetime updates."
   );
 
-  const savePercent = Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100);
   const navigate = useNavigate();
   const { addToCart, cartCount } = useCart();
   const inCart = cartCount > 0;
@@ -95,18 +94,20 @@ export default function BundleDetail() {
             </p>
 
             {/* Pricing */}
-            <div className="flex items-center gap-4 mb-8">
-              <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-2xl line-through">
-                ₹{bundle.originalPrice}
-              </span>
-              <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-5xl">
-                ₹{bundle.price}
-              </span>
-              <div className="bg-[#9FE870] px-3 py-1 rounded-full border-2 border-black">
-                <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-xs">
-                  SAVE {savePercent}%
-                </p>
+            <div className="mb-8">
+              <div className="flex items-center gap-4 mb-2">
+                <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-5xl">
+                  ₹{bundle.price}
+                </span>
+                <div className="bg-[#FFEB69] px-3 py-1 rounded-full border-2 border-black">
+                  <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-xs">
+                    LAUNCH PRICE
+                  </p>
+                </div>
               </div>
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
+                One-time payment. Lifetime access. Price increases once the launch period ends.
+              </p>
             </div>
 
             {/* Includes summary */}

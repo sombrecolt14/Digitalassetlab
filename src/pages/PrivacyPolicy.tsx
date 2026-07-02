@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
                 <li className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Withdraw consent at any time</li>
               </ul>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                To exercise these rights, contact us at support@digitalassetlab.com
+                To exercise these rights, contact us at support@digitalassetlab.in
               </p>
             </div>
 
@@ -159,9 +159,9 @@ export default function PrivacyPolicy() {
               </p>
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
                 <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab</p>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.com</p>
+                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.in</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
+                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.in/contact</Link>
                 </p>
               </div>
             </div>

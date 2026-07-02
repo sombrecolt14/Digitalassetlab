@@ -62,7 +62,7 @@ export default function EmailCapture() {
 
           {status === "error" && (
             <p className="font-['Inter:Bold',sans-serif] font-bold text-red-300 text-sm mt-4">
-              Something went wrong — please try again or email support@digitalassetlab.com
+              Something went wrong — please try again or email support@digitalassetlab.in
             </p>
           )}
 

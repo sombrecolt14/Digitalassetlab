@@ -93,7 +93,7 @@ export default function TermsOfService() {
                 Refund Policy
               </h2>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed mb-4">
-                We offer a 30-day money-back guarantee. For detailed information about refunds, please review our <Link to="/refund-policy" className="text-[#9FE870] hover:underline">Refund Policy</Link>.
+                We issue refunds where there is a clear service failure or error on our end. For detailed information, please review our <Link to="/refund-policy" className="text-[#9FE870] hover:underline">Refund Policy</Link>.
               </p>
             </div>
 
@@ -192,9 +192,9 @@ export default function TermsOfService() {
               </p>
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
                 <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab</p>
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.com</p>
+                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">Email: support@digitalassetlab.in</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
+                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.in/contact</Link>
                 </p>
               </div>
             </div>

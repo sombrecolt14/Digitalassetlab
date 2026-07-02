@@ -42,7 +42,7 @@ export default function Home() {
       <div className="bg-gradient-to-r from-[#9FE870] to-[#A0E1F1] px-6 py-3 border-b-4 border-black">
         <div className="max-w-[1200px] mx-auto">
           <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-center text-sm md:text-base">
-            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 6200+ Premium Templates • Only ₹530
+            🎉 LAUNCH OFFER: Complete Digital Asset Bundle • 6200+ Premium Templates • Launch price ₹530, increases soon
           </p>
         </div>
       </div>
@@ -425,110 +425,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-white px-6 py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-4xl md:text-6xl leading-[1.2] mb-4">
-              WHAT CREATORS SAY
-            </h2>
-            <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg md:text-xl">
-              Real people. Real results.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Testimonial 1 */}
-            <div className="bg-white rounded-3xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="flex items-start gap-4 mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1611574557783-9a50bb34e9f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBjcmVhdG9yJTIwd29tYW58ZW58MXx8fHwxNzY0ODQ3Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Priya Sharma"
-                  className="w-16 h-16 rounded-full object-cover border-4 border-[#FFD7EF]"
-                />
-                <div>
-                  <h4 className="font-['Inter:Black',sans-serif] font-black text-[#FFD7EF] text-lg">
-                    Priya Sharma
-                  </h4>
-                  <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                    Fashion Blogger
-                  </p>
-                </div>
-              </div>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "These digital assets have completely transformed how I create content. I used to spend days on designs — now it takes minutes. Absolutely worth every rupee!"
-              </p>
-            </div>
-
-            {/* Testimonial 2 */}
-            <div className="bg-white rounded-3xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="flex items-start gap-4 mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1524538198441-241ff79d153b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMG1hbnxlbnwxfHx8fDE3NjQ3NDgxMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Rahul Verma"
-                  className="w-16 h-16 rounded-full object-cover border-4 border-[#FFC091]"
-                />
-                <div>
-                  <h4 className="font-['Inter:Black',sans-serif] font-black text-[#FFC091] text-lg">
-                    Rahul Verma
-                  </h4>
-                  <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                    Tech Reviewer
-                  </p>
-                </div>
-              </div>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "I use these for client projects and the quality always impresses. Everything is easy to customise and looks premium right out of the box."
-              </p>
-            </div>
-
-            {/* Testimonial 3 */}
-            <div className="bg-white rounded-3xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="flex items-start gap-4 mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHdvbWFufGVufDF8fHx8MTc2NDg0NzY4NHww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Sneha Patel"
-                  className="w-16 h-16 rounded-full object-cover border-4 border-[#9FE870]"
-                />
-                <div>
-                  <h4 className="font-['Inter:Black',sans-serif] font-black text-[#9FE870] text-lg">
-                    Sneha Patel
-                  </h4>
-                  <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                    Business Coach
-                  </p>
-                </div>
-              </div>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "The range of products covers everything I need. My content looks consistent, professional, and on-brand every single time. Total game changer!"
-              </p>
-            </div>
-
-            {/* Testimonial 4 */}
-            <div className="bg-white rounded-3xl p-8 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <div className="flex items-start gap-4 mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjQ4NDc2ODJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Arjun Malhotra"
-                  className="w-16 h-16 rounded-full object-cover border-4 border-[#FFEB69]"
-                />
-                <div>
-                  <h4 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-lg">
-                    Arjun Malhotra
-                  </h4>
-                  <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-                    Travel Vlogger
-                  </p>
-                </div>
-              </div>
-              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
-                "Best investment I have made for my content. The quality is outstanding and the instant download made it so easy to get started right away."
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing */}
       <section id="pricing" className="bg-[#f5f5f5] px-6 py-16 md:py-24">
         <div className="max-w-[900px] mx-auto">
@@ -542,20 +438,20 @@ export default function Home() {
           <div className="bg-gradient-to-br from-[#163300] to-[#260A2F] rounded-3xl p-1 border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
             <div className="bg-white rounded-[20px] p-8 md:p-12">
               <div className="text-center mb-8">
-                <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm mb-4 uppercase tracking-wider">
-                  Limited Time Offer
+                <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-sm mb-4 uppercase tracking-widest">
+                  Launch Price
                 </p>
-                <div className="flex items-center justify-center gap-4 mb-6">
-                  <span className="font-['Inter:Black',sans-serif] font-black text-[#4a5565] text-3xl line-through">
-                    ₹1,650
-                  </span>
+                <div className="flex items-center justify-center mb-3">
                   <span className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-6xl md:text-7xl">
                     ₹530
                   </span>
                 </div>
-                <div className="inline-block bg-[#9FE870] px-6 py-3 rounded-full border-3 border-black">
-                  <p className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-base">
-                    SAVE 70% • ONE-TIME PAYMENT
+                <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-base mb-6">
+                  One-time payment. Lifetime access.
+                </p>
+                <div className="inline-block bg-[#FFEB69] px-6 py-3 rounded-full border-3 border-black">
+                  <p className="font-['Inter:Black',sans-serif] font-black text-[#3A341C] text-sm">
+                    ⏳ THIS IS OUR LAUNCH PRICE — IT INCREASES ONCE THE LAUNCH PERIOD ENDS
                   </p>
                 </div>
               </div>
@@ -590,7 +486,7 @@ export default function Home() {
                     <span className="font-['Inter:Black',sans-serif] font-black text-white text-base">✓</span>
                   </div>
                   <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-lg pt-1">
-                    Bonus: Hooks + Transitions + Strategy Guide (Worth ₹2,999)
+                    Bonus Included: Hooks, Transitions + Strategy Guide
                   </p>
                 </div>
               </div>

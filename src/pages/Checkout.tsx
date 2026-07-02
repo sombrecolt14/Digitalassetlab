@@ -112,20 +112,12 @@ export default function Checkout() {
               </div>
 
               <div className="border-t-2 border-[#f5f5f5] pt-6">
-                <div className="flex justify-between items-center mb-2">
-                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-base">
-                    Subtotal
-                  </p>
-                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-base">
-                    ₹1,650
-                  </p>
-                </div>
                 <div className="flex justify-between items-center mb-4">
-                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-base">
-                    Discount (68% OFF)
+                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-base">
+                    Launch price — one-time payment
                   </p>
-                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#9FE870] text-base">
-                    -₹1,120
+                  <p className="font-['Inter:Bold',sans-serif] font-bold text-[#4a5565] text-base">
+                    ₹530
                   </p>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t-2 border-black">

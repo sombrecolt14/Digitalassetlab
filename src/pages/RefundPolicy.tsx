@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function RefundPolicy() {
   usePageMeta(
-    "Refund Policy — 30-Day Money-Back Guarantee | Digital Asset Lab",
-    "Not satisfied? Digital Asset Lab offers a 30-day money-back guarantee on the Instagram Reels Bundle."
+    "Refund Policy | Digital Asset Lab",
+    "We refund promptly for failed downloads, duplicate charges, or products that don't match their description. Instant digital downloads are not eligible for change-of-mind refunds."
   );
 
   return (
@@ -89,7 +89,7 @@ export default function RefundPolicy() {
                       Contact Support
                     </h3>
                     <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                      Email us at <a href="mailto:support@digitalassetlab.com" className="text-[#9FE870] hover:underline">support@digitalassetlab.com</a> or use our <Link to="/contact" className="text-[#9FE870] hover:underline">contact form</Link>
+                      Email us at <a href="mailto:support@digitalassetlab.in" className="text-[#9FE870] hover:underline">support@digitalassetlab.in</a> or use our <Link to="/contact" className="text-[#9FE870] hover:underline">contact form</Link>
                     </p>
                   </div>
                 </div>
@@ -214,10 +214,10 @@ export default function RefundPolicy() {
               <div className="bg-[#f5f5f5] rounded-2xl p-6 border-3 border-black">
                 <p className="font-['Inter:Bold',sans-serif] font-bold text-[#163300] text-base mb-2">Digital Asset Lab Support</p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base mb-1">
-                  Email: <a href="mailto:support@digitalassetlab.com" className="text-[#9FE870] hover:underline">support@digitalassetlab.com</a>
+                  Email: <a href="mailto:support@digitalassetlab.in" className="text-[#9FE870] hover:underline">support@digitalassetlab.in</a>
                 </p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
-                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.com/contact</Link>
+                  Contact Form: <Link to="/contact" className="text-[#9FE870] hover:underline">digitalassetlab.in/contact</Link>
                 </p>
                 <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base mt-3">
                   Response Time: 24–48 hours

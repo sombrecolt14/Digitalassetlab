@@ -52,7 +52,7 @@ export default function Contact() {
                 EMAIL US
               </h3>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-base">
-                support@digitalassetlab.com
+                support@digitalassetlab.in
               </p>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#163300] text-sm mt-2">
                 Response in 24 hours
@@ -183,6 +183,40 @@ export default function Contact() {
               VIEW FAQ
             </button>
           </Link>
+        </div>
+      </section>
+
+
+      {/* Business & Grievance Information (Consumer Protection E-Commerce Rules, 2020) */}
+      <section className="bg-[#f5f5f5] px-6 pb-16">
+        <div className="max-w-[900px] mx-auto">
+          <div className="bg-white rounded-3xl p-8 md:p-10 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h2 className="font-['Inter:Black',sans-serif] font-black text-[#163300] text-2xl mb-6">
+              BUSINESS AND GRIEVANCE INFORMATION
+            </h2>
+            <div className="space-y-4">
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
+                Digital Asset Lab is owned and operated by [LEGAL ENTITY NAME].
+              </p>
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
+                <strong className="text-[#163300]">Registered address:</strong> [FULL GEOGRAPHIC ADDRESS, CITY, STATE, PIN]
+              </p>
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
+                <strong className="text-[#163300]">Customer support:</strong>{" "}
+                <a href="mailto:support@digitalassetlab.in" className="text-[#163300] font-bold hover:underline">support@digitalassetlab.in</a>{" "}
+                | Response within 24 to 48 hours
+              </p>
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
+                <strong className="text-[#163300]">Grievance Officer:</strong> [NAME OF DESIGNATED PERSON]<br />
+                <strong className="text-[#163300]">Email:</strong>{" "}
+                <a href="mailto:grievance@digitalassetlab.in" className="text-[#163300] font-bold hover:underline">grievance@digitalassetlab.in</a>
+              </p>
+              <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm leading-relaxed">
+                We acknowledge grievances within 48 hours and resolve them within one month of receipt,
+                in accordance with the Consumer Protection (E-Commerce) Rules, 2020.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

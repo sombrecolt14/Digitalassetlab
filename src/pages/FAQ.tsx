@@ -38,7 +38,7 @@ const faqs = [
       },
       {
         q: "Is there a money-back guarantee?",
-        a: "Yes! We offer a 30-day money-back guarantee. If you're not satisfied for any reason, contact us within 30 days at support@digitalassetlab.com for a full refund."
+        a: "We refund promptly when something goes wrong on our end — failed downloads, duplicate charges, or a product that doesn't match its description. Because our products are instant digital downloads, we don't offer change-of-mind refunds once files have been accessed. Full details are on our Refund Policy page."
       },
     ]
   },
@@ -68,7 +68,7 @@ const faqs = [
     questions: [
       {
         q: "I didn't receive my download email. What do I do?",
-        a: "First, check your spam or promotions folder. If it's not there, email us at support@digitalassetlab.com with your payment details and we'll resend the link right away."
+        a: "First, check your spam or promotions folder. If it's not there, email us at support@digitalassetlab.in with your payment details and we'll resend the link right away."
       },
       {
         q: "A template isn't opening correctly. Help!",

@@ -192,7 +192,7 @@ export default function Success() {
             Need help? We're here for you!
           </p>
           <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm">
-            Email us at <a href="mailto:support@digitalassetlab.com" className="text-[#9FE870] hover:underline">support@digitalassetlab.com</a>
+            Email us at <a href="mailto:support@digitalassetlab.in" className="text-[#9FE870] hover:underline">support@digitalassetlab.in</a>
           </p>
         </div>
 

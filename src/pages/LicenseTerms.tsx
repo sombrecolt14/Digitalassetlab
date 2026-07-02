@@ -143,8 +143,8 @@ export default function LicenseTerms() {
             </h2>
             <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base">
               Email us at{" "}
-              <a href="mailto:support@digitalassetlab.com" className="text-[#163300] font-bold hover:underline">
-                support@digitalassetlab.com
+              <a href="mailto:support@digitalassetlab.in" className="text-[#163300] font-bold hover:underline">
+                support@digitalassetlab.in
               </a>{" "}
               or use our <Link to="/contact" className="text-[#163300] font-bold hover:underline">contact form</Link>.
               We reply within 24 hours.
