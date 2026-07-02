@@ -1,4 +1,5 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -57,6 +58,11 @@ const bundle = {
 };
 
 export default function BundleDetail() {
+  usePageMeta(
+    "Complete Creator Bundle — 6200+ Reels Templates ₹530 | Digital Asset Lab",
+    "Everything inside the Complete Creator Bundle: 6200+ Instagram Reel templates across 15+ categories plus bonuses. Commercial license, lifetime updates."
+  );
+
   const savePercent = Math.round(((bundle.originalPrice - bundle.price) / bundle.originalPrice) * 100);
   const navigate = useNavigate();
   const { addToCart, cartCount } = useCart();
@@ -278,6 +284,7 @@ export default function BundleDetail() {
             <div>
               <h4 className="font-['Inter:Black',sans-serif] font-black text-[#9FE870] text-sm mb-4 tracking-wider">SUPPORT</h4>
               <ul className="space-y-2">
+                <li><Link to="/about" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">About Us</Link></li>
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
               </ul>
@@ -288,6 +295,7 @@ export default function BundleDetail() {
                 <li><Link to="/privacy-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Terms of Service</Link></li>
                 <li><Link to="/refund-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Refund Policy</Link></li>
+                <li><Link to="/license-terms" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">License Terms</Link></li>
               </ul>
             </div>
             <div>

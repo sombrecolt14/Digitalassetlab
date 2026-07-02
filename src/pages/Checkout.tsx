@@ -1,9 +1,15 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function Checkout() {
+  usePageMeta(
+    "Checkout | Digital Asset Lab",
+    "Secure checkout for the Instagram Reels Bundle. UPI, cards and netbanking accepted. Instant email delivery after payment."
+  );
+
   const navigate = useNavigate();
   const { removeFromCart } = useCart();
   const handleRemove = () => { removeFromCart(); navigate("/bundles"); };

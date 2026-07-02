@@ -1,4 +1,5 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -48,6 +49,11 @@ function loadRazorpayScript(): Promise<boolean> {
 }
 
 export default function Payment() {
+  usePageMeta(
+    "Payment | Digital Asset Lab",
+    "Complete your secure payment for the Instagram Reels Bundle. Instant delivery to your inbox."
+  );
+
   const navigate = useNavigate();
   const [customerData, setCustomerData] = useState({ name: "", email: "", phone: "" });
   const [isProcessing, setIsProcessing] = useState(false);

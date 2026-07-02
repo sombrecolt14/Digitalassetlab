@@ -306,6 +306,33 @@ app.post("/api/create-order", async (req, res) => {
   }
 });
 
+app.post("/api/subscribe", async (req, res) => {
+  try {
+    const { email } = req.body || {};
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ ok: false, message: "Invalid email" });
+    }
+
+    const transporter = createTransporter();
+    const ownerEmail = FROM_EMAIL || SMTP_USER;
+    if (transporter && ownerEmail) {
+      transporter.sendMail({
+        from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
+        to: ownerEmail,
+        subject: `📬 New subscriber — ${email}`,
+        html: `<p><strong>${email}</strong> just joined the email list from digitalassetlab.in.</p>`,
+      }).catch(err => console.error("Subscribe notification error:", err));
+    } else {
+      console.log(`New subscriber (SMTP not configured): ${email}`);
+    }
+
+    return res.json({ ok: true });
+  } catch (error) {
+    console.error("Subscribe error:", error);
+    return res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
 app.post("/api/verify-payment", async (req, res) => {
   try {
     const {

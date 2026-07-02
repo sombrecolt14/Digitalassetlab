@@ -1,4 +1,5 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
@@ -127,6 +128,11 @@ const categories = [
 ];
 
 export default function Templates() {
+  usePageMeta(
+    "Instagram Reels Templates India — 6200+ Ready-to-Edit Reels | Digital Asset Lab",
+    "Browse 6200+ Instagram Reel templates for creators in India. Edit in CapCut or Premiere Pro, post in minutes. Commercial license included."
+  );
+
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const handleBuy = () => { addToCart(); navigate("/checkout"); };
@@ -379,6 +385,7 @@ export default function Templates() {
                 SUPPORT
               </h4>
               <ul className="space-y-2">
+                <li><Link to="/about" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">About Us</Link></li>
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
               </ul>
@@ -391,6 +398,7 @@ export default function Templates() {
                 <li><Link to="/privacy-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Terms of Service</Link></li>
                 <li><Link to="/refund-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Refund Policy</Link></li>
+                <li><Link to="/license-terms" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">License Terms</Link></li>
               </ul>
             </div>
             <div>

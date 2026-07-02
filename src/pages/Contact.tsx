@@ -1,8 +1,14 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function Contact() {
+  usePageMeta(
+    "Contact Us | Digital Asset Lab",
+    "Questions about templates, orders or refunds? Contact Digital Asset Lab — we reply within 24 hours."
+  );
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -198,6 +204,7 @@ export default function Contact() {
                 SUPPORT
               </h4>
               <ul className="space-y-2">
+                <li><Link to="/about" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">About Us</Link></li>
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
               </ul>
@@ -210,6 +217,7 @@ export default function Contact() {
                 <li><Link to="/privacy-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Terms of Service</Link></li>
                 <li><Link to="/refund-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Refund Policy</Link></li>
+                <li><Link to="/license-terms" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">License Terms</Link></li>
               </ul>
             </div>
             <div>

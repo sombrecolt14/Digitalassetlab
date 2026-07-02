@@ -1,4 +1,6 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
+import EmailCapture from "../components/EmailCapture";
 import { Link, useNavigate } from "react-router-dom";
 import svgPaths from "../imports/svg-9i708zpxdq";
 import { motion } from "motion/react";
@@ -6,6 +8,11 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function Home() {
+  usePageMeta(
+    "Digital Asset Lab — 6200+ Instagram Reels Templates | ₹530",
+    "6200+ ready-to-post Instagram Reel templates across 15+ content categories. One-time payment of ₹530, commercial license, lifetime updates, instant delivery."
+  );
+
   const [zoomStage, setZoomStage] = useState(0);
   const navigate = useNavigate();
   const { addToCart } = useCart();
@@ -599,6 +606,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Email capture */}
+      <EmailCapture />
+
       {/* Footer */}
       <footer className="bg-[#163300] px-6 py-12">
         <div className="max-w-[1200px] mx-auto">
@@ -617,6 +627,7 @@ export default function Home() {
                 SUPPORT
               </h4>
               <ul className="space-y-2">
+                <li><Link to="/about" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">About Us</Link></li>
                 <li><Link to="/contact" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Contact Us</Link></li>
                 <li><Link to="/faq" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">FAQ</Link></li>
               </ul>
@@ -629,6 +640,7 @@ export default function Home() {
                 <li><Link to="/privacy-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Terms of Service</Link></li>
                 <li><Link to="/refund-policy" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">Refund Policy</Link></li>
+                <li><Link to="/license-terms" className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-white text-sm hover:text-[#9FE870] transition-colors">License Terms</Link></li>
               </ul>
             </div>
             <div>

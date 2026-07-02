@@ -143,6 +143,13 @@ export default function NavHeader() {
             Bundles
           </Link>
 
+          <Link
+            to="/about"
+            className="font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870] transition-colors px-3 py-2"
+          >
+            About
+          </Link>
+
           {/* Basket icon → checkout (only active when cart has items) */}
           {cartCount > 0 ? (
             <Link
@@ -213,6 +220,9 @@ export default function NavHeader() {
           <div className="pt-2 space-y-1">
             <Link to="/bundles" onClick={() => setMobileOpen(false)} className="block px-4 py-3 font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870]">
               Bundles
+            </Link>
+            <Link to="/about" onClick={() => setMobileOpen(false)} className="block px-4 py-3 font-['Inter:Bold',sans-serif] font-bold text-white text-sm hover:text-[#9FE870]">
+              About
             </Link>
           </div>
         </div>

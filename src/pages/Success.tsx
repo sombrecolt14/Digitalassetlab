@@ -1,4 +1,5 @@
 import NavHeader from "../components/NavHeader";
+import usePageMeta from "../hooks/usePageMeta";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
@@ -6,6 +7,11 @@ import { useCart } from "../context/CartContext";
 const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link";
 
 export default function Success() {
+  usePageMeta(
+    "Order Confirmed | Digital Asset Lab",
+    "Your Instagram Reels Bundle is on its way. Check your email for the download link."
+  );
+
   const [paymentId, setPaymentId] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const { clearCart } = useCart();
