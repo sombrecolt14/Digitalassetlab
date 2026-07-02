@@ -209,7 +209,7 @@ export default function Contact() {
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-base leading-relaxed">
                 <strong className="text-[#163300]">Grievance Officer:</strong> [NAME OF DESIGNATED PERSON]<br />
                 <strong className="text-[#163300]">Email:</strong>{" "}
-                <a href="mailto:grievance@digitalassetlab.in" className="text-[#163300] font-bold hover:underline">grievance@digitalassetlab.in</a>
+                <a href="mailto:contact@digitalassetlab.in" className="text-[#163300] font-bold hover:underline">contact@digitalassetlab.in</a>
               </p>
               <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold text-[#4a5565] text-sm leading-relaxed">
                 We acknowledge grievances within 48 hours and resolve them within one month of receipt,
