@@ -59,23 +59,36 @@ const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
 const productByName = (name) =>
   Object.values(PRODUCTS).find((p) => p.name === name) || PRODUCTS.reels;
 
+// Resolve requested product keys (multi-item cart, or legacy single "product")
+// to catalog entries. Returns null if any key is unknown.
+function resolveProducts(body) {
+  let keys = Array.isArray(body && body.products) && body.products.length
+    ? body.products.map(String)
+    : [String((body && body.product) || "reels")];
+  keys = [...new Set(keys)];
+  if (!keys.every((k) => PRODUCTS[k])) return null;
+  return { keys, items: keys.map((k) => PRODUCTS[k]) };
+}
+const totalAmount = (items) => items.reduce((sum, p) => sum + p.amount, 0);
+const totalLabel = (items) => `₹${(totalAmount(items) / 100).toLocaleString("en-IN")}`;
+
 // Guards against double-sending when both browser verification and the
 // webhook fire for the same payment.
 // ponytail: in-memory set; single instance today. Worst case after a restart
 // is one duplicate email — harmless. Move to a DB if we ever scale out.
 const processedPayments = new Set();
 
-function deliverPurchase(paymentId, customerEmail, customerName, product) {
+function deliverPurchase(paymentId, customerEmail, customerName, products) {
   if (processedPayments.has(paymentId)) {
     console.log(`Payment ${paymentId} already delivered — skipping`);
     return;
   }
   processedPayments.add(paymentId);
   if (customerEmail) {
-    sendDeliveryEmail(customerEmail, customerName, paymentId, product)
+    sendDeliveryEmail(customerEmail, customerName, paymentId, products)
       .catch(err => console.error("Delivery email error:", err));
   }
-  sendOwnerNotificationEmail(customerEmail, customerName, paymentId, product)
+  sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products)
     .catch(err => console.error("Owner notification error:", err));
 }
 
@@ -90,18 +103,26 @@ function createTransporter() {
   });
 }
 
-async function sendDeliveryEmail(toEmail, toName, paymentId, product) {
+async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
   const transporter = createTransporter();
   if (!transporter) {
     console.log("SMTP not configured — skipping delivery email");
     return;
   }
 
-  const downloadBlock = product.downloadUrl
-    ? `<a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
-          DOWNLOAD YOUR BUNDLE →
-        </a>`
-    : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`;
+  // One download box per purchased product.
+  const downloadBlocks = products.map((product) => `
+      <div style="background:#163300;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;border:3px solid #000;">
+        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 8px;letter-spacing:1px;">
+          ${product.name.toUpperCase()}
+        </p>
+        ${product.downloadUrl
+          ? `<p style="color:#fff;font-size:14px;margin:0 0 20px;">Click the button below to access your complete bundle</p>
+             <a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
+               DOWNLOAD YOUR BUNDLE →
+             </a>`
+          : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`}
+      </div>`).join("");
 
   const html = `
 <!DOCTYPE html>
@@ -132,26 +153,19 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, product) {
         Hi ${toName || "there"}, your purchase is complete.
       </p>
 
-      <!-- Download box -->
-      <div style="background:#163300;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;border:3px solid #000;">
-        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 8px;letter-spacing:1px;">
-          YOUR DOWNLOAD IS READY
-        </p>
-        <p style="color:#fff;font-size:14px;margin:0 0 20px;">
-          ${product.downloadUrl ? "Click the button below to access your complete bundle" : "Order received: " + product.name}
-        </p>
-        ${downloadBlock}
-      </div>
+      <!-- Download boxes (one per product) -->
+      ${downloadBlocks}
 
       <!-- What's included -->
+      ${products.map(product => `
       <div style="background:#f5f5f5;border-radius:12px;padding:20px;margin-bottom:24px;">
         <p style="color:#163300;font-weight:900;font-size:13px;letter-spacing:1px;margin:0 0 12px;">
-          WHAT'S INCLUDED:
+          ${product.name.toUpperCase()} — WHAT'S INCLUDED:
         </p>
         <ul style="margin:0;padding:0;list-style:none;">
           ${product.includes.map(item => `<li style="color:#4a5565;font-size:14px;padding:4px 0;">✓ &nbsp;${item}</li>`).join("")}
         </ul>
-      </div>
+      </div>`).join("")}
 
       <!-- Order details -->
       <div style="border-top:2px solid #f5f5f5;padding-top:20px;margin-bottom:24px;">
@@ -161,7 +175,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, product) {
         </div>
         <div style="display:flex;justify-content:space-between;">
           <span style="color:#4a5565;font-size:13px;">Amount Paid</span>
-          <span style="color:#163300;font-size:15px;font-weight:900;">${priceLabel(product)}</span>
+          <span style="color:#163300;font-size:15px;font-weight:900;">${totalLabel(products)}</span>
         </div>
       </div>
 
@@ -185,19 +199,23 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, product) {
   await transporter.sendMail({
     from: `"${FROM_NAME || "Digital Asset Lab"}" <${FROM_EMAIL || SMTP_USER}>`,
     to: toEmail,
-    subject: `✅ Your ${product.name} is Ready!`,
+    subject: products.length === 1
+      ? `✅ Your ${products[0].name} is Ready!`
+      : `✅ Your Digital Asset Lab order is ready (${products.length} bundles)`,
     html,
   });
 
   console.log(`Delivery email sent to ${toEmail}`);
 }
 
-async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId, product) {
+async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products) {
   const transporter = createTransporter();
   if (!transporter) return;
 
   const ownerEmail = FROM_EMAIL || SMTP_USER;
   if (!ownerEmail) return;
+
+  const productNames = products.map((p) => p.name).join(", ");
 
   const html = `
 <!DOCTYPE html>
@@ -224,12 +242,12 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
           <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${customerEmail}</td>
         </tr>
         <tr style="border-bottom:2px solid #f5f5f5;">
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Product</td>
-          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${product.name}</td>
+          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Product${products.length > 1 ? "s" : ""}</td>
+          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${productNames}</td>
         </tr>
         <tr style="border-bottom:2px solid #f5f5f5;">
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Amount</td>
-          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">${priceLabel(product)}</td>
+          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">${totalLabel(products)}</td>
         </tr>
         <tr>
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Payment ID</td>
@@ -253,7 +271,7 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
   await transporter.sendMail({
     from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
     to: ownerEmail,
-    subject: `💰 New Sale — ${product.name} · ${priceLabel(product)} from ${customerName || customerEmail}`,
+    subject: `💰 New Sale — ${productNames} · ${totalLabel(products)} from ${customerName || customerEmail}`,
     html,
   });
 
@@ -292,8 +310,16 @@ app.post(
       if (event.event === "payment.captured") {
         const pay = event.payload && event.payload.payment && event.payload.payment.entity;
         if (pay && pay.id) {
-          const product = productByName(pay.notes && pay.notes.product);
-          deliverPurchase(pay.id, pay.email, "", product);
+          const notes = pay.notes || {};
+          // Prefer machine-readable keys set at order creation; fall back to
+          // matching the human-readable product name (legacy orders).
+          let items = null;
+          if (notes.products) {
+            const keys = String(notes.products).split(",").filter((k) => PRODUCTS[k]);
+            if (keys.length) items = keys.map((k) => PRODUCTS[k]);
+          }
+          if (!items) items = [productByName(notes.product)];
+          deliverPurchase(pay.id, pay.email, "", items);
         }
       }
 
@@ -314,9 +340,8 @@ app.get("/health", (req, res) => {
 
 app.post("/api/create-order", async (req, res) => {
   try {
-    const productKey = (req.body && req.body.product) || "reels";
-    const product = PRODUCTS[productKey];
-    if (!product) {
+    const sel = resolveProducts(req.body);
+    if (!sel) {
       return res.status(400).json({ ok: false, message: "Unknown product" });
     }
 
@@ -327,8 +352,10 @@ app.post("/api/create-order", async (req, res) => {
       });
     }
 
-    const amount = product.amount;
+    // Amount is always computed server-side from the catalog.
+    const amount = totalAmount(sel.items);
     const currency = "INR";
+    const description = sel.items.map((p) => p.name).join(" + ");
 
     const auth = Buffer.from(
       `${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`
@@ -345,7 +372,8 @@ app.post("/api/create-order", async (req, res) => {
         currency,
         receipt: `receipt_${Date.now()}`,
         notes: {
-          product: product.name
+          product: description,        // human-readable in the Razorpay dashboard
+          products: sel.keys.join(",") // machine-readable keys for the webhook
         }
       })
     });
@@ -364,7 +392,7 @@ app.post("/api/create-order", async (req, res) => {
       amount,
       currency,
       name: "Digital Asset Lab",
-      description: product.name
+      description
     });
   } catch (error) {
     console.error("Create order error:", error);
@@ -426,10 +454,10 @@ app.post("/api/verify-payment", async (req, res) => {
       });
     }
 
-    // Send download link to buyer + notify owner (idempotent vs the webhook)
+    // Send download links to buyer + notify owner (idempotent vs the webhook)
     const { customerEmail, customerName } = req.body;
-    const product = PRODUCTS[req.body.product] || PRODUCTS.reels;
-    deliverPurchase(razorpay_payment_id, customerEmail, customerName, product);
+    const sel = resolveProducts(req.body) || { keys: ["reels"], items: [PRODUCTS.reels] };
+    deliverPurchase(razorpay_payment_id, customerEmail, customerName, sel.items);
 
     return res.json({ ok: true });
   } catch (error) {

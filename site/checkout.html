@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Digital Asset Lab</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(23% 0.015 265); --ink-soft: oklch(42% 0.015 265);
+    --paper: oklch(96.5% 0.004 250); --surface: oklch(99% 0.002 250);
+    --line: oklch(88% 0.008 255); --reels: oklch(30% 0.06 148); --pop: oklch(87% 0.185 132);
+    font-size:16px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ font-family:"Bricolage Grotesque", system-ui, sans-serif; background:var(--paper); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ text-wrap:balance; font-variation-settings:"opsz" 96; }
+  .wrap{ width:min(1180px, calc(100% - 2 * clamp(20px, 4vw, 48px))); margin-inline:auto; }
+
+  header.site{ position:sticky; top:0; z-index:40; background:color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; }
+  .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
+  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
+  .nav nav a{ color:var(--ink-soft); transition:color .2s; } .nav nav a:hover{ color:var(--ink); }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; background:var(--ink); color:var(--paper); font-weight:600; font-size:.95rem; padding:.7rem 1.3rem; border-radius:999px; border:none; cursor:pointer; transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s; }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px oklch(23% 0.015 265 / .25); }
+  .nav-toggle{ display:none; align-items:center; justify-content:center; width:2.6rem; height:2.6rem; border-radius:10px; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; padding:0; }
+  .nav-toggle span{ position:relative; width:1.15rem; height:2px; background:var(--ink); border-radius:2px; display:block; transition:background .2s; }
+  .nav-toggle span::before, .nav-toggle span::after{ content:""; position:absolute; left:0; width:1.15rem; height:2px; background:var(--ink); border-radius:2px; transition:transform .25s cubic-bezier(.22,1,.36,1); }
+  .nav-toggle span::before{ top:-6px; } .nav-toggle span::after{ top:6px; }
+  .nav[data-open="true"] .nav-toggle span{ background:transparent; }
+  .nav[data-open="true"] .nav-toggle span::before{ transform:translateY(6px) rotate(45deg); }
+  .nav[data-open="true"] .nav-toggle span::after{ transform:translateY(-6px) rotate(-45deg); }
+
+  .hero{ padding-block:clamp(2.5rem,6vh,4rem) clamp(1rem,2vh,1.5rem); }
+  .eyebrow{ font-size:.85rem; font-weight:600; color:var(--ink-soft); }
+  .hero h1{ font-size:clamp(2rem,4.5vw,3rem); font-weight:760; letter-spacing:-0.025em; line-height:1.05; margin-top:.6rem; }
+
+  #dal-checkout{ max-width:44rem; padding-bottom:clamp(3rem,7vh,5rem); }
+  .panel{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:clamp(1.2rem,3vw,1.8rem); }
+  .panel + .panel{ margin-top:1.2rem; }
+  .panel h2{ font-size:1.05rem; font-weight:720; margin-bottom:1rem; }
+
+  .cart-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.9rem 0; border-top:1px solid var(--line); }
+  .cart-row:first-child{ border-top:none; padding-top:0; }
+  .cart-row-info b{ font-weight:700; display:block; }
+  .cart-row-info span{ font-size:.85rem; color:var(--ink-soft); }
+  .cart-row-side{ display:flex; align-items:center; gap:1rem; white-space:nowrap; }
+  .cart-row-side b{ font-variant-numeric:tabular-nums; }
+  .row-remove, .row-add{ font:inherit; font-size:.82rem; font-weight:600; cursor:pointer; border-radius:999px; padding:.35rem .85rem; border:1.5px solid var(--line); background:var(--paper); color:var(--ink-soft); transition:color .2s, border-color .2s; }
+  .row-remove:hover{ color:#a4232a; border-color:#a4232a; }
+  .row-add{ background:var(--pop); color:oklch(25% 0.055 145); border-color:transparent; }
+  #cart-add:empty{ display:none; }
+  #cart-add .cart-row{ border-top:none; padding:.9rem 0 0; }
+
+  .total-row{ display:flex; justify-content:space-between; align-items:baseline; padding-top:1rem; margin-top:.3rem; border-top:1.5px solid var(--ink); font-weight:700; }
+  .total-row b{ font-size:1.3rem; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
+
+  #contact-form{ display:grid; gap:.9rem; }
+  #contact-form label{ font-size:.85rem; font-weight:600; display:grid; gap:.35rem; }
+  #contact-form input{ font:inherit; font-size:.95rem; padding:.7rem .9rem; border-radius:10px; border:1.5px solid var(--line); background:var(--paper); width:100%; }
+  #contact-form input:focus{ outline:2px solid var(--ink); outline-offset:1px; }
+  .pay-btn{ font:inherit; font-weight:650; font-size:1rem; padding:.9rem 1.2rem; border-radius:999px; border:none; background:var(--reels); color:#fff; cursor:pointer; }
+  .pay-btn:disabled{ opacity:.6; cursor:wait; }
+  .pay-err{ color:#a4232a; font-size:.85rem; display:none; }
+  .fine{ color:var(--ink-soft); font-size:.78rem; text-align:center; }
+
+  #cart-empty{ text-align:center; padding:3rem 1rem; }
+  #cart-empty p{ color:var(--ink-soft); margin-bottom:1.5rem; }
+  #cart-empty .btn + .btn{ margin-left:.6rem; }
+
+  footer{ border-top:1px solid var(--line); padding-block:2rem; font-size:.85rem; color:var(--ink-soft); }
+  .foot-note{ display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .foot-note a:hover{ color:var(--ink); }
+
+  @media (max-width: 720px){
+    .nav{ flex-wrap:wrap; gap:.7rem; }
+    .wordmark{ order:1; } .nav-toggle{ display:inline-flex; order:2; margin-left:auto; }
+    .nav nav{ order:3; flex-basis:100%; margin-left:0; flex-direction:column; gap:0; max-height:0; overflow:hidden; transition:max-height .3s cubic-bezier(.22,1,.36,1); }
+    .nav[data-open="true"] nav{ max-height:70vh; }
+    .nav nav a{ padding:.9rem .1rem; font-size:1.02rem; border-top:1px solid var(--line); }
+    .cart-row{ flex-direction:column; align-items:flex-start; gap:.5rem; }
+    .cart-row-side{ width:100%; justify-content:space-between; }
+  }
+  @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after, .btn{ transition:none; } }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+    <nav>
+      <a href="/#shelf">Products</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Checkout</p>
+    <h1>Your cart.</h1>
+  </section>
+
+  <div id="dal-checkout">
+    <div id="cart-empty" hidden>
+      <p>Your cart is empty. Pick a bundle to get started.</p>
+      <a class="btn" href="/reels-bundle.html">Reels Bundle · ₹530</a>
+      <a class="btn" href="/architecture-bundle.html">Architecture Bundle · ₹1,499</a>
+    </div>
+
+    <div id="cart-panel" hidden>
+      <div class="panel">
+        <h2>Order</h2>
+        <div id="cart-items"></div>
+        <div id="cart-add"></div>
+        <div class="total-row"><span>Total</span><b id="cart-total"></b></div>
+      </div>
+
+      <div class="panel">
+        <h2>Delivery details</h2>
+        <form id="contact-form" novalidate>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Email (your downloads go here)<input name="email" type="email" autocomplete="email" required></label>
+          <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="numeric" required></label>
+          <p class="pay-err"></p>
+          <button type="submit" class="pay-btn">Pay with Razorpay</button>
+          <p class="fine">Secure checkout by Razorpay · UPI, cards, netbanking &amp; wallets · Instant email delivery</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot-note">
+    <span>© 2026 Digital Asset Lab. All rights reserved.</span>
+    <span><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/refund-policy.html">Refunds</a> · <a href="/licence.html">Licence</a></span>
+  </div>
+</footer>
+
+<script src="/analytics.js"></script>
+<script src="/checkout.js" defer></script>
+<script src="/nav.js" defer></script>
+</body>
+</html>
