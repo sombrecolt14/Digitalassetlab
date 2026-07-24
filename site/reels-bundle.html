@@ -356,22 +356,33 @@
   }
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
 
-  /* ── what's-inside manifest grid: 9:16 reel stills, like the hero wall ── */
-  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:1rem; }
+  /* ── what's-inside manifest grid: iPhone reels, Instagram-style ── */
+  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:1.1rem; }
   .inside-reel{
-    position:relative; aspect-ratio:9/16; border-radius:16px; overflow:hidden;
-    background:var(--hero-ink-2); box-shadow:0 10px 30px oklch(0% 0 0 / .2);
+    position:relative; aspect-ratio:9/16; border-radius:22px; overflow:hidden;
+    background:var(--hero-ink-2); border:3px solid oklch(17% 0.005 260);
+    box-shadow:0 10px 30px oklch(0% 0 0 / .25);
     transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
   }
-  .inside-reel:hover{ transform:translateY(-5px); box-shadow:0 18px 44px oklch(26% 0.055 145 / .22); }
+  .inside-reel:hover{ transform:translateY(-5px); box-shadow:0 18px 44px oklch(26% 0.055 145 / .25); }
   .inside-reel img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .45s cubic-bezier(.22,1,.36,1); }
   .inside-reel:hover img{ transform:scale(1.05); }
   .inside-reel::after{
     content:""; position:absolute; inset:0;
-    background:linear-gradient(to top, oklch(0% 0 0 / .74), oklch(0% 0 0 / 0) 55%);
+    background:linear-gradient(to top, oklch(0% 0 0 / .78), oklch(0% 0 0 / 0) 48%),
+               linear-gradient(to bottom, oklch(0% 0 0 / .45), oklch(0% 0 0 / 0) 22%);
+  }
+  /* iPhone notch + status time */
+  .inside-reel .notch{
+    position:absolute; top:0; left:50%; transform:translateX(-50%); z-index:3;
+    width:44%; height:.95rem; background:#000; border-radius:0 0 .65rem .65rem;
+  }
+  .inside-reel .ptime{
+    position:absolute; top:.3rem; left:.85rem; z-index:3;
+    color:#fff; font-size:.58rem; font-weight:700; letter-spacing:.02em;
   }
   .inside-reel .tag{
-    position:absolute; top:.7rem; left:.7rem; z-index:2;
+    position:absolute; top:1.55rem; left:.7rem; z-index:2;
     font-size:.6rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase;
     background:var(--lime); color:oklch(25% 0.055 145);
     padding:.28rem .6rem; border-radius:999px; font-variant-numeric:tabular-nums;
@@ -386,11 +397,28 @@
     content:""; border-style:solid; border-width:.32rem 0 .32rem .55rem;
     border-color:transparent transparent transparent #fff; margin-left:.1rem;
   }
-  .inside-reel .cover{
-    position:absolute; bottom:.85rem; left:.8rem; right:.8rem; z-index:2;
-    color:#fff; font-weight:750; line-height:1.12; letter-spacing:-0.01em; font-size:.95rem;
+  /* Instagram action rail: heart / comment / share */
+  .inside-reel .rail{
+    position:absolute; right:.55rem; bottom:1.1rem; z-index:3;
+    display:grid; gap:.85rem; justify-items:center;
   }
-  .inside-reel .cover small{ display:block; font-weight:450; font-size:.64rem; opacity:.85; margin-top:.3rem; letter-spacing:.02em; }
+  .inside-reel .rail svg{
+    width:1.35rem; height:1.35rem; stroke:#fff; fill:none; stroke-width:1.9;
+    stroke-linecap:round; stroke-linejoin:round;
+    filter:drop-shadow(0 1px 3px oklch(0% 0 0 / .55));
+  }
+  .inside-reel .cover{
+    position:absolute; bottom:.9rem; left:.8rem; right:2.5rem; z-index:2;
+    color:#fff; font-weight:750; line-height:1.12; letter-spacing:-0.01em; font-size:.92rem;
+  }
+  .inside-reel .cover small{ display:block; font-weight:450; font-size:.62rem; opacity:.85; margin-top:.3rem; letter-spacing:.02em; }
+  .inside-reel .cover .handle{
+    display:flex; align-items:center; gap:.35rem; font-size:.62rem; font-weight:650; margin-bottom:.35rem;
+  }
+  .inside-reel .cover .handle::before{
+    content:""; width: .95rem; height:.95rem; border-radius:50%;
+    background:var(--lime); border:1.5px solid #fff; flex-shrink:0;
+  }
   @media (max-width:560px){ .inside-grid{ grid-template-columns:repeat(2, 1fr); gap:.8rem; } }
   @media (prefers-reduced-motion: reduce){ .inside-reel, .inside-reel img{ transition:none; } }
   .inside-bonus{ margin-top:1.2rem; font-size:.9rem; font-weight:650; background:var(--surface); border:1px dashed var(--line); border-radius:12px; padding:.8rem 1.1rem; display:inline-block; }
@@ -662,6 +690,25 @@
   </div>
 </div>
 <script>
+  // Instagram-style phone chrome on the what's-inside reel tiles:
+  // notch, status time, like/comment/share rail, @handle above the caption.
+  (function () {
+    var ICONS =
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-1.9-1.9-5-1.9-6.9 0L12 6.5l-1.9-1.9c-1.9-1.9-5-1.9-6.9 0s-1.9 5 0 6.9L12 20.3l8.8-8.8c1.9-1.9 1.9-5 0-6.9z"/></svg>' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 21l2.1-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg>' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+    document.querySelectorAll(".inside-reel").forEach(function (tile) {
+      var notch = document.createElement("div"); notch.className = "notch"; tile.appendChild(notch);
+      var time = document.createElement("span"); time.className = "ptime"; time.textContent = "9:41"; tile.appendChild(time);
+      var rail = document.createElement("div"); rail.className = "rail"; rail.innerHTML = ICONS; tile.appendChild(rail);
+      var cover = tile.querySelector(".cover");
+      if (cover) {
+        var handle = document.createElement("span"); handle.className = "handle"; handle.textContent = "digitalasset.lab";
+        cover.insertBefore(handle, cover.firstChild);
+      }
+    });
+  })();
+
   // sticky buy bar: appears once the hero CTA scrolls out of view
   (function () {
     var hero = document.querySelector(".hero-cta [data-buy]");
