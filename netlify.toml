@@ -1,0 +1,13 @@
+# Static pages served from site/; the Express API runs as one bundled function.
+[build]
+  publish = "site"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Frontend calls /api/*; Netlify rewrites those to the serverless-wrapped app.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200

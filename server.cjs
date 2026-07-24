@@ -445,8 +445,13 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-console.log("ABOUT TO LISTEN", { HOST, PORT });
+// Only listen when run directly (Hostinger/local). On Netlify the app is
+// imported and wrapped by netlify/functions/api.cjs instead.
+if (require.main === module) {
+  console.log("ABOUT TO LISTEN", { HOST, PORT });
+  app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
+  });
+}
 
-app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
-});
+module.exports = app;
