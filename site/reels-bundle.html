@@ -356,18 +356,43 @@
   }
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
 
-  /* ── what's-inside manifest grid ── */
-  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:1rem; }
-  .inside-card{ background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s; }
-  .inside-card:hover{ transform:translateY(-4px); box-shadow:0 16px 40px oklch(26% 0.055 145 / .14); }
-  .ic-thumb{ aspect-ratio:16/9; overflow:hidden; background:var(--ground); }
-  .ic-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .45s cubic-bezier(.22,1,.36,1); }
-  .inside-card:hover .ic-thumb img{ transform:scale(1.05); }
-  .ic-body{ padding:1rem 1.15rem 1.2rem; }
-  .inside-card b{ font-size:1.7rem; font-weight:780; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; color:var(--ink); }
-  .inside-card h3{ font-size:1rem; font-weight:720; margin-top:.15rem; }
-  .inside-card p{ font-size:.85rem; color:var(--ink-soft); margin-top:.4rem; line-height:1.5; }
-  @media (prefers-reduced-motion: reduce){ .inside-card, .ic-thumb img{ transition:none; } }
+  /* ── what's-inside manifest grid: 9:16 reel stills, like the hero wall ── */
+  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:1rem; }
+  .inside-reel{
+    position:relative; aspect-ratio:9/16; border-radius:16px; overflow:hidden;
+    background:var(--hero-ink-2); box-shadow:0 10px 30px oklch(0% 0 0 / .2);
+    transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+  .inside-reel:hover{ transform:translateY(-5px); box-shadow:0 18px 44px oklch(26% 0.055 145 / .22); }
+  .inside-reel img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .45s cubic-bezier(.22,1,.36,1); }
+  .inside-reel:hover img{ transform:scale(1.05); }
+  .inside-reel::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(to top, oklch(0% 0 0 / .74), oklch(0% 0 0 / 0) 55%);
+  }
+  .inside-reel .tag{
+    position:absolute; top:.7rem; left:.7rem; z-index:2;
+    font-size:.6rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase;
+    background:var(--lime); color:oklch(25% 0.055 145);
+    padding:.28rem .6rem; border-radius:999px; font-variant-numeric:tabular-nums;
+  }
+  .inside-reel .play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
+    width:2rem; height:2rem; border-radius:50%;
+    background:oklch(100% 0 0 / .22); backdrop-filter:blur(3px);
+    display:grid; place-items:center;
+  }
+  .inside-reel .play::before{
+    content:""; border-style:solid; border-width:.32rem 0 .32rem .55rem;
+    border-color:transparent transparent transparent #fff; margin-left:.1rem;
+  }
+  .inside-reel .cover{
+    position:absolute; bottom:.85rem; left:.8rem; right:.8rem; z-index:2;
+    color:#fff; font-weight:750; line-height:1.12; letter-spacing:-0.01em; font-size:.95rem;
+  }
+  .inside-reel .cover small{ display:block; font-weight:450; font-size:.64rem; opacity:.85; margin-top:.3rem; letter-spacing:.02em; }
+  @media (max-width:560px){ .inside-grid{ grid-template-columns:repeat(2, 1fr); gap:.8rem; } }
+  @media (prefers-reduced-motion: reduce){ .inside-reel, .inside-reel img{ transition:none; } }
   .inside-bonus{ margin-top:1.2rem; font-size:.9rem; font-weight:650; background:var(--surface); border:1px dashed var(--line); border-radius:12px; padding:.8rem 1.1rem; display:inline-block; }
 
   /* ── hero deal line + sticky buy bar ── */
@@ -473,45 +498,55 @@
       <a class="sec-link" href="#bundle">Get the bundle →</a>
     </div>
     <div class="inside-grid">
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>2,250+</b><h3>Faceless Creator Library</h3><p>13 packs — mix &amp; mega packs plus aesthetic sets for men, women and workspaces.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">2,250+ files</span><div class="play"></div>
+        <div class="cover">Faceless Creator Library<small>13 packs · mix, mega &amp; aesthetic sets</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>1,000+</b><h3>Motion Graphics</h3><p>Three bundles of animated overlays and graphics for punchier edits.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">1,000+ files</span><div class="play"></div>
+        <div class="cover">Motion Graphics<small>3 bundles of animated overlays</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>620+</b><h3>Lifestyle &amp; Luxury</h3><p>Raw lifestyle footage, luxury living and money-lifestyle clips.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">620+ files</span><div class="play"></div>
+        <div class="cover">Lifestyle &amp; Luxury<small>Raw, luxury &amp; money clips</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>500+</b><h3>AI Content Suite</h3><p>AI Doctor template pack plus AI authority demos.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">500+ files</span><div class="play"></div>
+        <div class="cover">AI Content Suite<small>AI Doctor pack + authority demos</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>450+</b><h3>Premium &amp; Misc</h3><p>Premium clips and the external vault collection.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">450+ files</span><div class="play"></div>
+        <div class="cover">Premium &amp; Misc<small>Premium clips + external vault</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>400+</b><h3>HQ Stock Vault</h3><p>High-quality stock footage for any niche.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">400+ files</span><div class="play"></div>
+        <div class="cover">HQ Stock Vault<small>High-quality stock, any niche</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>325+</b><h3>Automotive</h3><p>Three curated car packs — C3, Ultra and Elite.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">325+ files</span><div class="play"></div>
+        <div class="cover">Automotive<small>C3, Ultra &amp; Elite car packs</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>270+</b><h3>Mindset &amp; Spirituality</h3><p>Philosophy, productivity and spiritual collections.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">270+ files</span><div class="play"></div>
+        <div class="cover">Mindset &amp; Spirituality<small>Philosophy · productivity · spiritual</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>200</b><h3>Meme &amp; Entertainment</h3><p>Meme templates, including a dedicated Indian meme pack.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">200 files</span><div class="play"></div>
+        <div class="cover">Meme &amp; Entertainment<small>Incl. a dedicated Indian meme pack</small></div>
       </div>
-      <div class="inside-card reveal">
-        <div class="ic-thumb"><img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"></div>
-        <div class="ic-body"><b>100+</b><h3>Anime &amp; Characters</h3><p>Ready-to-post anime edits.</p></div>
+      <div class="inside-reel reveal">
+        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+        <span class="tag">100+ files</span><div class="play"></div>
+        <div class="cover">Anime &amp; Characters<small>Ready-to-post edits</small></div>
       </div>
     </div>
     <p class="inside-bonus reveal">Bonus: AI-powered money-making ideas guide (PDF) — included free.</p>
