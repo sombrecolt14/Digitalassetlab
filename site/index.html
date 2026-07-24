@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Asset Lab — Original Digital Design Templates &amp; Creative Assets</title>
+<meta name="description" content="Digital Asset Lab sells original, ready-to-edit design assets: video templates, graphic design templates, architectural CAD assets and business documents. Instant download, commercial licence, lifetime updates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(23% 0.015 265);
+    --ink-soft: oklch(42% 0.015 265);
+    --paper: oklch(96.5% 0.004 250);
+    --surface: oklch(99% 0.002 250);
+    --line: oklch(88% 0.008 255);
+
+    /* product hues */
+    --reels: oklch(30% 0.06 148);
+    --reels-deep: oklch(24% 0.05 148);
+    --reels-pop: oklch(87% 0.185 132);
+    --on-reels: oklch(96% 0.02 130);
+    --on-reels-muted: oklch(82% 0.04 135);
+    --arch: oklch(56% 0.125 42);
+    --notion: oklch(28% 0.01 265);
+    --radius: 16px;
+    font-size:16px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"Bricolage Grotesque", system-ui, sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ text-wrap:balance; font-variation-settings:"opsz" 96; }
+  p{ text-wrap:pretty; }
+  .wrap{ width:min(1200px, calc(100% - 2 * clamp(20px, 4vw, 48px))); margin-inline:auto; }
+
+  /* ── nav ── */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in oklab, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; }
+  .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
+  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
+  .nav nav a{ color:var(--ink-soft); transition:color .2s; } .nav nav a:hover{ color:var(--ink); }
+  .btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--ink); color:var(--paper);
+    font-weight:600; font-size:.95rem;
+    padding:.7rem 1.3rem; border-radius:999px; border:none; cursor:pointer;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px oklch(23% 0.015 265 / .25); }
+  .btn.small{ padding:.55rem 1.05rem; font-size:.88rem; }
+  .btn.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+  .btn.ghost:hover{ box-shadow:none; }
+  .btn.lime{ background:var(--reels-pop); color:oklch(25% 0.055 145); }
+  .btn.lime:hover{ box-shadow:0 10px 26px oklch(87% 0.185 132 / .35); }
+
+  /* ── hero ── */
+  .hero{ padding-block:clamp(3.5rem, 8vh, 5.5rem) clamp(3rem, 6vh, 4.5rem); }
+  .hero-top{ max-width:54rem; }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 5rem);
+    line-height:1.0; font-weight:770; letter-spacing:-0.028em;
+  }
+  .hero h1 .u{ box-shadow:inset 0 -0.18em 0 var(--reels-pop); }
+  .hero .lede{
+    margin-top:1.5rem; max-width:38rem; font-size:clamp(1rem, 1.35vw, 1.15rem);
+    color:var(--ink-soft); line-height:1.65;
+  }
+  .hero-cta{ display:flex; gap:.9rem; margin-top:2rem; flex-wrap:wrap; }
+
+  /* ── featured product (the conversion block) ── */
+  .feature{ background:linear-gradient(170deg, var(--reels) 60%, var(--reels-deep)); color:var(--on-reels); }
+  .feature-grid{
+    display:grid; grid-template-columns:.9fr 1.1fr;
+    gap:clamp(2.5rem, 5vw, 5rem); align-items:center;
+    padding-block:clamp(3.5rem, 7vh, 5.5rem);
+  }
+  .feature .mini{ position:relative; height:420px; }
+  .feature .mini img{
+    position:absolute; width:46%; aspect-ratio:9/16; object-fit:cover;
+    border-radius:14px; box-shadow:0 24px 60px oklch(0% 0 0/.4);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .feature .mini img:nth-child(1){ left:0; top:4%; transform:rotate(-6deg); }
+  .feature .mini img:nth-child(2){ left:28%; top:14%; transform:rotate(1deg); z-index:2; }
+  .feature .mini img:nth-child(3){ right:0; top:2%; transform:rotate(6deg); }
+  .feature .mini img:hover{ transform:rotate(0) translateY(-8px); z-index:5; }
+  .feature .chip{
+    display:inline-block; font-size:.8rem; font-weight:700;
+    background:var(--reels-pop); color:oklch(25% 0.055 145);
+    padding:.35rem .8rem; border-radius:999px; margin-bottom:1.1rem;
+  }
+  .feature h2{ font-size:clamp(1.9rem, 3.4vw, 2.9rem); font-weight:750; letter-spacing:-0.02em; line-height:1.06; }
+  .price-row{ display:flex; align-items:baseline; gap:.9rem; margin-top:1.1rem; }
+  .price-row .price{ font-size:2.5rem; font-weight:780; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
+  .price-row .note{ font-size:.88rem; color:var(--on-reels-muted); }
+  .includes{ list-style:none; margin-top:1.4rem; display:grid; gap:.7rem; }
+  .includes li{ display:flex; gap:.8rem; align-items:start; font-size:.98rem; }
+  .includes .tick{
+    flex-shrink:0; width:1.3rem; height:1.3rem; border-radius:50%;
+    background:var(--reels-pop); display:grid; place-items:center; margin-top:.12rem;
+  }
+  .includes .tick::before{
+    content:""; width:.52rem; height:.3rem;
+    border-left:2.2px solid oklch(25% 0.055 145); border-bottom:2.2px solid oklch(25% 0.055 145);
+    transform:rotate(-45deg) translateY(-1px);
+  }
+  .feature-cta{ margin-top:1.9rem; display:flex; align-items:center; gap:1.1rem; flex-wrap:wrap; }
+  .feature-cta .trust{ font-size:.85rem; color:var(--on-reels-muted); }
+
+  /* ── shelf ── */
+  section.shelf-sec{ padding-block:clamp(4rem, 8vh, 6rem); }
+  .shelf-label{ font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:1.1rem; display:flex; align-items:center; gap:.6rem; }
+  .shelf-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .shelf{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:1.1rem; align-items:stretch;
+  }
+  @media (min-width: 1000px){ .shelf{ grid-template-columns:repeat(4, 1fr); } }
+  .box{
+    position:relative; border-radius:var(--radius); overflow:hidden;
+    aspect-ratio:3/3.8; display:flex; flex-direction:column; justify-content:flex-end;
+    color:#fff; cursor:pointer;
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+    box-shadow:0 2px 10px oklch(23% 0.015 265 / .08);
+  }
+  .box:hover{ transform:translateY(-8px) rotate(-1deg); box-shadow:0 26px 50px oklch(23% 0.015 265 / .22); }
+  .box .art{ position:absolute; inset:0; }
+  .box .label{
+    position:relative; z-index:2; padding:1.1rem 1.15rem 1.15rem;
+    background:linear-gradient(to top, oklch(0% 0 0 / .55), oklch(0% 0 0 / 0));
+  }
+  .box h3{ font-size:1.12rem; font-weight:720; letter-spacing:-0.01em; line-height:1.12; }
+  .box .sub{ font-size:.8rem; opacity:.88; margin-top:.3rem; font-weight:450; }
+  .box .status{
+    position:absolute; top:.85rem; left:.85rem; z-index:2;
+    font-size:.68rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:.32rem .7rem; border-radius:999px;
+    background:oklch(0% 0 0 / .38); backdrop-filter:blur(4px); color:#fff;
+  }
+  .box .status.live{ background:var(--reels-pop); color:oklch(25% 0.055 145); }
+
+  .box.reels-box .art{ background:var(--reels); }
+  .box.reels-box .art img{ position:absolute; width:52%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px oklch(0% 0 0/.35); }
+  .box.reels-box .art img:first-child{ left:8%; top:9%; transform:rotate(-6deg); }
+  .box.reels-box .art img:last-child{ right:8%; top:20%; transform:rotate(5deg); }
+
+  .box.arch .art{ background:var(--arch); }
+  .box.arch .art img{ width:100%; height:100%; object-fit:cover; opacity:.85; mix-blend-mode:luminosity; }
+  .box.arch .art::after{
+    content:""; position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 39px, oklch(100% 0 0 / .18) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, oklch(100% 0 0 / .18) 39px 40px),
+      oklch(56% 0.125 42 / .45);
+  }
+
+  .box.notion .art{ background:var(--notion); }
+  .box.notion .art::before{
+    content:"☐ Plan\A☑ Design\A☐ Ship"; white-space:pre;
+    position:absolute; left:1.1rem; top:1.1rem; padding-top:2rem;
+    font-size:1.05rem; line-height:2.1; color:oklch(85% 0.005 265);
+  }
+  .box.notion .art::after{
+    content:""; position:absolute; left:1.1rem; right:1.1rem; top:8.6rem; height:1px;
+    background:oklch(50% 0.005 265);
+    box-shadow:0 2.2rem 0 oklch(50% 0.005 265 / .6), 0 4.4rem 0 oklch(50% 0.005 265 / .35);
+  }
+
+  .box.propose{
+    background:transparent; border:2px dashed var(--line); color:var(--ink-soft);
+    align-items:center; justify-content:center; text-align:center; box-shadow:none;
+  }
+  .box.propose:hover{ transform:none; border-color:var(--ink-soft); box-shadow:none; }
+  .box.propose .plus{ font-size:2.6rem; font-weight:300; line-height:1; }
+  .box.propose h3{ color:var(--ink); margin-top:.6rem; }
+  .box.propose .sub{ opacity:1; max-width:20ch; margin-inline:auto; }
+
+  /* ── how it works ── */
+  section.how{ padding-block:clamp(3.5rem, 7vh, 5.5rem); border-top:1px solid var(--line); }
+  .how-head{ margin-bottom:2.4rem; max-width:34rem; }
+  .how-head h2{ font-size:clamp(1.7rem, 3vw, 2.4rem); font-weight:730; letter-spacing:-0.02em; }
+  .how-row{ display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(1.5rem, 4vw, 3rem); counter-reset:step; }
+  .how-cell{ border-top:2px solid var(--ink); padding-top:1.1rem; counter-increment:step; }
+  .how-cell h3{ font-size:1.05rem; font-weight:700; display:flex; gap:.6rem; align-items:baseline; }
+  .how-cell h3::before{ content:counter(step); font-size:.85rem; font-weight:750; color:var(--ink-soft); }
+  .how-cell p{ font-size:.93rem; color:var(--ink-soft); margin-top:.5rem; max-width:36ch; }
+
+  /* ── FAQ ── */
+  section.faq{ padding-block:clamp(3.5rem, 7vh, 5.5rem); border-top:1px solid var(--line); }
+  .faq-grid{ display:grid; grid-template-columns:1fr 1.6fr; gap:clamp(2rem, 5vw, 4rem); align-items:start; }
+  .faq h2{ font-size:clamp(1.7rem, 3vw, 2.4rem); font-weight:730; letter-spacing:-0.02em; }
+  .faq .side p{ color:var(--ink-soft); margin-top:.7rem; font-size:.95rem; }
+  .faq details{
+    border-bottom:1px solid var(--line);
+  }
+  .faq details:first-of-type{ border-top:1px solid var(--line); }
+  .faq summary{
+    cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    padding:1.1rem 0; font-weight:650; font-size:1.02rem;
+  }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq summary::after{ content:"+"; font-size:1.4rem; font-weight:300; color:var(--ink-soft); transition:transform .3s cubic-bezier(.22,1,.36,1); }
+  .faq details[open] summary::after{ transform:rotate(45deg); }
+  .faq details p{ padding-bottom:1.2rem; color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+  .faq details a{ font-weight:600; color:var(--ink); border-bottom:1.5px solid var(--reels-pop); }
+
+  /* ── vote band ── */
+  .band{ background:var(--ink); color:var(--paper); }
+  .band-inner{ display:grid; grid-template-columns:1.2fr 1fr; gap:3rem; align-items:center; padding-block:clamp(3.5rem, 7vh, 5.5rem); }
+  .band h2{ font-size:clamp(1.8rem, 3.2vw, 2.6rem); font-weight:750; letter-spacing:-0.02em; line-height:1.1; }
+  .band p{ margin-top:.8rem; color:oklch(75% 0.01 260); max-width:36rem; }
+  .vote-chips{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.4rem; }
+  .vote-chips span{
+    font-size:.85rem; font-weight:600; padding:.5rem 1rem; border-radius:999px;
+    border:1.5px solid oklch(96% 0.004 250 / .35); color:oklch(88% 0.008 255);
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  .vote-chips span:hover{ border-color:var(--paper); background:oklch(96% 0.004 250 / .08); }
+  .band form{ display:flex; gap:.7rem; }
+  .band input{
+    flex:1; min-width:0; font:inherit; font-size:.95rem;
+    padding:.85rem 1.2rem; border-radius:999px;
+    border:1.5px solid oklch(96% 0.004 250 / .3); background:oklch(96% 0.004 250 / .08);
+    color:var(--paper);
+  }
+  .band input::placeholder{ color:oklch(75% 0.01 260); }
+  .band input:focus{ outline:2px solid var(--paper); outline-offset:1px; }
+  .band .btn{ background:var(--paper); color:var(--ink); }
+  .band .fine{ font-size:.78rem; margin-top:.7rem; color:oklch(65% 0.01 260); }
+
+  /* ── footer ── */
+  footer{ border-top:1px solid var(--line); padding-block:3rem 2.2rem; font-size:.9rem; color:var(--ink-soft); }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.5rem; }
+  .foot-grid h4{ color:var(--ink); font-size:.85rem; font-weight:700; margin-bottom:.9rem; }
+  .foot-grid ul{ list-style:none; display:grid; gap:.55rem; }
+  .foot-grid a:hover{ color:var(--ink); }
+  .foot-note{ margin-top:2.6rem; padding-top:1.4rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.8rem; }
+
+  /* ── cart ── */
+  .cart{
+    position:relative; display:inline-flex; align-items:center; justify-content:center;
+    width:2.5rem; height:2.5rem; border-radius:999px; border:1.5px solid var(--line);
+    background:var(--surface); transition:border-color .2s;
+  }
+  .cart:hover{ border-color:var(--ink); }
+  .cart svg{ width:1.15rem; height:1.15rem; stroke:var(--ink); fill:none; stroke-width:1.8; }
+  .cart-count{
+    position:absolute; top:-0.3rem; right:-0.3rem;
+    min-width:1.15rem; height:1.15rem; padding-inline:.25rem;
+    border-radius:999px; background:var(--reels-pop); color:oklch(25% 0.055 145);
+    font-size:.68rem; font-weight:750; display:grid; place-items:center;
+    transition:transform .25s cubic-bezier(.22,1,.36,1);
+  }
+  .cart-count.bump{ transform:scale(1.3); }
+  .btn.added{ background:oklch(45% 0.1 148); color:#fff; }
+
+  /* ── value stack ── */
+  .worth{
+    margin-top:1.4rem; border:1px solid oklch(96% 0.02 130 / .25); border-radius:12px;
+    padding:1rem 1.2rem; max-width:26rem; font-variant-numeric:tabular-nums;
+  }
+  .worth .row{
+    display:flex; justify-content:space-between; gap:1rem; align-items:baseline;
+    padding:.42rem 0; font-size:.93rem;
+    border-bottom:1px dashed oklch(96% 0.02 130 / .18);
+  }
+  .worth .row s{ color:var(--on-reels-muted); text-decoration-thickness:1.5px; }
+  .worth .row.total{ font-weight:650; border-bottom:none; }
+  .worth .row.pay{
+    border-bottom:none; padding-top:.6rem; margin-top:.2rem;
+    border-top:2px solid oklch(96% 0.02 130 / .35); font-size:1.05rem; font-weight:700;
+  }
+  .worth .row.pay .save{
+    font-size:.78rem; font-weight:750; background:var(--reels-pop); color:oklch(25% 0.055 145);
+    padding:.2rem .6rem; border-radius:999px;
+  }
+
+  /* ── launch spots ── */
+  .spots{ margin-top:1.3rem; max-width:26rem; }
+  .spots .bar{ height:.5rem; border-radius:999px; background:oklch(96% 0.02 130 / .18); overflow:hidden; }
+  .spots .bar i{ display:block; height:100%; border-radius:999px; background:var(--reels-pop); }
+  .spots span{ display:block; margin-top:.5rem; font-size:.82rem; color:var(--on-reels-muted); }
+  .spots span b{ color:var(--on-reels); font-weight:650; }
+
+  /* ── arch drop band ── */
+  .arch-band{ background:linear-gradient(170deg, oklch(33% 0.075 40) 55%, oklch(38% 0.085 42)); color:oklch(96% 0.015 55); }
+  .arch-band .inner{
+    display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.5rem, 4vw, 3.5rem);
+    align-items:center; padding-block:clamp(2.5rem, 5vh, 4rem);
+  }
+  .arch-band .chip{ display:inline-block; font-size:.78rem; font-weight:700; background:oklch(96% 0.015 55); color:oklch(33% 0.075 40); padding:.32rem .75rem; border-radius:999px; margin-bottom:.8rem; }
+  .arch-band h2{ font-size:clamp(1.5rem, 2.6vw, 2.2rem); font-weight:740; letter-spacing:-0.02em; line-height:1.1; }
+  .arch-band p{ margin-top:.5rem; color:oklch(84% 0.035 50); font-size:.96rem; max-width:44rem; }
+  .arch-band .btn{ background:oklch(96% 0.015 55); color:oklch(33% 0.075 40); white-space:nowrap; }
+  .arch-band .price-tag{ display:flex; flex-direction:column; align-items:flex-end; gap:.2rem; }
+  .arch-band .price-tag b{ font-size:2rem; font-weight:780; letter-spacing:-0.02em; }
+  .arch-band .price-tag small{ font-size:.78rem; color:oklch(84% 0.035 50); }
+  .arch-band .mini-sheet{
+    width:120px; aspect-ratio:3/4; background:oklch(98.5% 0.003 55); border-radius:8px;
+    box-shadow:0 16px 40px oklch(0% 0 0/.35); transform:rotate(-3deg);
+    display:grid; grid-template-columns:1fr 1fr; padding:.6rem; gap:.4rem;
+  }
+  .mini-sheet svg{ width:100%; height:100%; overflow:visible; }
+  .mini-sheet svg *{ fill:none; stroke:oklch(26% 0.025 40); stroke-width:1.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+
+  /* ── reveals ── */
+  .reveal{ opacity:1; transform:none; }
+  .js .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .js .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .js .reveal{ opacity:1; transform:none; transition:none; }
+    .btn, .box, .feature .mini img{ transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  @media (max-width: 900px){
+    .arch-band .inner{ grid-template-columns:1fr; justify-items:start; }
+    .arch-band .price-tag{ align-items:flex-start; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .feature .mini{ height:340px; max-width:520px; }
+    .band-inner{ grid-template-columns:1fr; }
+    .how-row{ grid-template-columns:1fr; gap:1.6rem; }
+    .faq-grid{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 640px){
+    .nav nav{ display:none; }
+    .shelf{ grid-template-columns:repeat(2, 1fr); }
+    .box.propose{ grid-column:span 2; aspect-ratio:auto; padding-block:2rem; }
+    .band form{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="#"><span class="dot"></span>Digital Asset Lab</a>
+    <nav>
+      <a href="#shelf">Products</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#next">What's next</a>
+    </nav>
+    <a class="btn small" href="#reels">Get the Reels Bundle</a>
+    <a class="cart" href="#shelf" aria-label="Shop all bundles">
+      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-top">
+    <h1 class="reveal">Big bundles of <span class="u">ready-to-use</span> design.</h1>
+    <p class="lede reveal" style="transition-delay:.08s">
+      Digital Asset Lab packs thousands of assets into single-purchase bundles.
+      The Instagram Reels Bundle is live, the Architecture Bundle just launched,
+      and Notion systems are next out of the lab. Buy once, own forever,
+      commercial licence included.
+    </p>
+    <div class="hero-cta reveal" style="transition-delay:.16s">
+      <a class="btn" href="#reels">Get the Reels Bundle · ₹530</a>
+      <a class="btn ghost" href="#shelf">See all bundles</a>
+    </div>
+  </div>
+</section>
+
+<section class="feature" id="reels">
+  <div class="wrap feature-grid">
+    <div class="mini reveal" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=70" alt="">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=70" alt="">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70" alt="">
+    </div>
+    <div>
+      <span class="chip reveal">Launch price · first 500 buyers only</span>
+      <h2 class="reveal">The Instagram Reels Bundle</h2>
+      <p class="reveal" style="margin-top:.6rem; color:var(--on-reels-muted); font-size:.96rem;">Works with CapCut, Premiere Pro, After Effects and Final Cut Pro. Trending audio IDs included, updated weekly.</p>
+      <div class="worth reveal" aria-label="What this bundle is worth">
+        <div class="row"><span>6,200+ reel templates · 15+ categories</span><s>₹3,999</s></div>
+        <div class="row"><span>500+ hook templates</span><s>₹499</s></div>
+        <div class="row"><span>300+ transitions pack</span><s>₹499</s></div>
+        <div class="row"><span>Viral strategy guide</span><s>₹299</s></div>
+        <div class="row total"><span>Total value</span><s>₹5,296</s></div>
+        <div class="row pay"><span>Today</span><span>₹530 <span class="save">You save 90%</span></span></div>
+      </div>
+      <div class="feature-cta reveal">
+        <button class="btn lime" data-buy="reels">Get instant access · ₹530</button>
+        <span class="trust">Instant delivery · Secure UPI &amp; card checkout · Lifetime updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="arch-band" id="architecture">
+  <div class="wrap inner">
+    <div class="mini-sheet reveal" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><rect x="25" y="30" width="50" height="42" rx="6"/><rect x="20" y="22" width="60" height="12" rx="5"/></svg>
+      <svg viewBox="0 0 100 100"><line x1="20" y1="80" x2="80" y2="80"/><line x1="22" y1="80" x2="22" y2="24"/><path d="M22 24 A 56 56 0 0 1 78 80"/></svg>
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4"/><line x1="71" y1="29" x2="78" y2="22"/><line x1="29" y1="71" x2="22" y2="78"/></svg>
+      <svg viewBox="0 0 100 100"><rect x="24" y="16" width="52" height="68" rx="4"/><line x1="24" y1="44" x2="76" y2="44"/></svg>
+    </div>
+    <div class="reveal">
+      <span class="chip">New · Bundle № 02 · first 100 buyers get launch price</span>
+      <h2>The Architecture Bundle</h2>
+      <p>CAD blocks, SketchUp assets, moodboards, legal documentation and a client-onboarding questionnaire kit — the working library of a practice, in one purchase.</p>
+    </div>
+    <div class="price-tag reveal">
+      <b>₹1,499</b>
+      <small>launch price · one-time</small>
+      <button class="btn" data-buy="architecture" style="margin-top:.6rem">Buy now</button>
+    </div>
+  </div>
+</section>
+
+<section class="shelf-sec" id="shelf">
+  <div class="wrap">
+    <div class="shelf-label reveal">The shelf · one lab, many bundles</div>
+    <div class="shelf">
+      <a class="box reels-box reveal" href="/reels-bundle.html">
+        <span class="status live">Available · ₹530</span>
+        <div class="art" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=70" alt="">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=300&q=70" alt="">
+        </div>
+        <div class="label"><h3>Instagram Reels Bundle</h3><p class="sub">6,200+ templates · 15 niches</p></div>
+      </a>
+      <a class="box arch reveal" href="/architecture-bundle.html" style="transition-delay:.06s">
+        <span class="status live">New · ₹1,499</span>
+        <div class="art" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=70" alt="">
+        </div>
+        <div class="label"><h3>Architecture Bundle</h3><p class="sub">CAD blocks · boards · decks</p></div>
+      </a>
+      <a class="box notion reveal" href="#next" style="transition-delay:.12s">
+        <span class="status">In development</span>
+        <div class="art" aria-hidden="true"></div>
+        <div class="label"><h3>Notion Systems</h3><p class="sub">Client OS · content calendar</p></div>
+      </a>
+      <a class="box propose reveal" href="#next" style="transition-delay:.18s">
+        <div>
+          <div class="plus">+</div>
+          <h3>Propose a bundle</h3>
+          <p class="sub">Tell the lab what to make next</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-head reveal">
+      <h2>How the lab works</h2>
+    </div>
+    <div class="how-row reveal">
+      <div class="how-cell">
+        <h3>We batch it</h3>
+        <p>Each bundle is hundreds of assets around one job, designed together so everything matches.</p>
+      </div>
+      <div class="how-cell">
+        <h3>You own it</h3>
+        <p>One payment, lifetime access, full commercial licence. Use it in client work and paid campaigns.</p>
+      </div>
+      <div class="how-cell">
+        <h3>It keeps growing</h3>
+        <p>Every asset added to a bundle you own arrives free. Buying early is the best deal we sell.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap faq-grid">
+    <div class="side reveal">
+      <h2>Before you buy</h2>
+      <p>The short version of everything people ask. Full details live on each product page.</p>
+    </div>
+    <div class="reveal">
+      <details>
+        <summary>What exactly do I get after paying?</summary>
+        <p>A download link, delivered instantly to your email after checkout. Files arrive organised by category, ready to open in the apps named on the product page. You can re-download any time.</p>
+      </details>
+      <details>
+        <summary>Do I need professional software?</summary>
+        <p>No. The Reels Bundle works with CapCut (free) as well as Premiere Pro, After Effects and Final Cut Pro. Every product page lists exact formats and software before you pay — honest file manifests, no surprises after checkout.</p>
+      </details>
+      <details>
+        <summary>Can I use these for client work?</summary>
+        <p>Yes. Every bundle includes a full commercial licence: client projects, monetised accounts and paid campaigns are all covered, with no attribution. The only thing you can't do is resell or redistribute the template files themselves.</p>
+      </details>
+      <details>
+        <summary>Will the price change?</summary>
+        <p>Yes. Each bundle's launch price is limited to a fixed number of buyers — 500 for the Reels Bundle, 100 for the Architecture Bundle — and rises once those spots are gone. Bundles also keep growing with free updates, so buying early gets more for less.</p>
+      </details>
+      <details>
+        <summary>What if something goes wrong with my order?</summary>
+        <p>If a download fails, you're double-charged, or a product isn't what its page described, support will make it right — including a refund where the fault is ours. As with most digital products, there are no change-of-mind refunds once files are downloaded. See the full <a href="#">refund policy</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="next">
+  <div class="wrap band-inner">
+    <div class="reveal">
+      <h2>You decide what leaves the lab next.</h2>
+      <p>The next bundles are chosen with the list. Join to vote on what we build, and get launch pricing before it goes up.</p>
+      <div class="vote-chips" aria-label="Bundle ideas under consideration">
+        <span>Festival marketing pack</span>
+        <span>Wedding invite pack</span>
+        <span>Carousel bundle</span>
+        <span>Resume &amp; LinkedIn kit</span>
+        <span>Real-estate kit</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <form data-subscribe>
+        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="btn" type="submit">Join the lab list</button>
+      </form>
+      <p class="fine">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="#" style="color:var(--ink)"><span class="dot"></span>Digital Asset Lab</a>
+        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for creators, marketers and small businesses in India and beyond.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul><li><a href="/reels-bundle.html">Instagram Reels Bundle</a></li><li><a href="/architecture-bundle.html">The Architecture Bundle</a></li><li><a href="#next">Upcoming bundles</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="https://www.instagram.com/digitalasset.lab/" rel="noopener">@digitalasset.lab</a></li></ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of service</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Licence terms</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Digital Asset Lab. All rights reserved.</span>
+      <a href="https://www.instagram.com/digitalasset.lab/" rel="noopener">Instagram · @digitalasset.lab</a>
+      <span>Made in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1800);
+</script>
+<script src="/checkout.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architecture Bundle — CAD Blocks, SketchUp Assets &amp; Practice Templates | Digital Asset Lab</title>
+<meta name="description" content="Original architectural design assets: 2,000+ CAD blocks, 300+ SketchUp models, moodboard templates, practice documentation and client-onboarding kits. Instant download, commercial licence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clay: oklch(56% 0.125 42);            /* terracotta — this bundle's hue */
+    --clay-deep: oklch(33% 0.075 40);       /* hero drench */
+    --clay-deep-2: oklch(38% 0.085 42);
+    --on-clay: oklch(96% 0.015 55);
+    --on-clay-muted: oklch(84% 0.035 50);
+    --ink: oklch(26% 0.025 40);
+    --ink-soft: oklch(43% 0.025 40);
+    --paper: oklch(96.5% 0.009 55);         /* clay-tinted paper, the bundle's own hue */
+    --surface: oklch(99% 0.004 55);
+    --line: oklch(88% 0.015 50);
+    --sheet: oklch(98.5% 0.003 55);
+    --radius: 14px;
+    font-size:16px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"Bricolage Grotesque", system-ui, sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ text-wrap:balance; font-variation-settings:"opsz" 96; }
+  p{ text-wrap:pretty; }
+  .wrap{ width:min(1180px, calc(100% - 2 * clamp(20px, 4vw, 48px))); margin-inline:auto; }
+
+  /* ── nav ── */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in oklab, var(--clay-deep) 92%, transparent);
+    backdrop-filter:blur(10px);
+  }
+  .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; color:var(--on-clay); }
+  .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
+  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--clay); }
+  .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
+  .nav nav a{ opacity:.85; transition:opacity .2s; } .nav nav a:hover{ opacity:1; }
+  .btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--clay); color:oklch(98% 0.005 55);
+    font-weight:600; font-size:.95rem;
+    padding:.7rem 1.3rem; border-radius:999px; border:none; cursor:pointer;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px oklch(56% 0.125 42 / .4); }
+  .btn.small{ padding:.55rem 1.05rem; font-size:.88rem; }
+  .btn.ghost{ background:transparent; color:var(--on-clay); border:1.5px solid oklch(96% 0.015 55 / .4); }
+  .btn.ghost:hover{ box-shadow:none; border-color:oklch(96% 0.015 55 / .8); }
+  .btn.dark{ background:var(--ink); color:var(--paper); }
+  .btn.dark:hover{ box-shadow:0 10px 26px oklch(26% 0.025 40 / .3); }
+
+  /* ── hero ── */
+  .hero{
+    background:linear-gradient(170deg, var(--clay-deep) 55%, var(--clay-deep-2));
+    color:var(--on-clay); overflow:hidden; position:relative;
+  }
+  .hero::before{ /* faint drafting grid over the drench */
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 47px, oklch(96% 0.015 55 / .05) 47px 48px),
+      repeating-linear-gradient(90deg, transparent 0 47px, oklch(96% 0.015 55 / .05) 47px 48px);
+  }
+  .hero-grid{
+    position:relative; display:grid; grid-template-columns:1.02fr .98fr;
+    gap:clamp(2rem, 5vw, 4rem); align-items:center;
+    padding-block:clamp(3.5rem, 8vh, 6rem);
+  }
+  .crumb{ font-size:.85rem; color:var(--on-clay-muted); margin-bottom:1.4rem; }
+  .crumb b{ color:var(--on-clay); font-weight:600; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.8vw, 4rem);
+    line-height:1.03; font-weight:760; letter-spacing:-0.025em;
+  }
+  .hero .lede{
+    margin-top:1.4rem; max-width:33rem;
+    font-size:clamp(1rem, 1.3vw, 1.13rem); color:var(--on-clay-muted); line-height:1.68;
+  }
+  .hero-cta{ display:flex; gap:.9rem; margin-top:2.1rem; flex-wrap:wrap; }
+  .hero-proof{ margin-top:2.4rem; display:flex; gap:1.8rem; flex-wrap:wrap; font-size:.9rem; color:var(--on-clay-muted); }
+  .hero-proof span{ display:flex; gap:.45rem; align-items:baseline; }
+  .hero-proof strong{ color:var(--on-clay); font-weight:650; }
+
+  /* the drafting sheet */
+  .sheet{
+    background:var(--sheet); color:var(--ink);
+    border-radius:10px; padding:1.4rem 1.4rem 0;
+    box-shadow:0 30px 70px oklch(0% 0 0 / .4);
+    transform:rotate(1.2deg);
+    display:flex; flex-direction:column;
+  }
+  .blocks{
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    border-top:1px solid var(--line); border-left:1px solid var(--line);
+  }
+  .cell{
+    aspect-ratio:1; padding:12%;
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    color:var(--ink); position:relative;
+  }
+  .cell svg{ width:100%; height:100%; overflow:visible; }
+  .cell svg *{ fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .cell .name{
+    position:absolute; bottom:.45rem; left:.6rem;
+    font-size:.55rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .titleblock{
+    display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    padding:.8rem .2rem; font-size:.62rem; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .titleblock b{ color:var(--ink); font-weight:700; }
+  /* draw-in animation */
+  .js .sheet .cell svg *{ stroke-dasharray:220; stroke-dashoffset:220; }
+  .js .sheet.in .cell svg *{ animation:draw 1.6s cubic-bezier(.4,0,.2,1) forwards; }
+  .js .sheet.in .cell:nth-child(2) svg *{ animation-delay:.15s; }
+  .js .sheet.in .cell:nth-child(3) svg *{ animation-delay:.3s; }
+  .js .sheet.in .cell:nth-child(4) svg *{ animation-delay:.45s; }
+  .js .sheet.in .cell:nth-child(5) svg *{ animation-delay:.6s; }
+  .js .sheet.in .cell:nth-child(6) svg *{ animation-delay:.75s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ── sections shared ── */
+  section{ padding-block:clamp(4rem, 9vh, 7rem); }
+  .sec-head{ margin-bottom:2.6rem; max-width:40rem; }
+  .sec-head h2{ font-size:clamp(1.7rem, 3vw, 2.5rem); font-weight:730; letter-spacing:-0.02em; line-height:1.1; }
+  .sec-head p{ color:var(--ink-soft); margin-top:.7rem; }
+
+  /* ── what's inside: varied rows ── */
+  .modules{ display:grid; gap:1.1rem; }
+  .mod{
+    display:grid; grid-template-columns:1fr 1fr; align-items:stretch;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .mod:nth-child(even){ direction:rtl; } .mod:nth-child(even) > *{ direction:ltr; }
+  .mod .txt{ padding:clamp(1.6rem, 3vw, 2.6rem); display:flex; flex-direction:column; justify-content:center; }
+  .mod .count{ font-size:.85rem; font-weight:700; color:var(--clay); }
+  .mod h3{ font-size:clamp(1.25rem, 2vw, 1.6rem); font-weight:720; letter-spacing:-0.015em; margin-top:.4rem; }
+  .mod p{ color:var(--ink-soft); font-size:.95rem; margin-top:.6rem; max-width:44ch; }
+  .mod .fmt{ margin-top:1rem; font-size:.8rem; color:var(--ink-soft); }
+  .mod .fmt b{ color:var(--ink); font-weight:600; }
+  .mod .vis{ position:relative; min-height:240px; background:var(--paper); }
+  .mod .vis img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+  /* module 1: mini block wall */
+  .vis.blocks-vis{ display:grid; grid-template-columns:repeat(4,1fr); border-left:1px solid var(--line); }
+  .vis.blocks-vis .cell{ padding:18%; }
+  /* module 3: deck slides */
+  .vis.deck-vis{ display:grid; place-items:center; background:var(--clay-deep); }
+  .slide{
+    width:62%; aspect-ratio:16/10; background:var(--sheet); border-radius:6px;
+    box-shadow:0 16px 40px oklch(0% 0 0/.35); position:relative; padding:7% 8%;
+  }
+  .slide::before{ content:""; position:absolute; left:8%; top:24%; width:44%; height:9px; border-radius:4px; background:var(--ink); box-shadow:0 16px 0 -2px var(--line), 0 28px 0 -2px var(--line); }
+  .slide::after{ content:""; position:absolute; right:8%; bottom:12%; width:26%; aspect-ratio:1; border-radius:6px; background:var(--clay); }
+  .slide.back{ position:absolute; transform:rotate(-5deg) translate(-14%, 8%); opacity:.55; }
+
+  /* ── bundle block ── */
+  .bundle{ background:var(--surface); border-block:1px solid var(--line); }
+  .bundle-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.5rem, 5vw, 5rem); align-items:center; }
+  .boards{ position:relative; height:440px; }
+  .board{
+    position:absolute; width:64%; aspect-ratio:4/3; border-radius:8px; overflow:hidden;
+    box-shadow:0 24px 60px oklch(26% 0.025 40 / .3);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .board img{ width:100%; height:100%; object-fit:cover; }
+  .board .strip{
+    position:absolute; left:0; right:0; bottom:0; padding:.5rem .8rem;
+    background:oklch(98.5% 0.003 55 / .92); color:var(--ink);
+    font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; display:flex; justify-content:space-between;
+  }
+  .board:nth-child(1){ left:0; top:6%; transform:rotate(-4deg); z-index:1; }
+  .board:nth-child(2){ right:0; top:26%; transform:rotate(3deg); z-index:2; }
+  .board:nth-child(3){ left:12%; bottom:0; transform:rotate(-1deg); z-index:3; }
+  .board:hover{ transform:rotate(0) translateY(-8px); z-index:5; }
+  .kicker{
+    display:inline-block; font-size:.8rem; font-weight:700;
+    background:var(--clay); color:oklch(98% 0.005 55); padding:.35rem .8rem; border-radius:999px;
+    margin-bottom:1.2rem;
+  }
+  .bundle-copy h2{ font-size:clamp(1.9rem, 3.4vw, 2.8rem); font-weight:750; letter-spacing:-0.02em; line-height:1.08; }
+  .bundle-copy .sub{ margin-top:.9rem; color:var(--ink-soft); }
+  .includes{ list-style:none; margin-top:1.6rem; display:grid; gap:.75rem; }
+  .includes li{ display:flex; gap:.8rem; align-items:start; font-size:1rem; }
+  .includes .tick{
+    flex-shrink:0; width:1.35rem; height:1.35rem; border-radius:50%;
+    background:var(--clay); display:grid; place-items:center; margin-top:.12rem;
+  }
+  .includes .tick::before{
+    content:""; width:.55rem; height:.32rem;
+    border-left:2.2px solid oklch(98% 0.005 55); border-bottom:2.2px solid oklch(98% 0.005 55);
+    transform:rotate(-45deg) translateY(-1px);
+  }
+  .bundle-cta{ margin-top:2rem; display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; }
+  .bundle-cta .note{ font-size:.85rem; color:var(--ink-soft); max-width:24ch; }
+
+  /* ── strip ── */
+  .strip .row{ display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(1.5rem, 4vw, 3.5rem); }
+  .strip .cell2 h3{ font-size:1.05rem; font-weight:700; display:flex; align-items:center; gap:.6rem; }
+  .strip .cell2 h3::before{ content:""; width:.55rem; height:.55rem; background:var(--clay); border-radius:2px; }
+  .strip .cell2 p{ font-size:.92rem; color:var(--ink-soft); margin-top:.5rem; max-width:34ch; }
+
+  /* ── band ── */
+  .band{ background:var(--clay-deep); color:var(--on-clay); }
+  .band-inner{ display:grid; grid-template-columns:1.2fr 1fr; gap:3rem; align-items:center; }
+  .band h2{ font-size:clamp(1.8rem, 3.2vw, 2.6rem); font-weight:750; letter-spacing:-0.02em; line-height:1.1; }
+  .band p{ margin-top:.8rem; color:var(--on-clay-muted); max-width:36rem; }
+  .band form{ display:flex; gap:.7rem; }
+  .band input{
+    flex:1; min-width:0; font:inherit; font-size:.95rem;
+    padding:.85rem 1.2rem; border-radius:999px;
+    border:1.5px solid oklch(96% 0.015 55 / .35); background:oklch(96% 0.015 55 / .1);
+    color:var(--on-clay);
+  }
+  .band input::placeholder{ color:var(--on-clay-muted); }
+  .band input:focus{ outline:2px solid var(--on-clay); outline-offset:1px; }
+  .band .btn{ background:var(--on-clay); color:var(--clay-deep); }
+  .band .fine{ font-size:.78rem; margin-top:.7rem; color:var(--on-clay-muted); }
+
+  /* ── footer ── */
+  footer{ background:oklch(22% 0.02 40); color:oklch(75% 0.02 45); padding-block:3.5rem 2.5rem; font-size:.9rem; }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.5rem; }
+  .foot-grid h4{ color:var(--on-clay); font-size:.85rem; font-weight:700; margin-bottom:.9rem; letter-spacing:.03em; }
+  .foot-grid ul{ list-style:none; display:grid; gap:.55rem; }
+  .foot-grid a:hover{ color:var(--on-clay); }
+  .foot-note{ margin-top:3rem; padding-top:1.5rem; border-top:1px solid oklch(96% 0.015 55 / .12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.8rem; }
+
+  /* ── cart ── */
+  .cart{
+    position:relative; display:inline-flex; align-items:center; justify-content:center;
+    width:2.5rem; height:2.5rem; border-radius:999px;
+    border:1.5px solid oklch(96% 0.015 55 / .4); transition:border-color .2s;
+  }
+  .cart:hover{ border-color:oklch(96% 0.015 55 / .85); }
+  .cart svg{ width:1.15rem; height:1.15rem; stroke:var(--on-clay); fill:none; stroke-width:1.8; }
+  .cart-count{
+    position:absolute; top:-0.3rem; right:-0.3rem;
+    min-width:1.15rem; height:1.15rem; padding-inline:.25rem;
+    border-radius:999px; background:var(--clay); color:oklch(98% 0.005 55);
+    font-size:.68rem; font-weight:750; display:grid; place-items:center;
+    transition:transform .25s cubic-bezier(.22,1,.36,1);
+  }
+  .cart-count.bump{ transform:scale(1.3); }
+  .btn.added{ background:oklch(45% 0.09 145); color:#fff; }
+
+  /* ── value stack ── */
+  .worth{
+    margin-top:1.4rem; border:1px solid var(--line); border-radius:12px; background:var(--paper);
+    padding:1rem 1.2rem; max-width:27rem; font-variant-numeric:tabular-nums;
+  }
+  .worth .row{
+    display:flex; justify-content:space-between; gap:1rem; align-items:baseline;
+    padding:.42rem 0; font-size:.93rem; border-bottom:1px dashed var(--line);
+  }
+  .worth .row s{ color:var(--ink-soft); text-decoration-thickness:1.5px; }
+  .worth .row.total{ font-weight:650; border-bottom:none; }
+  .worth .row.pay{
+    border-bottom:none; padding-top:.6rem; margin-top:.2rem;
+    border-top:2px solid var(--ink); font-size:1.05rem; font-weight:700;
+  }
+  .worth .row.pay .save{
+    font-size:.78rem; font-weight:750; background:var(--clay); color:oklch(98% 0.005 55);
+    padding:.2rem .6rem; border-radius:999px;
+  }
+
+  /* ── launch spots ── */
+  .spots{ margin-top:1.2rem; max-width:27rem; }
+  .spots .bar{ height:.5rem; border-radius:999px; background:var(--line); overflow:hidden; }
+  .spots .bar i{ display:block; height:100%; border-radius:999px; background:var(--clay); }
+  .spots span{ display:block; margin-top:.5rem; font-size:.82rem; color:var(--ink-soft); }
+  .spots span b{ color:var(--ink); font-weight:650; }
+  .hero .spots .bar{ background:oklch(96% 0.015 55 / .2); }
+  .hero .spots span{ color:var(--on-clay-muted); }
+  .hero .spots span b{ color:var(--on-clay); }
+
+  /* questionnaire visual */
+  .vis.q-vis{ background:var(--clay-deep); position:relative; }
+  .vis.q-vis::before{
+    content:"01 — What does a typical day at home look like?\A 02 — Rooms you'll actually live in most?\A 03 — Budget range you're comfortable with?\A 04 — Three homes you've admired, and why?";
+    white-space:pre; position:absolute; left:2rem; top:50%; transform:translateY(-50%);
+    font-size:.85rem; line-height:2.3; color:oklch(90% 0.02 55);
+  }
+
+  /* ── reveals ── */
+  .reveal{ opacity:1; transform:none; }
+  .js .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .js .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .js .reveal{ opacity:1; transform:none; transition:none; }
+    .js .cell svg *{ stroke-dasharray:none; stroke-dashoffset:0; animation:none !important; }
+    .btn, .board{ transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  @media (max-width: 940px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .sheet{ transform:none; max-width:520px; }
+    .mod, .mod:nth-child(even){ grid-template-columns:1fr; direction:ltr; }
+    .mod .vis{ min-height:220px; order:-1; }
+    .bundle-grid{ grid-template-columns:1fr; }
+    .boards{ height:380px; max-width:560px; margin-inline:auto; }
+    .band-inner{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 640px){
+    .nav nav{ display:none; }
+    .strip .row{ grid-template-columns:1fr; }
+    .band form{ flex-direction:column; }
+    .boards{ height:300px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+    <nav>
+      <a href="#inside">What's inside</a>
+      <a href="#bundle">The bundle</a>
+      <a href="#licence">Licence</a>
+    </nav>
+    <a class="btn small" href="#bundle">Get the bundle · ₹1,499</a>
+    <a class="cart" href="#bundle" aria-label="Go to bundle">
+      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="crumb reveal"><a href="/">All bundles</a> / <b>The Architecture Bundle</b> · Bundle № 02</p>
+      <h1 class="reveal" style="transition-delay:.05s">Stop redrawing the same chair.</h1>
+      <p class="lede reveal" style="transition-delay:.12s">
+        CAD blocks, SketchUp assets, moodboards, legal documentation and a
+        client-onboarding questionnaire kit — the working library of a
+        practice, assembled once, properly, so you never start from zero.
+      </p>
+      <div class="hero-cta reveal" style="transition-delay:.2s">
+        <button class="btn" data-buy="architecture">Get the bundle · ₹1,499</button>
+        <a class="btn ghost" href="#inside">See what's inside</a>
+      </div>
+      <div class="hero-proof reveal" style="transition-delay:.28s">
+        <span><strong>2,000+</strong> CAD blocks</span>
+        <span><strong>300+</strong> SketchUp assets</span>
+        <span><strong>40</strong> moodboards</span>
+        <span><strong>25+</strong> legal templates</span>
+        <span><strong>Full</strong> onboarding kit</span>
+      </div>
+    </div>
+
+    <div class="sheet reveal" aria-hidden="true">
+      <div class="blocks">
+        <div class="cell"><svg viewBox="0 0 100 100"><rect x="25" y="30" width="50" height="42" rx="6"/><rect x="20" y="22" width="60" height="12" rx="5"/><line x1="32" y1="72" x2="32" y2="82"/><line x1="68" y1="72" x2="68" y2="82"/></svg><span class="name">Chair 01</span></div>
+        <div class="cell"><svg viewBox="0 0 100 100"><rect x="12" y="30" width="76" height="40" rx="8"/><line x1="37" y1="30" x2="37" y2="70"/><line x1="63" y1="30" x2="63" y2="70"/><rect x="12" y="22" width="76" height="10" rx="5"/></svg><span class="name">Sofa 3-seat</span></div>
+        <div class="cell"><svg viewBox="0 0 100 100"><line x1="20" y1="80" x2="80" y2="80"/><line x1="22" y1="80" x2="22" y2="24"/><path d="M22 24 A 56 56 0 0 1 78 80"/></svg><span class="name">Door 900</span></div>
+        <div class="cell"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4"/><line x1="50" y1="20" x2="50" y2="10"/><line x1="80" y1="50" x2="90" y2="50"/><line x1="50" y1="80" x2="50" y2="90"/><line x1="20" y1="50" x2="10" y2="50"/><line x1="71" y1="29" x2="78" y2="22"/><line x1="29" y1="71" x2="22" y2="78"/><line x1="71" y1="71" x2="78" y2="78"/><line x1="29" y1="29" x2="22" y2="22"/></svg><span class="name">Tree plan</span></div>
+        <div class="cell"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="24"/><rect x="40" y="12" width="20" height="14" rx="4"/><rect x="40" y="74" width="20" height="14" rx="4"/><rect x="12" y="40" width="14" height="20" rx="4"/><rect x="74" y="40" width="14" height="20" rx="4"/></svg><span class="name">Dining Ø1200</span></div>
+        <div class="cell"><svg viewBox="0 0 100 100"><rect x="24" y="16" width="52" height="68" rx="4"/><rect x="30" y="22" width="18" height="14" rx="3"/><rect x="52" y="22" width="18" height="14" rx="3"/><line x1="24" y1="44" x2="76" y2="44"/></svg><span class="name">Bed queen</span></div>
+      </div>
+      <div class="titleblock">
+        <span><b>Digital Asset Lab</b> · Block Library</span>
+        <span>Sheet A-101 · 1:50</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="inside">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Five libraries, one bundle</h2>
+      <p>Everything around the actual design work: the blocks you place, the models you populate, the boards that set the mood, the paperwork that protects you, and the questions that win the client.</p>
+    </div>
+    <div class="modules">
+      <div class="mod reveal">
+        <div class="txt">
+          <span class="count">2,000+ blocks</span>
+          <h3>The CAD block library</h3>
+          <p>Furniture, sanitary fixtures, doors and windows, vehicles, trees, and scale figures, in plan and elevation. Layered, purged, and drawn to Indian standard sizes.</p>
+          <p class="fmt">Formats: <b>DWG · DXF</b></p>
+        </div>
+        <div class="vis blocks-vis" aria-hidden="true">
+          <div class="cell"><svg viewBox="0 0 100 100"><rect x="25" y="30" width="50" height="42" rx="6"/><rect x="20" y="22" width="60" height="12" rx="5"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><line x1="20" y1="80" x2="80" y2="80"/><line x1="22" y1="80" x2="22" y2="24"/><path d="M22 24 A 56 56 0 0 1 78 80"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4"/><line x1="71" y1="29" x2="78" y2="22"/><line x1="29" y1="71" x2="22" y2="78"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><rect x="24" y="16" width="52" height="68" rx="4"/><line x1="24" y1="44" x2="76" y2="44"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><rect x="12" y="30" width="76" height="40" rx="8"/><line x1="37" y1="30" x2="37" y2="70"/><line x1="63" y1="30" x2="63" y2="70"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="24"/><rect x="40" y="12" width="20" height="14" rx="4"/><rect x="40" y="74" width="20" height="14" rx="4"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="4"/><line x1="20" y1="35" x2="80" y2="35"/><line x1="35" y1="35" x2="35" y2="80"/></svg></div>
+          <div class="cell"><svg viewBox="0 0 100 100"><ellipse cx="50" cy="42" rx="22" ry="16"/><rect x="34" y="62" width="32" height="20" rx="6"/></svg></div>
+        </div>
+      </div>
+
+      <div class="mod reveal">
+        <div class="txt">
+          <span class="count">300+ models</span>
+          <h3>SketchUp asset library</h3>
+          <p>Furniture, lighting, entourage and material-ready models, cleaned and low-poly so your file stays fast. Populate a scene in minutes, not evenings.</p>
+          <p class="fmt">Formats: <b>SKP · 3D Warehouse-compatible</b></p>
+        </div>
+        <div class="vis" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=900&q=70" alt="">
+        </div>
+      </div>
+
+      <div class="mod reveal">
+        <div class="txt">
+          <span class="count">40 templates</span>
+          <h3>Moodboard templates</h3>
+          <p>Material palettes, concept boards and client-facing mood decks with real architectural grids. Set the project's direction before a single drawing exists.</p>
+          <p class="fmt">Formats: <b>InDesign · Photoshop · Canva</b></p>
+        </div>
+        <div class="vis" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=70" alt="">
+        </div>
+      </div>
+
+      <div class="mod reveal">
+        <div class="txt">
+          <span class="count">25+ documents</span>
+          <h3>Legal documentation pack</h3>
+          <p>Client agreements, fee proposals, scope-of-work letters, payment schedules and site handover formats drafted for Indian practice. The paperwork that protects your fee.</p>
+          <p class="fmt">Formats: <b>Word · PDF</b> · review with your advocate before use</p>
+        </div>
+        <div class="vis deck-vis" aria-hidden="true">
+          <div class="slide back"></div>
+          <div class="slide"></div>
+        </div>
+      </div>
+
+      <div class="mod reveal">
+        <div class="txt">
+          <span class="count">Complete kit</span>
+          <h3>Client onboarding questionnaires</h3>
+          <p>Design-brief questionnaires, site checklists and lifestyle interviews that make you look organised from the first meeting — and surface the budget conversation early.</p>
+          <p class="fmt">Formats: <b>PDF · Google Forms · Notion</b></p>
+        </div>
+        <div class="vis q-vis" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bundle" id="bundle">
+  <div class="wrap bundle-grid">
+    <div class="boards reveal" aria-hidden="true">
+      <div class="board"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=70" alt=""><span class="strip"><span>Board 04 · Residence</span><span>A1</span></span></div>
+      <div class="board"><img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=800&q=70" alt=""><span class="strip"><span>Board 11 · Facade study</span><span>A1</span></span></div>
+      <div class="board"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=800&q=70" alt=""><span class="strip"><span>Board 17 · Interior</span><span>A0</span></span></div>
+    </div>
+    <div class="bundle-copy">
+      <span class="kicker reveal">Launch price · first 100 buyers only</span>
+      <h2 class="reveal">The Architecture Bundle</h2>
+      <p class="sub reveal">The working library of a practice, priced at less than one site visit. Buy once, own forever, commercial licence included.</p>
+      <div class="worth reveal" aria-label="What this bundle is worth">
+        <div class="row"><span>2,000+ CAD blocks, layered and purged</span><s>₹1,999</s></div>
+        <div class="row"><span>300+ SketchUp models, cleaned &amp; low-poly</span><s>₹1,999</s></div>
+        <div class="row"><span>40 moodboard &amp; concept templates</span><s>₹999</s></div>
+        <div class="row"><span>25+ legal documents for Indian practice</span><s>₹2,499</s></div>
+        <div class="row"><span>Client onboarding questionnaire kit</span><s>₹699</s></div>
+        <div class="row total"><span>Total value</span><s>₹8,195</s></div>
+        <div class="row pay"><span>Today</span><span>₹1,499 <span class="save">You save 82%</span></span></div>
+      </div>
+      <div class="bundle-cta reveal">
+        <button class="btn dark" data-buy="architecture">Get instant access · ₹1,499</button>
+        <span class="note">Instant delivery · lifetime updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" id="licence">
+  <div class="wrap">
+    <div class="row reveal">
+      <div class="cell2">
+        <h3>Commercial licence, plainly</h3>
+        <p>Use everything in client projects, competition entries and built work. No attribution, no per-project fees.</p>
+      </div>
+      <div class="cell2">
+        <h3>Drawn by an architect</h3>
+        <p>Made in a working Chennai practice, not scraped from forums. Blocks follow Indian standard sizes and real drawing conventions.</p>
+      </div>
+      <div class="cell2">
+        <h3>Student-friendly</h3>
+        <p>Priced for thesis season. One purchase covers your whole degree, and the firm you join after it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="waitlist">
+  <div class="wrap band-inner">
+    <div class="reveal">
+      <h2>100 launch spots. Then the price goes up.</h2>
+      <p>₹1,499 is the lowest this bundle will ever be — and everything added to it later arrives free for early buyers. That's the whole pitch.</p>
+    </div>
+    <div class="reveal" style="justify-self:start">
+      <button class="btn" data-buy="architecture" style="font-size:1.05rem; padding:.9rem 1.7rem">Get instant access · ₹1,499</button>
+      <p class="fine">Instant delivery · secure UPI &amp; card checkout · full commercial licence</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="#" style="color:var(--on-clay)"><span class="dot"></span>Digital Asset Lab</a>
+        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for creators, marketers and small businesses in India and beyond.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul><li><a href="#">Instagram Reels Bundle</a></li><li><a href="#">The Architecture Bundle</a></li><li><a href="#">Upcoming bundles</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of service</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Licence terms</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Digital Asset Lab. All rights reserved.</span>
+      <a href="https://www.instagram.com/digitalasset.lab/" rel="noopener">Instagram · @digitalasset.lab</a>
+      <span>Made in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .sheet').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.reveal:not(.in), .sheet:not(.in)').forEach(el => el.classList.add('in')), 1800);
+</script>
+<script src="/checkout.js" defer></script>
+</body>
+</html>

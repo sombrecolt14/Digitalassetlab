@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order confirmed — Digital Asset Lab</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(23% 0.015 265);
+    --ink-soft: oklch(42% 0.015 265);
+    --paper: oklch(96.5% 0.004 250);
+    --pop: oklch(87% 0.185 132);
+    --line: oklch(88% 0.008 255);
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:"Bricolage Grotesque", system-ui, sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.6;
+    min-height:100vh; display:grid; place-items:center; padding:1.5rem;
+  }
+  main{ max-width:34rem; text-align:center; }
+  .tick{
+    width:4rem; height:4rem; border-radius:50%; background:var(--pop);
+    display:grid; place-items:center; margin:0 auto 1.5rem;
+  }
+  .tick::before{
+    content:""; width:1.4rem; height:.8rem;
+    border-left:4px solid var(--ink); border-bottom:4px solid var(--ink);
+    transform:rotate(-45deg) translateY(-2px);
+  }
+  h1{ font-size:clamp(1.8rem, 5vw, 2.6rem); font-weight:750; letter-spacing:-0.02em; text-wrap:balance; }
+  p{ color:var(--ink-soft); margin-top:1rem; text-wrap:pretty; }
+  .pid{ margin-top:1.4rem; font-size:.85rem; color:var(--ink-soft); background:#fff; border:1px solid var(--line); border-radius:10px; padding:.7rem 1rem; display:inline-block; font-variant-numeric:tabular-nums; }
+  a.home{
+    display:inline-block; margin-top:2rem; font-weight:600;
+    background:var(--ink); color:var(--paper); padding:.75rem 1.4rem; border-radius:999px; text-decoration:none;
+  }
+  .fine{ font-size:.82rem; margin-top:1.6rem; }
+  .fine a{ color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+  <div class="tick" aria-hidden="true"></div>
+  <h1>Payment confirmed. Check your inbox.</h1>
+  <p>Your download link is on its way to the email you entered at checkout — it usually arrives within two minutes. If it's not there, check spam and promotions.</p>
+  <p class="pid" id="pid" hidden></p>
+  <a class="home" href="/">Back to Digital Asset Lab</a>
+  <p class="fine">Didn't get the email in 10 minutes? Write to <a href="mailto:support@digitalassetlab.in">support@digitalassetlab.in</a> with your payment ID and we'll sort it out.</p>
+</main>
+<script>
+  const pid = new URLSearchParams(location.search).get("pid");
+  if (pid) {
+    const el = document.getElementById("pid");
+    el.textContent = "Payment ID: " + pid;
+    el.hidden = false;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Template Bundle — Original Editable Templates | Digital Asset Lab</title>
+<meta name="description" content="6,200+ original, editable short-video templates for creators and businesses. Works with CapCut, Premiere Pro, After Effects and Final Cut Pro. Instant download with full commercial licence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(26% 0.055 145);          /* deep forest */
+    --ink-soft: oklch(38% 0.05 145);
+    --ground: oklch(97.5% 0.004 120);     /* warm off-white, near-zero chroma */
+    --surface: oklch(100% 0 0);
+    --lime: oklch(87% 0.185 132);         /* the brand lime, used sparingly */
+    --lime-deep: oklch(78% 0.17 132);
+    --hero-ink: oklch(21% 0.05 148);      /* hero drench */
+    --hero-ink-2: oklch(25% 0.055 148);
+    --on-hero: oklch(96% 0.02 130);
+    --on-hero-muted: oklch(82% 0.04 135);
+    --line: oklch(88% 0.01 140);
+    --radius: 14px;
+    font-size: 16px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"Bricolage Grotesque", system-ui, sans-serif;
+    background:var(--ground);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ text-wrap:balance; font-variation-settings:"opsz" 96; }
+  p{ text-wrap:pretty; }
+  .wrap{ width:min(1180px, calc(100% - 2 * clamp(20px, 4vw, 48px))); margin-inline:auto; }
+
+  /* ───────── nav ───────── */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in oklab, var(--hero-ink) 92%, transparent);
+    backdrop-filter:blur(10px);
+  }
+  .nav{ display:flex; align-items:center; gap:2rem; padding:0.9rem 0; color:var(--on-hero); }
+  .wordmark{ font-weight:700; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
+  .wordmark .dot{ width:.65rem; height:.65rem; border-radius:2px; background:var(--lime); display:inline-block; }
+  .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
+  .nav nav a{ opacity:.85; transition:opacity .2s; } .nav nav a:hover{ opacity:1; }
+  .btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:var(--lime); color:var(--ink);
+    font-weight:600; font-size:.95rem;
+    padding:.7rem 1.25rem; border-radius:999px; border:none; cursor:pointer;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 8px 24px oklch(87% 0.185 132 / .35); }
+  .btn.small{ padding:.55rem 1.05rem; font-size:.88rem; }
+  .btn.ghost{ background:transparent; color:var(--on-hero); border:1px solid oklch(96% 0.02 130 / .35); }
+  .btn.ghost:hover{ box-shadow:none; border-color:oklch(96% 0.02 130 / .7); }
+  .btn.dark{ background:var(--ink); color:var(--ground); }
+  .btn.dark:hover{ box-shadow:0 8px 24px oklch(26% 0.055 145 / .3); }
+
+  /* ───────── hero ───────── */
+  .hero{
+    background:linear-gradient(175deg, var(--hero-ink) 62%, var(--hero-ink-2));
+    color:var(--on-hero);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.05fr .95fr;
+    gap:clamp(2rem, 5vw, 4.5rem);
+    align-items:center;
+    padding-block: clamp(3rem, 7vh, 5.5rem) 0;
+    min-height: min(88vh, 780px);
+  }
+  .hero h1{
+    font-size:clamp(2.5rem, 5.2vw, 4.4rem);
+    line-height:1.04;
+    font-weight:750;
+    letter-spacing:-0.025em;
+  }
+  .hero h1 em{ font-style:normal; color:var(--lime); }
+  .hero .lede{
+    margin-top:1.4rem; max-width:34rem;
+    font-size:clamp(1rem, 1.35vw, 1.15rem);
+    color:var(--on-hero-muted); line-height:1.65;
+  }
+  .hero-cta{ display:flex; gap:.9rem; margin-top:2.2rem; flex-wrap:wrap; }
+  .hero-proof{
+    margin-top:2.6rem; display:flex; gap:1.8rem; flex-wrap:wrap;
+    font-size:.9rem; color:var(--on-hero-muted);
+  }
+  .hero-proof strong{ color:var(--on-hero); font-weight:650; }
+  .hero-proof span{ display:flex; align-items:baseline; gap:.45rem; }
+
+  /* reel columns */
+  .reel-wall{
+    display:flex; gap:1rem; height:min(88vh, 780px);
+    mask-image:linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+    -webkit-mask-image:linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  }
+  .reel-col{ display:flex; flex-direction:column; gap:1rem; animation:scrollUp 36s linear infinite; }
+  .reel-col.down{ animation-name:scrollDown; animation-duration:42s; }
+  .reel-col.slow{ animation-duration:50s; }
+  @keyframes scrollUp{ from{ transform:translateY(0);} to{ transform:translateY(-50%);} }
+  @keyframes scrollDown{ from{ transform:translateY(-50%);} to{ transform:translateY(0);} }
+
+  .reel{
+    position:relative; width:clamp(130px, 12vw, 172px); aspect-ratio:9/16;
+    border-radius:16px; overflow:hidden; flex-shrink:0;
+    background:var(--hero-ink-2);
+    box-shadow:0 10px 30px oklch(0% 0 0 / .35);
+  }
+  .reel img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .reel::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(to top, oklch(0% 0 0 / .72), oklch(0% 0 0 / 0) 55%);
+  }
+  .reel .tag{
+    position:absolute; top:.7rem; left:.7rem; z-index:2;
+    font-size:.58rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    background:oklch(0% 0 0 / .45); color:#fff; backdrop-filter:blur(4px);
+    padding:.25rem .55rem; border-radius:999px;
+  }
+  .reel .cover{
+    position:absolute; bottom:.85rem; left:.8rem; right:.8rem; z-index:2;
+    color:#fff; font-weight:750; line-height:1.08; letter-spacing:-0.01em;
+    font-size:clamp(.85rem, 1vw, 1rem);
+  }
+  .reel .cover small{ display:block; font-weight:450; font-size:.62rem; opacity:.85; margin-top:.3rem; letter-spacing:.02em; }
+  .reel .play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
+    width:2rem; height:2rem; border-radius:50%;
+    background:oklch(100% 0 0 / .22); backdrop-filter:blur(3px);
+    display:grid; place-items:center;
+  }
+  .reel .play::before{
+    content:""; border-style:solid; border-width:.32rem 0 .32rem .55rem;
+    border-color:transparent transparent transparent #fff; margin-left:.1rem;
+  }
+
+  /* ───────── sections shared ───────── */
+  section{ padding-block:clamp(4rem, 9vh, 7rem); }
+  .sec-head{ display:flex; align-items:end; justify-content:space-between; gap:2rem; margin-bottom:2.6rem; }
+  .sec-head h2{ font-size:clamp(1.7rem, 3vw, 2.5rem); font-weight:720; letter-spacing:-0.02em; line-height:1.1; }
+  .sec-head p{ color:var(--ink-soft); max-width:30rem; }
+  .sec-link{ font-weight:600; font-size:.95rem; white-space:nowrap; border-bottom:2px solid var(--lime); padding-bottom:.15rem; }
+
+  /* ───────── category shelf ───────── */
+  .shelf{ display:grid; grid-template-columns:repeat(12, 1fr); gap:1.1rem; }
+  .cat{
+    border-radius:var(--radius); overflow:hidden; position:relative;
+    background:var(--surface); border:1px solid var(--line);
+    transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+    display:flex; flex-direction:column;
+  }
+  .cat:hover{ transform:translateY(-4px); box-shadow:0 16px 40px oklch(26% 0.055 145 / .12); }
+  .cat.live{ grid-column:span 6; grid-row:span 2; }
+  .cat.lab{ grid-column:span 6; flex-direction:row; align-items:center; }
+  .cat .thumb{ position:relative; aspect-ratio:16/9; overflow:hidden; }
+  .cat.live .thumb{ aspect-ratio:auto; flex:1; min-height:260px; }
+  .cat .thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.22,1,.36,1); }
+  .cat:hover .thumb img{ transform:scale(1.04); }
+  .cat .body{ padding:1.3rem 1.4rem 1.4rem; }
+  .cat h3{ font-size:1.15rem; font-weight:700; letter-spacing:-0.01em; }
+  .cat p{ font-size:.92rem; color:var(--ink-soft); margin-top:.35rem; max-width:38ch; }
+  .cat .meta{ display:flex; align-items:center; gap:.7rem; margin-top:.9rem; font-size:.85rem; font-weight:600; }
+  .chip{
+    font-size:.72rem; font-weight:700; letter-spacing:.04em;
+    padding:.3rem .7rem; border-radius:999px;
+  }
+  .chip.live-chip{ background:var(--lime); color:var(--ink); }
+  .chip.lab-chip{ background:oklch(94% 0.01 140); color:var(--ink-soft); border:1px solid var(--line); }
+  .cat.lab .thumb{ width:130px; aspect-ratio:1; flex-shrink:0; align-self:stretch; }
+  .cat.lab .thumb img{ height:100%; }
+  .cat.lab .body{ padding:1.1rem 1.3rem; }
+  .cat.lab h3{ font-size:1.02rem; }
+  .cat.lab p{ font-size:.86rem; }
+  .notify{ font-size:.85rem; font-weight:600; color:var(--ink); border-bottom:1.5px solid var(--lime); }
+
+  /* ───────── featured bundle ───────── */
+  .bundle{ background:var(--surface); border-block:1px solid var(--line); }
+  .bundle-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.5rem, 5vw, 5rem); align-items:center; }
+  .fan{ position:relative; height:480px; }
+  .fan .reel{ position:absolute; width:190px; box-shadow:0 24px 60px oklch(26% 0.055 145 / .25); }
+  .fan .reel:nth-child(1){ left:4%;  top:10%; transform:rotate(-7deg); z-index:1; }
+  .fan .reel:nth-child(2){ left:30%; top:2%;  transform:rotate(-1deg); z-index:2; }
+  .fan .reel:nth-child(3){ left:56%; top:12%; transform:rotate(6deg);  z-index:3; }
+  .fan .reel{ transition:transform .35s cubic-bezier(.22,1,.36,1); }
+  .fan .reel:hover{ transform:rotate(0) translateY(-10px) scale(1.03); z-index:5; }
+  .bundle-copy .kicker{
+    display:inline-block; font-size:.8rem; font-weight:700;
+    background:var(--lime); color:var(--ink); padding:.35rem .8rem; border-radius:999px;
+    margin-bottom:1.2rem;
+  }
+  .bundle-copy h2{ font-size:clamp(1.9rem, 3.4vw, 2.8rem); font-weight:750; letter-spacing:-0.02em; line-height:1.08; }
+  .price-row{ display:flex; align-items:baseline; gap:.9rem; margin-top:1.4rem; }
+  .price-row .price{ font-size:2.6rem; font-weight:780; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
+  .price-row .was{ color:var(--ink-soft); text-decoration:line-through; font-size:1.1rem; }
+  .price-row .note{ font-size:.85rem; color:var(--ink-soft); }
+  .includes{ list-style:none; margin-top:1.6rem; display:grid; gap:.75rem; }
+  .includes li{ display:flex; gap:.8rem; align-items:start; font-size:1rem; }
+  .includes .tick{
+    flex-shrink:0; width:1.35rem; height:1.35rem; border-radius:50%;
+    background:var(--lime); display:grid; place-items:center; margin-top:.12rem;
+  }
+  .includes .tick::before{
+    content:""; width:.55rem; height:.32rem;
+    border-left:2.2px solid var(--ink); border-bottom:2.2px solid var(--ink);
+    transform:rotate(-45deg) translateY(-1px);
+  }
+  .bundle-cta{ margin-top:2rem; display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; }
+  .bundle-cta .sub{ font-size:.85rem; color:var(--ink-soft); }
+
+  /* ───────── licence strip ───────── */
+  .strip .row{
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    gap:clamp(1.5rem, 4vw, 3.5rem);
+  }
+  .strip .cell h3{ font-size:1.05rem; font-weight:700; display:flex; align-items:center; gap:.6rem; }
+  .strip .cell h3::before{ content:""; width:.55rem; height:.55rem; background:var(--lime); border-radius:2px; }
+  .strip .cell p{ font-size:.92rem; color:var(--ink-soft); margin-top:.5rem; max-width:34ch; }
+
+  /* ───────── sample band ───────── */
+  .band{ background:var(--lime); color:var(--ink); }
+  .band-inner{ display:grid; grid-template-columns:1.2fr 1fr; gap:3rem; align-items:center; }
+  .band h2{ font-size:clamp(1.8rem, 3.2vw, 2.6rem); font-weight:750; letter-spacing:-0.02em; line-height:1.1; }
+  .band p{ margin-top:.8rem; color:oklch(32% 0.06 140); max-width:36rem; }
+  .band form{ display:flex; gap:.7rem; }
+  .band input{
+    flex:1; min-width:0; font:inherit; font-size:.95rem;
+    padding:.85rem 1.2rem; border-radius:999px;
+    border:1.5px solid oklch(32% 0.06 140 / .35); background:oklch(100% 0 0 / .55);
+    color:var(--ink);
+  }
+  .band input::placeholder{ color:oklch(35% 0.05 140 / .8); }
+  .band input:focus{ outline:2px solid var(--ink); outline-offset:1px; }
+  .band .fine{ font-size:.78rem; margin-top:.7rem; color:oklch(35% 0.05 140); }
+
+  /* ───────── footer ───────── */
+  footer{ background:var(--hero-ink); color:var(--on-hero-muted); padding-block:3.5rem 2.5rem; font-size:.9rem; }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.5rem; }
+  .foot-grid h4{ color:var(--on-hero); font-size:.85rem; font-weight:700; margin-bottom:.9rem; letter-spacing:.03em; }
+  .foot-grid ul{ list-style:none; display:grid; gap:.55rem; }
+  .foot-grid a:hover{ color:var(--on-hero); }
+  .foot-note{ margin-top:3rem; padding-top:1.5rem; border-top:1px solid oklch(96% 0.02 130 / .12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.8rem; }
+
+  /* ───────── cart ───────── */
+  .cart{
+    position:relative; display:inline-flex; align-items:center; justify-content:center;
+    width:2.5rem; height:2.5rem; border-radius:999px;
+    border:1.5px solid oklch(96% 0.02 130 / .35); transition:border-color .2s;
+  }
+  .cart:hover{ border-color:oklch(96% 0.02 130 / .8); }
+  .cart svg{ width:1.15rem; height:1.15rem; stroke:var(--on-hero); fill:none; stroke-width:1.8; }
+  .cart-count{
+    position:absolute; top:-0.3rem; right:-0.3rem;
+    min-width:1.15rem; height:1.15rem; padding-inline:.25rem;
+    border-radius:999px; background:var(--lime); color:var(--ink);
+    font-size:.68rem; font-weight:750; display:grid; place-items:center;
+    transition:transform .25s cubic-bezier(.22,1,.36,1);
+  }
+  .cart-count.bump{ transform:scale(1.3); }
+  .btn.added{ background:oklch(45% 0.1 148); color:#fff; }
+
+  /* ───────── value stack ───────── */
+  .worth{
+    margin-top:1.4rem; border:1px solid var(--line); border-radius:12px; background:var(--ground);
+    padding:1rem 1.2rem; max-width:26rem; font-variant-numeric:tabular-nums;
+  }
+  .worth .row{
+    display:flex; justify-content:space-between; gap:1rem; align-items:baseline;
+    padding:.42rem 0; font-size:.93rem; border-bottom:1px dashed var(--line);
+  }
+  .worth .row s{ color:var(--ink-soft); text-decoration-thickness:1.5px; }
+  .worth .row.total{ font-weight:650; border-bottom:none; }
+  .worth .row.pay{
+    border-bottom:none; padding-top:.6rem; margin-top:.2rem;
+    border-top:2px solid var(--ink); font-size:1.05rem; font-weight:700;
+  }
+  .worth .row.pay .save{
+    font-size:.78rem; font-weight:750; background:var(--lime); color:var(--ink);
+    padding:.2rem .6rem; border-radius:999px;
+  }
+
+  /* ───────── launch spots ───────── */
+  .spots{ margin-top:1.2rem; max-width:26rem; }
+  .spots .bar{ height:.5rem; border-radius:999px; background:var(--line); overflow:hidden; }
+  .spots .bar i{ display:block; height:100%; border-radius:999px; background:var(--lime-deep); }
+  .spots span{ display:block; margin-top:.5rem; font-size:.82rem; color:var(--ink-soft); }
+  .spots span b{ color:var(--ink); font-weight:650; }
+
+  /* ───────── reveals ───────── */
+  .reveal{ opacity:1; transform:none; }
+  .js .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .js .reveal.in{ opacity:1; transform:none; }
+  .js .hero .reveal{ transition-duration:.9s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .reel-col{ animation:none; }
+    .js .reveal{ opacity:1; transform:none; transition:none; }
+    .btn, .cat, .fan .reel{ transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ───────── responsive ───────── */
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns:1fr; min-height:0; padding-bottom:0; }
+    .reel-wall{ height:420px; margin-inline:calc(-1 * clamp(20px, 4vw, 48px)); justify-content:center; }
+    .bundle-grid{ grid-template-columns:1fr; }
+    .fan{ height:400px; max-width:560px; margin-inline:auto; }
+    .fan .reel{ width:160px; }
+    .band-inner{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 720px){
+    .cat.live, .cat.lab{ grid-column:span 12; }
+    .strip .row{ grid-template-columns:1fr; }
+    .nav nav{ display:none; }
+    .fan{ height:340px; }
+    .fan .reel{ width:130px; }
+    .band form{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+    <nav>
+      <a href="#categories">Templates</a>
+      <a href="#bundle">Reels Bundle</a>
+      <a href="#licence">Licence</a>
+      <a href="#samples">Join the list</a>
+    </nav>
+    <a class="btn small" href="#bundle">Get the bundle</a>
+    <a class="cart" href="#bundle" aria-label="Go to bundle">
+      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="reveal">Your next post is <em>already designed.</em></h1>
+      <p class="lede reveal" style="transition-delay:.08s">
+        Digital Asset Lab makes ready-to-edit templates for creators, marketers,
+        and small businesses: reels today, business docs and marketing kits next.
+        Buy once, use commercially, keep every update.
+      </p>
+      <div class="hero-cta reveal" style="transition-delay:.16s">
+        <button class="btn" data-buy="reels">Get the bundle · ₹530</button>
+        <a class="btn ghost" href="#categories">See what's inside</a>
+      </div>
+      <div class="hero-proof reveal" style="transition-delay:.24s">
+        <span><strong>6,200+</strong> templates</span>
+        <span><strong>15+</strong> content niches</span>
+        <span><strong>Full</strong> commercial licence</span>
+        <span><strong>Instant</strong> delivery</span>
+      </div>
+    </div>
+
+    <div class="reel-wall" aria-hidden="true">
+      <div class="reel-col">
+        <!-- set A -->
+        <div class="reel"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Fashion</span><div class="cover">5 outfits<br>under ₹999<small>Template · Reel 042</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Food</span><div class="play"></div><div class="cover">Rate my<br>street food run<small>Template · Reel 118</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Product</span><div class="cover">Unboxing<br>done right<small>Template · Reel 260</small></div></div>
+        <!-- set A duplicate for seamless loop -->
+        <div class="reel"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Fashion</span><div class="cover">5 outfits<br>under ₹999<small>Template · Reel 042</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Food</span><div class="play"></div><div class="cover">Rate my<br>street food run<small>Template · Reel 118</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Product</span><div class="cover">Unboxing<br>done right<small>Template · Reel 260</small></div></div>
+      </div>
+      <div class="reel-col down">
+        <div class="reel"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Travel</span><div class="play"></div><div class="cover">48 hours<br>in Goa<small>Template · Reel 073</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Fitness</span><div class="cover">Beginner<br>gym myths<small>Template · Reel 194</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Style</span><div class="cover">Wardrobe<br>reset<small>Template · Reel 307</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Travel</span><div class="play"></div><div class="cover">48 hours<br>in Goa<small>Template · Reel 073</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Fitness</span><div class="cover">Beginner<br>gym myths<small>Template · Reel 194</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Style</span><div class="cover">Wardrobe<br>reset<small>Template · Reel 307</small></div></div>
+      </div>
+      <div class="reel-col slow">
+        <div class="reel"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Business</span><div class="cover">3 tools I use<br>every day<small>Template · Reel 021</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Beauty</span><div class="play"></div><div class="cover">5-minute<br>glow up<small>Template · Reel 155</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Creator</span><div class="cover">My camera<br>settings<small>Template · Reel 288</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Business</span><div class="cover">3 tools I use<br>every day<small>Template · Reel 021</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Beauty</span><div class="play"></div><div class="cover">5-minute<br>glow up<small>Template · Reel 155</small></div></div>
+        <div class="reel"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Creator</span><div class="cover">My camera<br>settings<small>Template · Reel 288</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="categories">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>Everything in the lab</h2>
+        <p>One category is live today. Three more are on the bench, and you'll hear the day each one ships.</p>
+      </div>
+      <a class="sec-link" href="#samples">Get notified →</a>
+    </div>
+    <div class="shelf">
+      <a class="cat live reveal" href="#bundle">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=70" alt="Creator filming a reel in a retail studio"></div>
+        <div class="body">
+          <h3>Instagram Reels templates</h3>
+          <p>6,200+ ready-to-post reel templates across fashion, travel, food and 12 more niches. Edit in the apps you already use.</p>
+          <div class="meta"><span class="chip live-chip">Available now</span><span>From ₹530</span></div>
+        </div>
+      </a>
+      <div class="cat lab reveal">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=70" alt="Business desk with documents"></div>
+        <div class="body">
+          <h3>Business templates</h3>
+          <p>Invoices, proposals and decks that look designed, not typed.</p>
+          <div class="meta"><span class="chip lab-chip">In the lab</span><a class="notify" href="#samples">Notify me</a></div>
+        </div>
+      </div>
+      <div class="cat lab reveal">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=70" alt="Design tools and camera on a desk"></div>
+        <div class="body">
+          <h3>Graphic design assets</h3>
+          <p>Icons, illustrations and backgrounds for everyday brand work.</p>
+          <div class="meta"><span class="chip lab-chip">In the lab</span><a class="notify" href="#samples">Notify me</a></div>
+        </div>
+      </div>
+      <div class="cat lab reveal">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=70" alt="Product photography setup"></div>
+        <div class="body">
+          <h3>Marketing resources</h3>
+          <p>Ad creatives, email templates and landing pages in one kit.</p>
+          <div class="meta"><span class="chip lab-chip">In the lab</span><a class="notify" href="#samples">Notify me</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bundle" id="bundle">
+  <div class="wrap bundle-grid">
+    <div class="fan reveal" aria-hidden="true">
+      <div class="reel"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Fashion</span><div class="cover">5 outfits<br>under ₹999<small>Template · Reel 042</small></div></div>
+      <div class="reel"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Travel</span><div class="play"></div><div class="cover">48 hours<br>in Goa<small>Template · Reel 073</small></div></div>
+      <div class="reel"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=70" alt=""><span class="tag">Food</span><div class="cover">Rate my<br>street food run<small>Template · Reel 118</small></div></div>
+    </div>
+    <div class="bundle-copy">
+      <span class="kicker reveal">Launch price · first 500 buyers only</span>
+      <h2 class="reveal">The Instagram Reels Bundle</h2>
+      <div class="price-row reveal">
+        <span class="price">₹530</span>
+        <span class="note">one-time · lifetime access · works with CapCut, Premiere Pro, After Effects &amp; Final Cut</span>
+      </div>
+      <div class="worth reveal" aria-label="What this bundle is worth">
+        <div class="row"><span>6,200+ reel templates · 15+ categories</span><s>₹3,999</s></div>
+        <div class="row"><span>500+ hook templates</span><s>₹499</s></div>
+        <div class="row"><span>300+ transitions pack</span><s>₹499</s></div>
+        <div class="row"><span>Viral strategy guide</span><s>₹299</s></div>
+        <div class="row total"><span>Total value</span><s>₹5,296</s></div>
+        <div class="row pay"><span>Today</span><span>₹530 <span class="save">You save 90%</span></span></div>
+      </div>
+      <div class="bundle-cta reveal">
+        <button class="btn dark" data-buy="reels">Get instant access · ₹530</button>
+        <span class="sub">Secure checkout · instant download · lifetime updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" id="licence">
+  <div class="wrap">
+    <div class="row reveal">
+      <div class="cell">
+        <h3>Commercial licence, plainly</h3>
+        <p>Use templates in client work, monetised accounts and paid campaigns. No per-project fees, no attribution.</p>
+      </div>
+      <div class="cell">
+        <h3>Instant, forever</h3>
+        <p>Files arrive the moment checkout clears. Every future addition to a bundle you own is free.</p>
+      </div>
+      <div class="cell">
+        <h3>Built for non-designers</h3>
+        <p>Works with CapCut (free), Premiere Pro, After Effects and Final Cut Pro. Perfect 9:16, quick to render, trending audio IDs included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="samples">
+  <div class="wrap band-inner">
+    <div class="reveal">
+      <h2>Hear it first.</h2>
+      <p>Join the list for first word on new categories leaving the lab, launch pricing before it goes up, and a vote on what we build next.</p>
+    </div>
+    <div class="reveal">
+      <form data-subscribe>
+        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="btn dark" type="submit">Join the list</button>
+      </form>
+      <p class="fine">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="#" style="color:var(--on-hero)"><span class="dot"></span>Digital Asset Lab</a>
+        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for creators, marketers and small businesses in India and beyond.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul><li><a href="#">Instagram Reels</a></li><li><a href="#">Template bundles</a></li><li><a href="#">Free samples</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="#">Privacy policy</a></li><li><a href="#">Terms of service</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Licence terms</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Digital Asset Lab. All rights reserved.</span>
+      <a href="https://www.instagram.com/digitalasset.lab/" rel="noopener">Instagram · @digitalasset.lab</a>
+      <span>Made in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // safety: never leave content hidden if the observer misbehaves
+  setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1800);
+</script>
+<script src="/checkout.js" defer></script>
+</body>
+</html>

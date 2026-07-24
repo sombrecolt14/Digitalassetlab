@@ -23,7 +23,39 @@ const {
   FROM_NAME
 } = process.env;
 
-const DOWNLOAD_URL = "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link";
+// Product catalog — prices live server-side only, never trusted from the client.
+const PRODUCTS = {
+  reels: {
+    name: "Instagram Reels Bundle",
+    amount: 53000, // ₹530 in paise
+    downloadUrl: "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link",
+    includes: [
+      "6200+ Instagram Reel Templates",
+      "15+ Content Categories",
+      "500+ Hook Templates (Bonus)",
+      "300+ Transition Pack (Bonus)",
+      "Viral Strategy Guide (Bonus)",
+      "Commercial License",
+      "Lifetime Updates",
+    ],
+  },
+  architecture: {
+    name: "The Architecture Bundle",
+    amount: 149900, // ₹1,499 in paise
+    downloadUrl: process.env.ARCH_DOWNLOAD_URL || "",
+    includes: [
+      "2,000+ CAD Blocks (Plan & Elevation)",
+      "300+ SketchUp Models",
+      "40 Moodboard Templates",
+      "25+ Legal Document Templates",
+      "Client Onboarding Questionnaire Kit",
+      "Commercial License",
+      "Lifetime Updates",
+    ],
+  },
+};
+
+const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
 
 // Create email transporter (only if SMTP credentials are set)
 function createTransporter() {
@@ -36,12 +68,18 @@ function createTransporter() {
   });
 }
 
-async function sendDeliveryEmail(toEmail, toName, paymentId) {
+async function sendDeliveryEmail(toEmail, toName, paymentId, product) {
   const transporter = createTransporter();
   if (!transporter) {
     console.log("SMTP not configured — skipping delivery email");
     return;
   }
+
+  const downloadBlock = product.downloadUrl
+    ? `<a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
+          DOWNLOAD YOUR BUNDLE →
+        </a>`
+    : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`;
 
   const html = `
 <!DOCTYPE html>
@@ -78,11 +116,9 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
           YOUR DOWNLOAD IS READY
         </p>
         <p style="color:#fff;font-size:14px;margin:0 0 20px;">
-          Click the button below to access your complete bundle
+          ${product.downloadUrl ? "Click the button below to access your complete bundle" : "Order received: " + product.name}
         </p>
-        <a href="${DOWNLOAD_URL}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
-          DOWNLOAD YOUR BUNDLE →
-        </a>
+        ${downloadBlock}
       </div>
 
       <!-- What's included -->
@@ -91,15 +127,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
           WHAT'S INCLUDED:
         </p>
         <ul style="margin:0;padding:0;list-style:none;">
-          ${[
-            "6200+ Instagram Reel Templates",
-            "15+ Content Categories",
-            "500+ Hook Templates (Bonus)",
-            "300+ Transition Pack (Bonus)",
-            "Viral Strategy Guide (Bonus)",
-            "Commercial License",
-            "Lifetime Updates",
-          ].map(item => `<li style="color:#4a5565;font-size:14px;padding:4px 0;">✓ &nbsp;${item}</li>`).join("")}
+          ${product.includes.map(item => `<li style="color:#4a5565;font-size:14px;padding:4px 0;">✓ &nbsp;${item}</li>`).join("")}
         </ul>
       </div>
 
@@ -111,7 +139,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
         </div>
         <div style="display:flex;justify-content:space-between;">
           <span style="color:#4a5565;font-size:13px;">Amount Paid</span>
-          <span style="color:#163300;font-size:15px;font-weight:900;">₹530</span>
+          <span style="color:#163300;font-size:15px;font-weight:900;">${priceLabel(product)}</span>
         </div>
       </div>
 
@@ -135,14 +163,14 @@ async function sendDeliveryEmail(toEmail, toName, paymentId) {
   await transporter.sendMail({
     from: `"${FROM_NAME || "Digital Asset Lab"}" <${FROM_EMAIL || SMTP_USER}>`,
     to: toEmail,
-    subject: "✅ Your Digital Asset Lab Bundle is Ready to Download!",
+    subject: `✅ Your ${product.name} is Ready!`,
     html,
   });
 
   console.log(`Delivery email sent to ${toEmail}`);
 }
 
-async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId) {
+async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId, product) {
   const transporter = createTransporter();
   if (!transporter) return;
 
@@ -175,11 +203,11 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
         </tr>
         <tr style="border-bottom:2px solid #f5f5f5;">
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Product</td>
-          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">Instagram Reels Bundle</td>
+          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${product.name}</td>
         </tr>
         <tr style="border-bottom:2px solid #f5f5f5;">
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Amount</td>
-          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">₹530</td>
+          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">${priceLabel(product)}</td>
         </tr>
         <tr>
           <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Payment ID</td>
@@ -203,7 +231,7 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
   await transporter.sendMail({
     from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
     to: ownerEmail,
-    subject: `💰 New Sale — ₹530 from ${customerName || customerEmail}`,
+    subject: `💰 New Sale — ${product.name} · ${priceLabel(product)} from ${customerName || customerEmail}`,
     html,
   });
 
@@ -254,6 +282,12 @@ app.get("/health", (req, res) => {
 
 app.post("/api/create-order", async (req, res) => {
   try {
+    const productKey = (req.body && req.body.product) || "reels";
+    const product = PRODUCTS[productKey];
+    if (!product) {
+      return res.status(400).json({ ok: false, message: "Unknown product" });
+    }
+
     if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
       return res.status(500).json({
         ok: false,
@@ -261,7 +295,7 @@ app.post("/api/create-order", async (req, res) => {
       });
     }
 
-    const amount = 53000; // ₹530 in paise
+    const amount = product.amount;
     const currency = "INR";
 
     const auth = Buffer.from(
@@ -279,7 +313,7 @@ app.post("/api/create-order", async (req, res) => {
         currency,
         receipt: `receipt_${Date.now()}`,
         notes: {
-          product: "Instagram Reels Bundle"
+          product: product.name
         }
       })
     });
@@ -297,8 +331,8 @@ app.post("/api/create-order", async (req, res) => {
       orderId: data.id,
       amount,
       currency,
-      name: "DigitalAssetLab",
-      description: "Instagram Reels Bundle"
+      name: "Digital Asset Lab",
+      description: product.name
     });
   } catch (error) {
     console.error("Create order error:", error);
@@ -362,11 +396,12 @@ app.post("/api/verify-payment", async (req, res) => {
 
     // Send download link to buyer + notify owner
     const { customerEmail, customerName } = req.body;
+    const product = PRODUCTS[req.body.product] || PRODUCTS.reels;
     if (customerEmail) {
-      sendDeliveryEmail(customerEmail, customerName, razorpay_payment_id)
+      sendDeliveryEmail(customerEmail, customerName, razorpay_payment_id, product)
         .catch(err => console.error("Delivery email error:", err));
     }
-    sendOwnerNotificationEmail(customerEmail, customerName, razorpay_payment_id)
+    sendOwnerNotificationEmail(customerEmail, customerName, razorpay_payment_id, product)
       .catch(err => console.error("Owner notification error:", err));
 
     return res.json({ ok: true });
