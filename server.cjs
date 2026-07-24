@@ -30,11 +30,11 @@ const PRODUCTS = {
     amount: 53000, // ₹530 in paise
     downloadUrl: "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link",
     includes: [
-      "6200+ Instagram Reel Templates",
-      "15+ Content Categories",
-      "500+ Hook Templates (Bonus)",
-      "300+ Transition Pack (Bonus)",
-      "Viral Strategy Guide (Bonus)",
+      "6,100+ Reel Templates & Creator Clips",
+      "10 Organised Categories (Creator Vault)",
+      "2,250+ Faceless Creator Files",
+      "1,000+ Motion-Graphics Animations",
+      "Bonus: AI Money-Making Ideas Guide (PDF)",
       "Commercial License",
       "Lifetime Updates",
     ],

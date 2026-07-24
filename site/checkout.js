@@ -6,8 +6,7 @@
     reels: {
       label: "Instagram Reels Bundle",
       price: 530,
-      worth: 5296, // matches the value stack on the product page
-      blurb: "6,200+ templates · 15+ categories · commercial licence",
+      blurb: "6,100+ templates & clips · 10 categories · commercial licence",
       href: "/reels-bundle.html",
     },
     architecture: {
@@ -100,12 +99,12 @@
       panelEl.hidden = cart.length === 0;
       if (!cart.length) return;
 
-      var total = 0, worth = 0;
+      var total = 0, worth = 0, allHaveWorth = true;
       itemsEl.innerHTML = "";
       cart.forEach(function (key) {
         var p = PRODUCTS[key];
         total += p.price;
-        worth += p.worth;
+        if (p.worth) worth += p.worth; else allHaveWorth = false;
         var row = document.createElement("div");
         row.className = "cart-row";
         row.innerHTML =
@@ -120,13 +119,15 @@
       totalEl.textContent = fmt(total);
       payBtn.textContent = "Pay " + fmt(total) + " with Razorpay";
 
-      // value anchor: "Total value ₹X · You save NN%"
+      // value anchor — only shown when every item has an honest worth figure
       var saveEl = document.getElementById("cart-save");
       if (saveEl) {
-        var pct = Math.round(((worth - total) / worth) * 100);
-        saveEl.hidden = !(worth > total);
-        document.getElementById("cart-worth").textContent = fmt(worth);
-        document.getElementById("cart-pct").textContent = "You save " + pct + "%";
+        var show = allHaveWorth && worth > total;
+        saveEl.hidden = !show;
+        if (show) {
+          document.getElementById("cart-worth").textContent = fmt(worth);
+          document.getElementById("cart-pct").textContent = "You save " + Math.round(((worth - total) / worth) * 100) + "%";
+        }
       }
 
       // cross-sell: whatever isn't in the cart yet
