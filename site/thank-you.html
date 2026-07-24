@@ -52,12 +52,26 @@
   <a class="home" href="/">Back to Digital Asset Lab</a>
   <p class="fine">Didn't get the email in 10 minutes? Write to <a href="mailto:support@digitalassetlab.in">support@digitalassetlab.in</a> with your payment ID and we'll sort it out.</p>
 </main>
+<script src="/analytics.js"></script>
 <script>
-  const pid = new URLSearchParams(location.search).get("pid");
+  const params = new URLSearchParams(location.search);
+  const pid = params.get("pid");
   if (pid) {
     const el = document.getElementById("pid");
     el.textContent = "Payment ID: " + pid;
     el.hidden = false;
+  }
+  // conversion event — fires once per payment id per browser
+  const product = params.get("product") || "reels";
+  const PRICES = { reels: 530, architecture: 1499 };
+  if (pid && window.dalTrack && !localStorage.getItem("dal_tracked_" + pid)) {
+    localStorage.setItem("dal_tracked_" + pid, "1");
+    dalTrack("purchase", {
+      value: PRICES[product] || 530,
+      currency: "INR",
+      transaction_id: pid,
+      product: product,
+    });
   }
 </script>
 </body>

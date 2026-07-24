@@ -56,6 +56,28 @@ const PRODUCTS = {
 };
 
 const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
+const productByName = (name) =>
+  Object.values(PRODUCTS).find((p) => p.name === name) || PRODUCTS.reels;
+
+// Guards against double-sending when both browser verification and the
+// webhook fire for the same payment.
+// ponytail: in-memory set; single instance today. Worst case after a restart
+// is one duplicate email — harmless. Move to a DB if we ever scale out.
+const processedPayments = new Set();
+
+function deliverPurchase(paymentId, customerEmail, customerName, product) {
+  if (processedPayments.has(paymentId)) {
+    console.log(`Payment ${paymentId} already delivered — skipping`);
+    return;
+  }
+  processedPayments.add(paymentId);
+  if (customerEmail) {
+    sendDeliveryEmail(customerEmail, customerName, paymentId, product)
+      .catch(err => console.error("Delivery email error:", err));
+  }
+  sendOwnerNotificationEmail(customerEmail, customerName, paymentId, product)
+    .catch(err => console.error("Owner notification error:", err));
+}
 
 // Create email transporter (only if SMTP credentials are set)
 function createTransporter() {
@@ -265,6 +287,16 @@ app.post(
       const event = JSON.parse(req.body.toString("utf8"));
       console.log("Webhook received:", event.event);
 
+      // Server-side delivery backup: if the buyer closed their browser before
+      // client-side verification ran, this still gets them their files.
+      if (event.event === "payment.captured") {
+        const pay = event.payload && event.payload.payment && event.payload.payment.entity;
+        if (pay && pay.id) {
+          const product = productByName(pay.notes && pay.notes.product);
+          deliverPurchase(pay.id, pay.email, "", product);
+        }
+      }
+
       return res.json({ ok: true });
     } catch (error) {
       console.error("Webhook error:", error);
@@ -394,15 +426,10 @@ app.post("/api/verify-payment", async (req, res) => {
       });
     }
 
-    // Send download link to buyer + notify owner
+    // Send download link to buyer + notify owner (idempotent vs the webhook)
     const { customerEmail, customerName } = req.body;
     const product = PRODUCTS[req.body.product] || PRODUCTS.reels;
-    if (customerEmail) {
-      sendDeliveryEmail(customerEmail, customerName, razorpay_payment_id, product)
-        .catch(err => console.error("Delivery email error:", err));
-    }
-    sendOwnerNotificationEmail(customerEmail, customerName, razorpay_payment_id, product)
-      .catch(err => console.error("Owner notification error:", err));
+    deliverPurchase(razorpay_payment_id, customerEmail, customerName, product);
 
     return res.json({ ok: true });
   } catch (error) {

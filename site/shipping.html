@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipping & Delivery Policy — Digital Asset Lab</title>
+<meta name="description" content="Digital Asset Lab products are digital downloads delivered instantly by email. No physical shipping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(23% 0.015 265); --ink-soft: oklch(42% 0.015 265);
+    --paper: oklch(96.5% 0.004 250); --line: oklch(88% 0.008 255);
+    --pop: oklch(87% 0.185 132);
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ font-family:"Bricolage Grotesque", system-ui, sans-serif; background:var(--paper); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; }
+  header.site{ position:sticky; top:0; z-index:40; background:color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .nav{ width:min(1200px, calc(100% - 2.5rem)); margin-inline:auto; display:flex; align-items:center; justify-content:space-between; padding:.9rem 0; }
+  .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; text-decoration:none; }
+  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .nav a.back{ font-size:.9rem; color:var(--ink-soft); text-decoration:none; }
+  .nav a.back:hover{ color:var(--ink); }
+  main{ max-width:44rem; margin-inline:auto; padding:clamp(2.5rem,6vh,4.5rem) 1.25rem 4rem; }
+  h1{ font-size:clamp(1.9rem, 4.5vw, 2.8rem); font-weight:750; letter-spacing:-0.02em; line-height:1.08; text-wrap:balance; }
+  .updated{ color:var(--ink-soft); font-size:.88rem; margin-top:.7rem; }
+  .lede{ color:var(--ink-soft); margin-top:1rem; font-size:1.02rem; max-width:65ch; }
+  h2{ font-size:1.25rem; font-weight:720; letter-spacing:-0.01em; margin:2.4rem 0 .7rem; padding-top:1.6rem; border-top:1px solid var(--line); }
+  p{ margin:.7rem 0; max-width:65ch; text-wrap:pretty; }
+  ul{ margin:.7rem 0 .7rem 1.2rem; max-width:62ch; }
+  li{ margin:.35rem 0; }
+  .note{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:1rem 1.2rem; margin:1rem 0; font-size:.95rem; }
+  a.em{ font-weight:600; text-decoration:none; border-bottom:1.5px solid var(--pop); }
+  footer{ border-top:1px solid var(--line); padding:2rem 1.25rem; text-align:center; color:var(--ink-soft); font-size:.85rem; }
+  footer nav{ display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap; margin-bottom:.9rem; }
+  footer nav a{ text-decoration:none; }
+  footer nav a:hover{ color:var(--ink); }
+</style>
+</head>
+<body>
+<header class="site"><div class="nav">
+  <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+  <a class="back" href="/">&larr; Back to the shop</a>
+</div></header>
+<main>
+
+<h1>Shipping &amp; Delivery Policy</h1>
+<p class="updated">Last updated: 24 July 2026</p>
+<p class="lede">Everything we sell is a digital product. Nothing physical is shipped, so there are no shipping charges, couriers, or delivery addresses — ever.</p>
+
+<h2>How delivery works</h2>
+<ul>
+  <li>Complete your payment through our secure Razorpay checkout</li>
+  <li>A download link is sent automatically to the email address you entered at checkout, typically within <strong>2 minutes</strong> of payment confirmation</li>
+  <li>The link opens your complete bundle, hosted on Google Drive</li>
+  <li>Your access is lifetime — you can re-download your files at any time using the same link</li>
+</ul>
+
+<h2>If the email doesn't arrive</h2>
+<ul>
+  <li>Check your spam or promotions folder first</li>
+  <li>Still nothing after 10 minutes? Email <a class="em" href="mailto:support@digitalassetlab.in">support@digitalassetlab.in</a> with your payment ID and we'll resend the link right away</li>
+</ul>
+
+<h2>Delivery failures</h2>
+<p>If a technical fault on our end prevents you from receiving or accessing your purchase and our support team cannot resolve it within a reasonable timeframe, you are covered by our <a class="em" href="/refund-policy.html">Refund Policy</a>.</p>
+
+</main>
+<footer>
+  <nav>
+    <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/refund-policy.html">Refunds</a><a href="/shipping.html">Delivery</a><a href="/licence.html">Licence</a><a href="/contact.html">Contact</a>
+  </nav>
+  © 2026 Digital Asset Lab. All rights reserved.
+</footer>
+</body>
+</html>

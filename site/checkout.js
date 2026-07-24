@@ -76,6 +76,7 @@
       err.style.display = "none";
       payBtn.disabled = false;
       dlg.showModal();
+      if (window.dalTrack) dalTrack("begin_checkout", { product: p.label });
     });
   });
 
@@ -129,7 +130,8 @@
             });
             const v = await verifyRes.json();
             if (!v.ok) throw new Error("Payment verification failed. Email support@digitalassetlab.in with your payment ID.");
-            location.href = "/thank-you.html?pid=" + encodeURIComponent(rsp.razorpay_payment_id);
+            location.href = "/thank-you.html?pid=" + encodeURIComponent(rsp.razorpay_payment_id) +
+              "&product=" + encodeURIComponent(currentProduct);
           } catch (e2) {
             showError(e2.message);
           }
