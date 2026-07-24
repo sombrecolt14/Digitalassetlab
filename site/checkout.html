@@ -65,8 +65,17 @@
   #contact-form label{ font-size:.85rem; font-weight:600; display:grid; gap:.35rem; }
   #contact-form input{ font:inherit; font-size:.95rem; padding:.7rem .9rem; border-radius:10px; border:1.5px solid var(--line); background:var(--paper); width:100%; }
   #contact-form input:focus{ outline:2px solid var(--ink); outline-offset:1px; }
-  .pay-btn{ font:inherit; font-weight:650; font-size:1rem; padding:.9rem 1.2rem; border-radius:999px; border:none; background:var(--reels); color:#fff; cursor:pointer; }
-  .pay-btn:disabled{ opacity:.6; cursor:wait; }
+  .pay-btn{ font:inherit; font-weight:750; font-size:1.05rem; padding:1rem 1.2rem; border-radius:999px; border:none; background:var(--pop); color:oklch(25% 0.055 145); cursor:pointer; box-shadow:0 6px 24px oklch(87% 0.185 132 / .35); animation:pay-pulse 2.4s ease-in-out infinite; transition:transform .2s; }
+  .pay-btn:hover{ transform:translateY(-2px); }
+  .pay-btn:disabled{ opacity:.6; cursor:wait; animation:none; }
+  @keyframes pay-pulse{ 0%,100%{ box-shadow:0 6px 24px oklch(87% 0.185 132 / .35), 0 0 0 0 oklch(87% 0.185 132 / .4); } 50%{ box-shadow:0 6px 24px oklch(87% 0.185 132 / .35), 0 0 0 10px oklch(87% 0.185 132 / 0); } }
+  @media (prefers-reduced-motion: reduce){ .pay-btn{ animation:none; transition:none; } }
+  .dl-chip{ display:inline-flex; align-items:center; gap:.25rem; background:oklch(94% 0.06 132); color:oklch(32% 0.06 145); font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:999px; margin-top:.3rem; }
+  .deal-band{ background:var(--reels); color:oklch(96% 0.02 130); border-radius:12px; padding:.7rem 1.1rem; font-size:.88rem; font-weight:650; display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+  .deal-band .zap{ color:var(--pop); }
+  .save-note{ display:flex; justify-content:space-between; align-items:baseline; padding-top:.9rem; font-size:.88rem; color:var(--ink-soft); }
+  .save-note s{ text-decoration-thickness:1.5px; }
+  .save-note .pct{ color:oklch(40% 0.09 145); font-weight:750; }
   .pay-err{ color:#a4232a; font-size:.85rem; display:none; }
   .fine{ color:var(--ink-soft); font-size:.78rem; text-align:center; }
 
@@ -118,11 +127,13 @@
     </div>
 
     <div id="cart-panel" hidden>
+      <div class="deal-band"><span class="zap">⚡</span>Launch pricing active — instant delivery to your inbox after payment</div>
       <div class="panel">
         <h2>Order</h2>
         <div id="cart-items"></div>
         <div id="cart-add"></div>
-        <div class="total-row"><span>Total</span><b id="cart-total"></b></div>
+        <div class="save-note" id="cart-save" hidden><span>Total value <s id="cart-worth"></s></span><span class="pct" id="cart-pct"></span></div>
+        <div class="total-row"><span>You pay today</span><b id="cart-total"></b></div>
       </div>
 
       <div class="panel">

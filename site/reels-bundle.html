@@ -355,6 +355,23 @@
     .band form{ flex-direction:column; }
   }
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
+
+  /* ── hero deal line + sticky buy bar ── */
+  .hero-deal{ display:flex; align-items:baseline; gap:.7rem; margin-top:1.8rem; flex-wrap:wrap; }
+  .hero-deal .deal-now{ font-size:clamp(2.1rem,4.5vw,3rem); font-weight:780; color:var(--on-hero); letter-spacing:-0.02em; font-variant-numeric:tabular-nums; line-height:1; }
+  .hero-deal .deal-was{ font-size:1.2rem; color:oklch(66% 0.045 135); text-decoration-thickness:2px; }
+  .hero-deal .deal-chip{ background:var(--lime); color:oklch(25% 0.055 145); font-size:.74rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; padding:.4rem .75rem; border-radius:999px; }
+  .buybar{ position:fixed; left:0; right:0; bottom:0; z-index:60; background:color-mix(in oklab, var(--hero-ink) 94%, transparent); backdrop-filter:blur(10px); border-top:1px solid oklch(40% 0.05 145); transform:translateY(110%); transition:transform .35s cubic-bezier(.22,1,.36,1); padding:.65rem 0 calc(.65rem + env(safe-area-inset-bottom)); }
+  .buybar.show{ transform:translateY(0); }
+  .buybar .inner{ display:flex; align-items:center; gap:1rem; }
+  .buybar .who{ font-weight:700; color:var(--on-hero); font-size:.95rem; }
+  .buybar .deal{ margin-left:auto; display:flex; align-items:baseline; gap:.55rem; }
+  .buybar .deal b{ color:var(--on-hero); font-size:1.3rem; font-weight:780; font-variant-numeric:tabular-nums; }
+  .buybar .deal s{ color:oklch(62% 0.045 135); font-size:.88rem; }
+  .buybar .btn.bar{ background:var(--lime); color:oklch(25% 0.055 145); animation:buybar-pulse 2.4s ease-in-out infinite; }
+  @keyframes buybar-pulse{ 0%,100%{ box-shadow:0 0 0 0 oklch(87% 0.185 132 / .45); } 50%{ box-shadow:0 0 0 10px oklch(87% 0.185 132 / 0); } }
+  @media (max-width:560px){ .buybar .who{ display:none; } .buybar .deal{ margin-left:0; } .buybar .inner{ justify-content:space-between; } }
+  @media (prefers-reduced-motion: reduce){ .buybar{ transition:none; } .buybar .btn.bar{ animation:none; } }
 </style>
 </head>
 <body>
@@ -385,8 +402,13 @@
         and small businesses: reels today, business docs and marketing kits next.
         Buy once, use commercially, keep every update.
       </p>
+      <div class="hero-deal reveal" style="transition-delay:.12s">
+        <span class="deal-now">₹530</span>
+        <s class="deal-was">₹5,296</s>
+        <span class="deal-chip">Save 90% · Launch price</span>
+      </div>
       <div class="hero-cta reveal" style="transition-delay:.16s">
-        <button class="btn" data-buy="reels">Get the bundle · ₹530</button>
+        <button class="btn" data-buy="reels">Get instant access</button>
         <a class="btn ghost" href="#categories">See what's inside</a>
       </div>
       <div class="hero-proof reveal" style="transition-delay:.24s">
@@ -575,6 +597,26 @@
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   // safety: never leave content hidden if the observer misbehaves
   setTimeout(() => document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in')), 1800);
+</script>
+<div class="buybar" id="buybar" aria-hidden="true">
+  <div class="wrap inner">
+    <span class="who">Instagram Reels Bundle</span>
+    <span class="deal"><b>₹530</b><s>₹5,296</s></span>
+    <button class="btn bar" data-buy="reels">Get instant access →</button>
+  </div>
+</div>
+<script>
+  // sticky buy bar: appears once the hero CTA scrolls out of view
+  (function () {
+    var hero = document.querySelector(".hero-cta [data-buy]");
+    var bar = document.getElementById("buybar");
+    if (!hero || !bar || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (entries) {
+      var out = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      bar.classList.toggle("show", out);
+      bar.setAttribute("aria-hidden", String(!out));
+    }, { threshold: 0 }).observe(hero);
+  })();
 </script>
 <script src="/analytics.js"></script>
 <script src="/nav.js" defer></script>

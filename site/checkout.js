@@ -6,12 +6,14 @@
     reels: {
       label: "Instagram Reels Bundle",
       price: 530,
+      worth: 5296, // matches the value stack on the product page
       blurb: "6,200+ templates · 15+ categories · commercial licence",
       href: "/reels-bundle.html",
     },
     architecture: {
       label: "The Architecture Bundle",
       price: 1499,
+      worth: 8195,
       blurb: "CAD blocks, SketchUp models, moodboards, client documents",
       href: "/architecture-bundle.html",
     },
@@ -98,15 +100,16 @@
       panelEl.hidden = cart.length === 0;
       if (!cart.length) return;
 
-      var total = 0;
+      var total = 0, worth = 0;
       itemsEl.innerHTML = "";
       cart.forEach(function (key) {
         var p = PRODUCTS[key];
         total += p.price;
+        worth += p.worth;
         var row = document.createElement("div");
         row.className = "cart-row";
         row.innerHTML =
-          '<div class="cart-row-info"><b>' + p.label + "</b><span>" + p.blurb + "</span></div>" +
+          '<div class="cart-row-info"><b>' + p.label + "</b><span>" + p.blurb + '</span><br><span class="dl-chip">⚡ Instant download</span></div>' +
           '<div class="cart-row-side"><b>' + fmt(p.price) + '</b><button type="button" class="row-remove">Remove</button></div>';
         row.querySelector(".row-remove").addEventListener("click", function () {
           setCart(getCart().filter(function (k) { return k !== key; }));
@@ -116,6 +119,15 @@
       });
       totalEl.textContent = fmt(total);
       payBtn.textContent = "Pay " + fmt(total) + " with Razorpay";
+
+      // value anchor: "Total value ₹X · You save NN%"
+      var saveEl = document.getElementById("cart-save");
+      if (saveEl) {
+        var pct = Math.round(((worth - total) / worth) * 100);
+        saveEl.hidden = !(worth > total);
+        document.getElementById("cart-worth").textContent = fmt(worth);
+        document.getElementById("cart-pct").textContent = "You save " + pct + "%";
+      }
 
       // cross-sell: whatever isn't in the cart yet
       addEl.innerHTML = "";
