@@ -5,6 +5,11 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # These env-var values are public by design (canonical URL, brand name,
+  # support email) and appear in the static HTML — tell Netlify's secrets
+  # scanner they're expected so the build doesn't fail. The real secrets
+  # (SMTP_PASS, RAZORPAY_KEY_SECRET) are never in the output and stay scanned.
+  SECRETS_SCAN_OMIT_KEYS = "SITE_URL,FROM_NAME,SMTP_USER,FROM_EMAIL"
 
 # Frontend calls /api/*; Netlify rewrites those to the serverless-wrapped app.
 [[redirects]]
