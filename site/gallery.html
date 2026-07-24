@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Gallery — 6,200+ Reels across 15 categories | Digital Asset Lab</title>
+<meta name="description" content="Browse the Instagram Reels Bundle by category: fashion, travel, food, fitness, business and more. 6,200+ editable templates, one purchase, full commercial licence.">
+<link rel="canonical" href="https://digitalassetlab.in/gallery.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digital Asset Lab">
+<meta property="og:title" content="Template Gallery — 6,200+ Reels across 15 categories">
+<meta property="og:description" content="Browse every category in the Instagram Reels Bundle. Fashion, travel, food, fitness, business and more.">
+<meta property="og:url" content="https://digitalassetlab.in/gallery.html">
+<meta property="og:image" content="https://digitalassetlab.in/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: oklch(23% 0.015 265); --ink-soft: oklch(42% 0.015 265);
+    --paper: oklch(96.5% 0.004 250); --surface: oklch(99% 0.002 250);
+    --line: oklch(88% 0.008 255); --reels: oklch(30% 0.06 148); --pop: oklch(87% 0.185 132);
+    font-size:16px;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ font-family:"Bricolage Grotesque", system-ui, sans-serif; background:var(--paper); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ text-wrap:balance; font-variation-settings:"opsz" 96; }
+  p{ text-wrap:pretty; }
+  .wrap{ width:min(1180px, calc(100% - 2 * clamp(20px, 4vw, 48px))); margin-inline:auto; }
+
+  header.site{ position:sticky; top:0; z-index:40; background:color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; }
+  .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
+  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
+  .nav nav a{ color:var(--ink-soft); transition:color .2s; } .nav nav a:hover{ color:var(--ink); }
+  .nav nav a.here{ color:var(--ink); font-weight:600; }
+  .btn{ display:inline-flex; align-items:center; gap:.5rem; background:var(--ink); color:var(--paper); font-weight:600; font-size:.95rem; padding:.7rem 1.3rem; border-radius:999px; border:none; cursor:pointer; transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s; }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px oklch(23% 0.015 265 / .25); }
+  .btn.small{ padding:.55rem 1.05rem; font-size:.88rem; }
+  .btn.lime{ background:var(--pop); color:oklch(25% 0.055 145); }
+  .nav-toggle{ display:none; align-items:center; justify-content:center; width:2.6rem; height:2.6rem; border-radius:10px; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; padding:0; }
+  .nav-toggle span{ position:relative; width:1.15rem; height:2px; background:var(--ink); border-radius:2px; display:block; transition:background .2s; }
+  .nav-toggle span::before, .nav-toggle span::after{ content:""; position:absolute; left:0; width:1.15rem; height:2px; background:var(--ink); border-radius:2px; transition:transform .25s cubic-bezier(.22,1,.36,1); }
+  .nav-toggle span::before{ top:-6px; } .nav-toggle span::after{ top:6px; }
+  .nav[data-open="true"] .nav-toggle span{ background:transparent; }
+  .nav[data-open="true"] .nav-toggle span::before{ transform:translateY(6px) rotate(45deg); }
+  .nav[data-open="true"] .nav-toggle span::after{ transform:translateY(-6px) rotate(-45deg); }
+
+  .hero{ padding-block:clamp(3rem,7vh,5rem) clamp(1.5rem,3vh,2rem); }
+  .eyebrow{ font-size:.85rem; font-weight:600; color:var(--ink-soft); }
+  .hero h1{ font-size:clamp(2.2rem,5vw,3.6rem); font-weight:760; letter-spacing:-0.025em; line-height:1.05; margin-top:.6rem; max-width:18ch; }
+  .hero p{ margin-top:1.2rem; font-size:clamp(1rem,1.4vw,1.15rem); color:var(--ink-soft); max-width:56ch; }
+  .stats{ display:flex; gap:2.2rem; margin-top:1.8rem; flex-wrap:wrap; }
+  .stats span{ font-size:.9rem; color:var(--ink-soft); }
+  .stats b{ display:block; font-size:1.5rem; font-weight:750; color:var(--ink); letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
+
+  .note{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:.9rem 1.2rem; margin-top:1.6rem; font-size:.92rem; color:var(--ink-soft); display:flex; gap:.6rem; align-items:baseline; }
+  .note b{ color:var(--ink); font-weight:650; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:1.1rem; padding-block:clamp(2rem,4vh,3rem) clamp(3rem,6vh,5rem); }
+  .cat{ border-radius:16px; overflow:hidden; border:1px solid var(--line); background:var(--surface); display:flex; flex-direction:column; transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s; }
+  .cat:hover{ transform:translateY(-4px); box-shadow:0 16px 40px oklch(23% 0.015 265 / .12); }
+  .cat .cover{ aspect-ratio:5/4; position:relative; display:flex; align-items:flex-end; padding:.9rem; }
+  .cat .cover::before{ content:""; position:absolute; inset:0; opacity:.14; background-image:repeating-linear-gradient(90deg, transparent 0 26px, oklch(100% 0 0 / .7) 26px 28px); }
+  .cat .count{ position:relative; z-index:1; font-size:1.6rem; font-weight:780; color:#fff; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; text-shadow:0 1px 8px oklch(0% 0 0 / .3); }
+  .cat .count small{ display:block; font-size:.62rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; opacity:.85; }
+  .cat .body{ padding:1rem 1.1rem 1.2rem; }
+  .cat h3{ font-size:1.08rem; font-weight:720; letter-spacing:-0.01em; }
+  .cat .tags{ display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.7rem; }
+  .cat .tags span{ font-size:.72rem; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line); padding:.22rem .5rem; border-radius:999px; }
+
+  .cta-band{ background:var(--reels); color:oklch(96% 0.02 130); border-radius:18px; padding:clamp(2rem,5vw,3.5rem); display:flex; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; margin-bottom:clamp(3rem,6vh,5rem); }
+  .cta-band h2{ font-size:clamp(1.5rem,2.6vw,2.1rem); font-weight:740; letter-spacing:-0.02em; }
+  .cta-band p{ color:oklch(82% 0.04 135); margin-top:.4rem; }
+  .cta-band .price{ font-weight:780; }
+
+  footer{ border-top:1px solid var(--line); padding-block:2.5rem 2rem; font-size:.9rem; color:var(--ink-soft); }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; }
+  .foot-grid h4{ color:var(--ink); font-size:.85rem; font-weight:700; margin-bottom:.8rem; }
+  .foot-grid ul{ list-style:none; display:grid; gap:.5rem; }
+  .foot-grid a:hover{ color:var(--ink); }
+  .foot-note{ margin-top:2.4rem; padding-top:1.3rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.8rem; }
+
+  @media (max-width: 720px){
+    .nav{ flex-wrap:wrap; gap:.7rem; }
+    .wordmark{ order:1; } .nav-toggle{ display:inline-flex; order:2; margin-left:auto; } .btn.small{ display:none; }
+    .nav nav{ order:3; flex-basis:100%; margin-left:0; flex-direction:column; gap:0; max-height:0; overflow:hidden; transition:max-height .3s cubic-bezier(.22,1,.36,1); }
+    .nav[data-open="true"] nav{ max-height:70vh; }
+    .nav nav a{ padding:.9rem .1rem; font-size:1.02rem; border-top:1px solid var(--line); }
+    .grid{ grid-template-columns:repeat(2, 1fr); gap:.8rem; }
+    .cta-band{ flex-direction:column; align-items:flex-start; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 420px){ .grid{ grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after, .btn, .cat{ transition:none; } }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+    <nav>
+      <a href="/#shelf">Products</a>
+      <a href="/gallery.html" class="here">Gallery</a>
+      <a href="/#how">How it works</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <a class="btn small" href="/#reels">Get the Reels Bundle</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Template gallery</p>
+    <h1>Browse by what you actually post.</h1>
+    <p>The Instagram Reels Bundle is organised into 15+ content categories so you can jump straight to the templates for your niche. Here's every category, and roughly how many templates each one holds.</p>
+    <div class="stats">
+      <span><b>6,200+</b> templates</span>
+      <span><b>15+</b> categories</span>
+      <span><b>Weekly</b> updates</span>
+      <span><b>9:16</b> ready for Reels</span>
+    </div>
+    <p class="note"><b>Live previews are on the way.</b> We're adding sample clips for every category. Meanwhile, the cards below show exactly what's inside each part of the bundle.</p>
+  </section>
+
+  <div class="grid" id="categories"></div>
+
+  <div class="cta-band">
+    <div>
+      <h2>All 6,200+ templates. One bundle.</h2>
+      <p>Every category above, plus hooks, transitions and a strategy guide. <span class="price">₹530</span>, one-time.</p>
+    </div>
+    <a class="btn lime" href="/reels-bundle.html">Get the Reels Bundle</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="/" style="color:var(--ink)"><span class="dot"></span>Digital Asset Lab</a>
+        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for creators, marketers and small businesses in India and beyond.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul><li><a href="/reels-bundle.html">Instagram Reels Bundle</a></li><li><a href="/architecture-bundle.html">The Architecture Bundle</a></li><li><a href="/gallery.html">Template gallery</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/shipping.html">Delivery</a></li></ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="/privacy.html">Privacy policy</a></li><li><a href="/terms.html">Terms of service</a></li><li><a href="/refund-policy.html">Refund policy</a></li><li><a href="/licence.html">Licence terms</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 Digital Asset Lab. All rights reserved.</span>
+      <a href="https://www.instagram.com/digitalasset.lab/" rel="noopener">Instagram · @digitalasset.lab</a>
+      <span>Made in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Category data (counts + content types from the bundle manifest).
+  var CATS = [
+    ["Fashion & Beauty", "250+", 25, ["OOTD","Makeup","Styling","Hauls","Get Ready"]],
+    ["Travel & Adventure", "300+", 210, ["Destinations","Vlogs","Beaches","Mountains","City Tours"]],
+    ["Food & Recipe", "200+", 55, ["Recipes","Cooking","Street Food","Restaurant","Desserts"]],
+    ["Fitness & Wellness", "180+", 150, ["Workouts","Yoga","Motivation","Transformation","Tips"]],
+    ["Business & Money", "220+", 265, ["Entrepreneurship","Investing","Side Hustle","Mindset","Success"]],
+    ["Tech & Gadgets", "150+", 240, ["Unboxing","Reviews","Apps","Productivity","AI Tools"]],
+    ["Lifestyle & Daily", "280+", 90, ["Routines","Vlogs","Life Hacks","Productivity","Relatable"]],
+    ["Education & Knowledge", "190+", 190, ["Study Tips","Facts","Tutorials","Skills","Learning"]],
+    ["Entertainment & Fun", "240+", 10, ["Comedy","Memes","Challenges","Trends","Viral"]],
+    ["Home & Interior", "140+", 40, ["Decor","Organization","DIY","Makeover","Aesthetic"]],
+    ["Motivation & Quotes", "160+", 300, ["Quotes","Success","Mindset","Growth","Inspiration"]],
+    ["Photography & Art", "130+", 320, ["Editing","Camera Tips","Art","Process","Behind Scenes"]],
+  ];
+  var grid = document.getElementById("categories");
+  CATS.forEach(function (c) {
+    var name = c[0], count = c[1], hue = c[2], tags = c[3];
+    var card = document.createElement("a");
+    card.className = "cat";
+    card.href = "/reels-bundle.html";
+    var cover = 'oklch(46% 0.11 ' + hue + ')';
+    var cover2 = 'oklch(34% 0.09 ' + hue + ')';
+    card.innerHTML =
+      '<div class="cover" style="background:linear-gradient(150deg,' + cover + ',' + cover2 + ')">' +
+        '<span class="count">' + count + '<small>templates</small></span>' +
+      '</div>' +
+      '<div class="body">' +
+        '<h3>' + name + '</h3>' +
+        '<div class="tags">' + tags.map(function (t) { return '<span>' + t + '</span>'; }).join("") + '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+</script>
+<script src="/nav.js" defer></script>
+</body>
+</html>

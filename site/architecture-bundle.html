@@ -58,6 +58,13 @@
   .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--clay); }
   .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
   .nav nav a{ opacity:.85; transition:opacity .2s; } .nav nav a:hover{ opacity:1; }
+  .nav-toggle{ display:none; align-items:center; justify-content:center; width:2.6rem; height:2.6rem; border-radius:10px; border:1.5px solid oklch(96% 0.015 55 / .32); background:transparent; cursor:pointer; padding:0; }
+  .nav-toggle span{ position:relative; width:1.15rem; height:2px; background:var(--on-clay); border-radius:2px; display:block; transition:background .2s; }
+  .nav-toggle span::before, .nav-toggle span::after{ content:""; position:absolute; left:0; width:1.15rem; height:2px; background:var(--on-clay); border-radius:2px; transition:transform .25s cubic-bezier(.22,1,.36,1); }
+  .nav-toggle span::before{ top:-6px; } .nav-toggle span::after{ top:6px; }
+  .nav[data-open="true"] .nav-toggle span{ background:transparent; }
+  .nav[data-open="true"] .nav-toggle span::before{ transform:translateY(6px) rotate(45deg); }
+  .nav[data-open="true"] .nav-toggle span::after{ transform:translateY(-6px) rotate(-45deg); }
   .btn{
     display:inline-flex; align-items:center; gap:.5rem;
     background:var(--clay); color:oklch(98% 0.005 55);
@@ -327,12 +334,27 @@
     .band-inner{ grid-template-columns:1fr; }
     .foot-grid{ grid-template-columns:1fr 1fr; }
   }
+  @media (max-width: 720px){
+    .nav{ flex-wrap:wrap; gap:.7rem; }
+    .wordmark{ order:1; }
+    .cart{ order:2; margin-left:auto; }
+    .nav-toggle{ display:inline-flex; order:3; }
+    .btn.small{ display:none; }
+    .nav nav{
+      order:4; flex-basis:100%; margin-left:0;
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s cubic-bezier(.22,1,.36,1);
+    }
+    .nav[data-open="true"] nav{ max-height:70vh; }
+    .nav nav a{ padding:.9rem .1rem; font-size:1.02rem; opacity:1; border-top:1px solid oklch(96% 0.015 55 / .18); }
+  }
   @media (max-width: 640px){
-    .nav nav{ display:none; }
     .strip .row{ grid-template-columns:1fr; }
     .band form{ flex-direction:column; }
     .boards{ height:300px; }
   }
+  @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
 </style>
 </head>
 <body>
@@ -349,6 +371,7 @@
     <a class="cart" href="#bundle" aria-label="Go to bundle">
       <svg viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
     </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
@@ -565,6 +588,7 @@
   setTimeout(() => document.querySelectorAll('.reveal:not(.in), .sheet:not(.in)').forEach(el => el.classList.add('in')), 1800);
 </script>
 <script src="/analytics.js"></script>
+<script src="/nav.js" defer></script>
 <script src="/checkout.js" defer></script>
 </body>
 </html>
