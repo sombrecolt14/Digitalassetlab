@@ -357,32 +357,36 @@
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
 
   /* ── what's-inside manifest grid: iPhone reels, Instagram-style ── */
-  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:1.1rem; }
+  .inside-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:1.8rem 1.1rem; }
+  .inside-card{ display:flex; flex-direction:column; gap:.75rem; }
+  /* ponytail: 9/19.5 + 13% corner = iPhone 17 Pro proportions; all chrome sized in %
+     so it scales with the tile instead of drifting at other column widths. */
   .inside-reel{
-    position:relative; aspect-ratio:9/16; border-radius:22px; overflow:hidden;
+    position:relative; aspect-ratio:9/19.5; border-radius:13% / 6%; overflow:hidden;
     background:var(--hero-ink-2); border:3px solid oklch(17% 0.005 260);
     box-shadow:0 10px 30px oklch(0% 0 0 / .25);
     transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
   }
-  .inside-reel:hover{ transform:translateY(-5px); box-shadow:0 18px 44px oklch(26% 0.055 145 / .25); }
+  .inside-card:hover .inside-reel{ transform:translateY(-5px); box-shadow:0 18px 44px oklch(26% 0.055 145 / .25); }
   .inside-reel img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .45s cubic-bezier(.22,1,.36,1); }
-  .inside-reel:hover img{ transform:scale(1.05); }
+  .inside-card:hover .inside-reel img{ transform:scale(1.05); }
   .inside-reel::after{
     content:""; position:absolute; inset:0;
-    background:linear-gradient(to top, oklch(0% 0 0 / .78), oklch(0% 0 0 / 0) 48%),
-               linear-gradient(to bottom, oklch(0% 0 0 / .45), oklch(0% 0 0 / 0) 22%);
+    background:linear-gradient(to top, oklch(0% 0 0 / .62), oklch(0% 0 0 / 0) 30%),
+               linear-gradient(to bottom, oklch(0% 0 0 / .45), oklch(0% 0 0 / 0) 14%);
   }
-  /* iPhone notch + status time */
-  .inside-reel .notch{
-    position:absolute; top:0; left:50%; transform:translateX(-50%); z-index:3;
-    width:44%; height:.95rem; background:#000; border-radius:0 0 .65rem .65rem;
+  /* Dynamic Island (iPhone 17 Pro) + status time, aligned to the same band */
+  .inside-reel .island{
+    position:absolute; top:1.3%; left:50%; transform:translateX(-50%); z-index:3;
+    width:29%; aspect-ratio:3.4; background:#000; border-radius:999px;
   }
   .inside-reel .ptime{
-    position:absolute; top:.3rem; left:.85rem; z-index:3;
-    color:#fff; font-size:.58rem; font-weight:700; letter-spacing:.02em;
+    position:absolute; top:1.3%; left:8%; height:3.9%; z-index:3;
+    display:flex; align-items:center;
+    color:#fff; font-size:.55rem; font-weight:700; letter-spacing:.02em;
   }
   .inside-reel .tag{
-    position:absolute; top:1.55rem; left:.7rem; z-index:2;
+    position:absolute; top:7.5%; left:6%; z-index:2;
     font-size:.6rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase;
     background:var(--lime); color:oklch(25% 0.055 145);
     padding:.28rem .6rem; border-radius:999px; font-variant-numeric:tabular-nums;
@@ -399,7 +403,7 @@
   }
   /* Instagram action rail: heart / comment / share */
   .inside-reel .rail{
-    position:absolute; right:.55rem; bottom:1.1rem; z-index:3;
+    position:absolute; right:5%; bottom:5%; z-index:3;
     display:grid; gap:.85rem; justify-items:center;
   }
   .inside-reel .rail svg{
@@ -407,19 +411,20 @@
     stroke-linecap:round; stroke-linejoin:round;
     filter:drop-shadow(0 1px 3px oklch(0% 0 0 / .55));
   }
-  .inside-reel .cover{
-    position:absolute; bottom:.9rem; left:.8rem; right:2.5rem; z-index:2;
-    color:#fff; font-weight:750; line-height:1.12; letter-spacing:-0.01em; font-size:.92rem;
+  /* only the @handle stays on the screen — the caption moved out below the phone */
+  .inside-reel .handle{
+    position:absolute; left:6%; bottom:5.5%; right:26%; z-index:3;
+    display:flex; align-items:center; gap:.35rem;
+    color:#fff; font-size:.62rem; font-weight:650;
+    text-shadow:0 1px 3px oklch(0% 0 0 / .55);
   }
-  .inside-reel .cover small{ display:block; font-weight:450; font-size:.62rem; opacity:.85; margin-top:.3rem; letter-spacing:.02em; }
-  .inside-reel .cover .handle{
-    display:flex; align-items:center; gap:.35rem; font-size:.62rem; font-weight:650; margin-bottom:.35rem;
-  }
-  .inside-reel .cover .handle::before{
-    content:""; width: .95rem; height:.95rem; border-radius:50%;
+  .inside-reel .handle::before{
+    content:""; width:.95rem; height:.95rem; border-radius:50%;
     background:var(--lime); border:1.5px solid #fff; flex-shrink:0;
   }
-  @media (max-width:560px){ .inside-grid{ grid-template-columns:repeat(2, 1fr); gap:.8rem; } }
+  .ic-cap{ font-weight:750; font-size:.95rem; line-height:1.18; letter-spacing:-0.01em; }
+  .ic-cap small{ display:block; font-weight:450; font-size:.75rem; opacity:.68; margin-top:.28rem; line-height:1.35; letter-spacing:0; }
+  @media (max-width:560px){ .inside-grid{ grid-template-columns:repeat(2, 1fr); gap:1.4rem .8rem; } }
   @media (prefers-reduced-motion: reduce){ .inside-reel, .inside-reel img{ transition:none; } }
   .inside-bonus{ margin-top:1.2rem; font-size:.9rem; font-weight:650; background:var(--surface); border:1px dashed var(--line); border-radius:12px; padding:.8rem 1.1rem; display:inline-block; }
 
@@ -526,55 +531,75 @@
       <a class="sec-link" href="#bundle">Get the bundle →</a>
     </div>
     <div class="inside-grid">
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">2,250+ files</span><div class="play"></div>
-        <div class="cover">Faceless Creator Library<small>13 packs · mix, mega &amp; aesthetic sets</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">2,250+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Faceless Creator Library<small>13 packs · mix, mega &amp; aesthetic sets</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">1,000+ files</span><div class="play"></div>
-        <div class="cover">Motion Graphics<small>3 bundles of animated overlays</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">1,000+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Motion Graphics<small>3 bundles of animated overlays</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">620+ files</span><div class="play"></div>
-        <div class="cover">Lifestyle &amp; Luxury<small>Raw, luxury &amp; money clips</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">620+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Lifestyle &amp; Luxury<small>Raw, luxury &amp; money clips</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">500+ files</span><div class="play"></div>
-        <div class="cover">AI Content Suite<small>AI Doctor pack + authority demos</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">500+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">AI Content Suite<small>AI Doctor pack + authority demos</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">450+ files</span><div class="play"></div>
-        <div class="cover">Premium &amp; Misc<small>Premium clips + external vault</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">450+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Premium &amp; Misc<small>Premium clips + external vault</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">400+ files</span><div class="play"></div>
-        <div class="cover">HQ Stock Vault<small>High-quality stock, any niche</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">400+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">HQ Stock Vault<small>High-quality stock, any niche</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">325+ files</span><div class="play"></div>
-        <div class="cover">Automotive<small>C3, Ultra &amp; Elite car packs</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">325+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Automotive<small>C3, Ultra &amp; Elite car packs</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">270+ files</span><div class="play"></div>
-        <div class="cover">Mindset &amp; Spirituality<small>Philosophy · productivity · spiritual</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">270+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Mindset &amp; Spirituality<small>Philosophy · productivity · spiritual</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">200 files</span><div class="play"></div>
-        <div class="cover">Meme &amp; Entertainment<small>Incl. a dedicated Indian meme pack</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">200 files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Meme &amp; Entertainment<small>Incl. a dedicated Indian meme pack</small></div>
       </div>
-      <div class="inside-reel reveal">
-        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
-        <span class="tag">100+ files</span><div class="play"></div>
-        <div class="cover">Anime &amp; Characters<small>Ready-to-post edits</small></div>
+      <div class="inside-card reveal">
+        <div class="inside-reel">
+          <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=500&q=70" alt="" loading="lazy">
+          <span class="tag">100+ files</span><div class="play"></div>
+        </div>
+        <div class="ic-cap">Anime &amp; Characters<small>Ready-to-post edits</small></div>
       </div>
     </div>
     <p class="inside-bonus reveal">Bonus: AI-powered money-making ideas guide (PDF) — included free.</p>
@@ -691,21 +716,18 @@
 </div>
 <script>
   // Instagram-style phone chrome on the what's-inside reel tiles:
-  // notch, status time, like/comment/share rail, @handle above the caption.
+  // Dynamic Island, status time, like/comment/share rail, @handle.
   (function () {
     var ICONS =
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-1.9-1.9-5-1.9-6.9 0L12 6.5l-1.9-1.9c-1.9-1.9-5-1.9-6.9 0s-1.9 5 0 6.9L12 20.3l8.8-8.8c1.9-1.9 1.9-5 0-6.9z"/></svg>' +
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 21l2.1-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg>' +
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
     document.querySelectorAll(".inside-reel").forEach(function (tile) {
-      var notch = document.createElement("div"); notch.className = "notch"; tile.appendChild(notch);
+      var island = document.createElement("div"); island.className = "island"; tile.appendChild(island);
       var time = document.createElement("span"); time.className = "ptime"; time.textContent = "9:41"; tile.appendChild(time);
       var rail = document.createElement("div"); rail.className = "rail"; rail.innerHTML = ICONS; tile.appendChild(rail);
-      var cover = tile.querySelector(".cover");
-      if (cover) {
-        var handle = document.createElement("span"); handle.className = "handle"; handle.textContent = "digitalasset.lab";
-        cover.insertBefore(handle, cover.firstChild);
-      }
+      var handle = document.createElement("span"); handle.className = "handle"; handle.textContent = "digitalasset.lab";
+      tile.appendChild(handle);
     });
   })();
 
