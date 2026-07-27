@@ -37,7 +37,6 @@
   var menu = document.createElement("div");
   menu.className = "nav-drop-menu";
   menu.innerHTML =
-    '<a href="/reels-bundle.html"><b>Instagram Reels Bundle</b><span class="p">₹530</span></a>' +
     '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,499</span></a>' +
     '<a class="all" href="' + link.getAttribute("href") + '">All products →</a>';
   wrap.appendChild(menu);

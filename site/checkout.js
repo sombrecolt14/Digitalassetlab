@@ -1,14 +1,10 @@
 // Digital Asset Lab — cart + checkout page + email capture
-// Buy buttons: <button data-buy="reels|architecture"> → add to cart → /checkout.html
+// Buy buttons: <button data-buy="architecture"> → add to cart → /checkout.html
 // Cart store: localStorage "dal-cart" = JSON array of product keys (digital goods, qty 1)
+// Keys not in PRODUCTS are dropped by getCart(), so retired products clear themselves
+// out of a returning visitor's saved cart.
 (function () {
   var PRODUCTS = {
-    reels: {
-      label: "Instagram Reels Bundle",
-      price: 530,
-      blurb: "6,100+ templates & clips · 10 categories · commercial licence",
-      href: "/reels-bundle.html",
-    },
     architecture: {
       label: "The Architecture Bundle",
       price: 1499,
@@ -191,7 +187,7 @@
           order_id: order.orderId,
           prefill: { name: name, email: email, contact: phone },
           notes: { product: order.description },
-          theme: { color: "#1a2b12" },
+          theme: { color: "#4a2b1f" },
           modal: { ondismiss: function () { payBtn.disabled = false; } },
           handler: async function (rsp) {
             try {

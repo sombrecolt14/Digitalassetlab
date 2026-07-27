@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Digital Asset Lab — Original Digital Design Templates &amp; Creative Assets</title>
-<meta name="description" content="Digital Asset Lab sells original, ready-to-edit design assets: video templates, graphic design templates, architectural CAD assets and business documents. Instant download, commercial licence, lifetime updates.">
+<meta name="description" content="Digital Asset Lab sells original, ready-to-edit design assets: architectural CAD blocks, SketchUp models, moodboard templates and practice documents. Instant download, commercial licence, lifetime updates.">
 <link rel="canonical" href="https://digitalassetlab.in/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Digital Asset Lab">
 <meta property="og:title" content="Digital Asset Lab — Original Digital Design Templates & Creative Assets">
-<meta property="og:description" content="Ready-to-edit design bundles: 6,100+ video templates and creator clips, architectural CAD assets and more. Instant download, full commercial licence.">
+<meta property="og:description" content="Ready-to-edit design bundles: 2,000+ CAD blocks, 300+ SketchUp models, moodboard templates and practice documents. Instant download, full commercial licence.">
 <meta property="og:url" content="https://digitalassetlab.in/">
 <meta property="og:image" content="https://digitalassetlab.in/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -27,11 +27,12 @@
     --line: oklch(88% 0.008 255);
 
     /* product hues */
-    --reels: oklch(30% 0.06 148);
-    --reels-deep: oklch(24% 0.05 148);
-    --reels-pop: oklch(87% 0.185 132);
-    --on-reels: oklch(96% 0.02 130);
-    --on-reels-muted: oklch(82% 0.04 135);
+    --clay: oklch(33% 0.075 40);
+    --clay-deep: oklch(27% 0.062 40);
+    --pop: oklch(79% 0.135 64);
+    --on-pop: oklch(28% 0.06 42);
+    --on-clay: oklch(96% 0.015 55);
+    --on-clay-muted: oklch(84% 0.035 50);
     --arch: oklch(56% 0.125 42);
     --notion: oklch(28% 0.01 265);
     --radius: 16px;
@@ -80,8 +81,8 @@
   .btn.small{ padding:.55rem 1.05rem; font-size:.88rem; }
   .btn.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
   .btn.ghost:hover{ box-shadow:none; }
-  .btn.lime{ background:var(--reels-pop); color:oklch(25% 0.055 145); }
-  .btn.lime:hover{ box-shadow:0 10px 26px oklch(87% 0.185 132 / .35); }
+  .btn.pop{ background:var(--pop); color:var(--on-pop); }
+  .btn.pop:hover{ box-shadow:0 10px 26px oklch(79% 0.135 64 / .35); }
 
   /* ── hero ── */
   .hero{ padding-block:clamp(3.5rem, 8vh, 5.5rem) clamp(3rem, 6vh, 4.5rem); }
@@ -90,7 +91,7 @@
     font-size:clamp(2.6rem, 6vw, 5rem);
     line-height:1.0; font-weight:770; letter-spacing:-0.028em;
   }
-  .hero h1 .u{ box-shadow:inset 0 -0.18em 0 var(--reels-pop); }
+  .hero h1 .u{ box-shadow:inset 0 -0.18em 0 var(--pop); }
   .hero .lede{
     margin-top:1.5rem; max-width:38rem; font-size:clamp(1rem, 1.35vw, 1.15rem);
     color:var(--ink-soft); line-height:1.65;
@@ -98,44 +99,32 @@
   .hero-cta{ display:flex; gap:.9rem; margin-top:2rem; flex-wrap:wrap; }
 
   /* ── featured product (the conversion block) ── */
-  .feature{ background:linear-gradient(170deg, var(--reels) 60%, var(--reels-deep)); color:var(--on-reels); }
+  .feature{ background:linear-gradient(170deg, var(--clay) 60%, var(--clay-deep)); color:var(--on-clay); }
   .feature-grid{
     display:grid; grid-template-columns:.9fr 1.1fr;
     gap:clamp(2.5rem, 5vw, 5rem); align-items:center;
     padding-block:clamp(3.5rem, 7vh, 5.5rem);
   }
-  .feature .mini{ position:relative; height:420px; }
-  .feature .mini img{
-    position:absolute; width:46%; aspect-ratio:9/16; object-fit:cover;
-    border-radius:14px; box-shadow:0 24px 60px oklch(0% 0 0/.4);
-    transition:transform .35s cubic-bezier(.22,1,.36,1);
-  }
-  .feature .mini img:nth-child(1){ left:0; top:4%; transform:rotate(-6deg); }
-  .feature .mini img:nth-child(2){ left:28%; top:14%; transform:rotate(1deg); z-index:2; }
-  .feature .mini img:nth-child(3){ right:0; top:2%; transform:rotate(6deg); }
-  .feature .mini img:hover{ transform:rotate(0) translateY(-8px); z-index:5; }
   .feature .chip{
     display:inline-block; font-size:.8rem; font-weight:700;
-    background:var(--reels-pop); color:oklch(25% 0.055 145);
+    background:var(--pop); color:var(--on-pop);
     padding:.35rem .8rem; border-radius:999px; margin-bottom:1.1rem;
   }
   .feature h2{ font-size:clamp(1.9rem, 3.4vw, 2.9rem); font-weight:750; letter-spacing:-0.02em; line-height:1.06; }
-  .price-row{ display:flex; align-items:baseline; gap:.9rem; margin-top:1.1rem; }
-  .price-row .price{ font-size:2.5rem; font-weight:780; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
-  .price-row .note{ font-size:.88rem; color:var(--on-reels-muted); }
-  .includes{ list-style:none; margin-top:1.4rem; display:grid; gap:.7rem; }
-  .includes li{ display:flex; gap:.8rem; align-items:start; font-size:.98rem; }
-  .includes .tick{
-    flex-shrink:0; width:1.3rem; height:1.3rem; border-radius:50%;
-    background:var(--reels-pop); display:grid; place-items:center; margin-top:.12rem;
-  }
-  .includes .tick::before{
-    content:""; width:.52rem; height:.3rem;
-    border-left:2.2px solid oklch(25% 0.055 145); border-bottom:2.2px solid oklch(25% 0.055 145);
-    transform:rotate(-45deg) translateY(-1px);
-  }
   .feature-cta{ margin-top:1.9rem; display:flex; align-items:center; gap:1.1rem; flex-wrap:wrap; }
-  .feature-cta .trust{ font-size:.85rem; color:var(--on-reels-muted); }
+  .feature-cta .trust{ font-size:.85rem; color:var(--on-clay-muted); }
+
+  /* drafting sheet visual */
+  .sheet{
+    width:min(100%, 380px); aspect-ratio:3/3.7; margin-inline:auto;
+    background:oklch(98.5% 0.003 55); border-radius:12px;
+    box-shadow:0 26px 64px oklch(0% 0 0/.4); transform:rotate(-2.5deg);
+    display:grid; grid-template-columns:1fr 1fr; gap:.9rem; padding:1.2rem;
+    transition:transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .sheet:hover{ transform:rotate(0) translateY(-6px); }
+  .sheet svg{ width:100%; height:100%; overflow:visible; }
+  .sheet svg *{ fill:none; stroke:oklch(26% 0.025 40); stroke-width:1.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 
   /* ── shelf ── */
   section.shelf-sec{ padding-block:clamp(4rem, 8vh, 6rem); }
@@ -145,7 +134,7 @@
     display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
     gap:1.1rem; align-items:stretch;
   }
-  @media (min-width: 1000px){ .shelf{ grid-template-columns:repeat(4, 1fr); } }
+  @media (min-width: 1000px){ .shelf{ grid-template-columns:repeat(3, 1fr); } }
   .box{
     position:relative; border-radius:var(--radius); overflow:hidden;
     aspect-ratio:3/3.8; display:flex; flex-direction:column; justify-content:flex-end;
@@ -167,12 +156,7 @@
     padding:.32rem .7rem; border-radius:999px;
     background:oklch(0% 0 0 / .38); backdrop-filter:blur(4px); color:#fff;
   }
-  .box .status.live{ background:var(--reels-pop); color:oklch(25% 0.055 145); }
-
-  .box.reels-box .art{ background:var(--reels); }
-  .box.reels-box .art img{ position:absolute; width:52%; aspect-ratio:9/16; object-fit:cover; border-radius:8px; box-shadow:0 8px 20px oklch(0% 0 0/.35); }
-  .box.reels-box .art img:first-child{ left:8%; top:9%; transform:rotate(-6deg); }
-  .box.reels-box .art img:last-child{ right:8%; top:20%; transform:rotate(5deg); }
+  .box .status.live{ background:var(--pop); color:var(--on-pop); }
 
   .box.arch .art{ background:var(--arch); }
   .box.arch .art img{ width:100%; height:100%; object-fit:cover; opacity:.85; mix-blend-mode:luminosity; }
@@ -232,7 +216,7 @@
   .faq summary::after{ content:"+"; font-size:1.4rem; font-weight:300; color:var(--ink-soft); transition:transform .3s cubic-bezier(.22,1,.36,1); }
   .faq details[open] summary::after{ transform:rotate(45deg); }
   .faq details p{ padding-bottom:1.2rem; color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
-  .faq details a{ font-weight:600; color:var(--ink); border-bottom:1.5px solid var(--reels-pop); }
+  .faq details a{ font-weight:600; color:var(--ink); border-bottom:1.5px solid var(--pop); }
 
   /* ── vote band ── */
   .band{ background:var(--ink); color:var(--paper); }
@@ -277,61 +261,33 @@
   .cart-count{
     position:absolute; top:-0.3rem; right:-0.3rem;
     min-width:1.15rem; height:1.15rem; padding-inline:.25rem;
-    border-radius:999px; background:var(--reels-pop); color:oklch(25% 0.055 145);
+    border-radius:999px; background:var(--pop); color:var(--on-pop);
     font-size:.68rem; font-weight:750; display:grid; place-items:center;
     transition:transform .25s cubic-bezier(.22,1,.36,1);
   }
   .cart-count.bump{ transform:scale(1.3); }
-  .btn.added{ background:oklch(45% 0.1 148); color:#fff; }
+  .btn.added{ background:oklch(45% 0.09 45); color:#fff; }
 
   /* ── value stack ── */
   .worth{
-    margin-top:1.4rem; border:1px solid oklch(96% 0.02 130 / .25); border-radius:12px;
+    margin-top:1.4rem; border:1px solid oklch(96% 0.015 55 / .25); border-radius:12px;
     padding:1rem 1.2rem; max-width:26rem; font-variant-numeric:tabular-nums;
   }
   .worth .row{
     display:flex; justify-content:space-between; gap:1rem; align-items:baseline;
     padding:.42rem 0; font-size:.93rem;
-    border-bottom:1px dashed oklch(96% 0.02 130 / .18);
+    border-bottom:1px dashed oklch(96% 0.015 55 / .18);
   }
-  .worth .row s{ color:var(--on-reels-muted); text-decoration-thickness:1.5px; }
+  .worth .row s{ color:var(--on-clay-muted); text-decoration-thickness:1.5px; }
   .worth .row.total{ font-weight:650; border-bottom:none; }
   .worth .row.pay{
     border-bottom:none; padding-top:.6rem; margin-top:.2rem;
-    border-top:2px solid oklch(96% 0.02 130 / .35); font-size:1.05rem; font-weight:700;
+    border-top:2px solid oklch(96% 0.015 55 / .35); font-size:1.05rem; font-weight:700;
   }
   .worth .row.pay .save{
-    font-size:.78rem; font-weight:750; background:var(--reels-pop); color:oklch(25% 0.055 145);
+    font-size:.78rem; font-weight:750; background:var(--pop); color:var(--on-pop);
     padding:.2rem .6rem; border-radius:999px;
   }
-
-  /* ── launch spots ── */
-  .spots{ margin-top:1.3rem; max-width:26rem; }
-  .spots .bar{ height:.5rem; border-radius:999px; background:oklch(96% 0.02 130 / .18); overflow:hidden; }
-  .spots .bar i{ display:block; height:100%; border-radius:999px; background:var(--reels-pop); }
-  .spots span{ display:block; margin-top:.5rem; font-size:.82rem; color:var(--on-reels-muted); }
-  .spots span b{ color:var(--on-reels); font-weight:650; }
-
-  /* ── arch drop band ── */
-  .arch-band{ background:linear-gradient(170deg, oklch(33% 0.075 40) 55%, oklch(38% 0.085 42)); color:oklch(96% 0.015 55); }
-  .arch-band .inner{
-    display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.5rem, 4vw, 3.5rem);
-    align-items:center; padding-block:clamp(2.5rem, 5vh, 4rem);
-  }
-  .arch-band .chip{ display:inline-block; font-size:.78rem; font-weight:700; background:oklch(96% 0.015 55); color:oklch(33% 0.075 40); padding:.32rem .75rem; border-radius:999px; margin-bottom:.8rem; }
-  .arch-band h2{ font-size:clamp(1.5rem, 2.6vw, 2.2rem); font-weight:740; letter-spacing:-0.02em; line-height:1.1; }
-  .arch-band p{ margin-top:.5rem; color:oklch(84% 0.035 50); font-size:.96rem; max-width:44rem; }
-  .arch-band .btn{ background:oklch(96% 0.015 55); color:oklch(33% 0.075 40); white-space:nowrap; }
-  .arch-band .price-tag{ display:flex; flex-direction:column; align-items:flex-end; gap:.2rem; }
-  .arch-band .price-tag b{ font-size:2rem; font-weight:780; letter-spacing:-0.02em; }
-  .arch-band .price-tag small{ font-size:.78rem; color:oklch(84% 0.035 50); }
-  .arch-band .mini-sheet{
-    width:120px; aspect-ratio:3/4; background:oklch(98.5% 0.003 55); border-radius:8px;
-    box-shadow:0 16px 40px oklch(0% 0 0/.35); transform:rotate(-3deg);
-    display:grid; grid-template-columns:1fr 1fr; padding:.6rem; gap:.4rem;
-  }
-  .mini-sheet svg{ width:100%; height:100%; overflow:visible; }
-  .mini-sheet svg *{ fill:none; stroke:oklch(26% 0.025 40); stroke-width:1.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 
   /* ── reveals ── */
   .reveal{ opacity:1; transform:none; }
@@ -340,15 +296,13 @@
 
   @media (prefers-reduced-motion: reduce){
     .js .reveal{ opacity:1; transform:none; transition:none; }
-    .btn, .box, .feature .mini img{ transition:none; }
+    .btn, .box, .sheet{ transition:none; }
     html{ scroll-behavior:auto; }
   }
 
   @media (max-width: 900px){
-    .arch-band .inner{ grid-template-columns:1fr; justify-items:start; }
-    .arch-band .price-tag{ align-items:flex-start; }
     .feature-grid{ grid-template-columns:1fr; }
-    .feature .mini{ height:340px; max-width:520px; }
+    .sheet{ max-width:340px; }
     .band-inner{ grid-template-columns:1fr; }
     .how-row{ grid-template-columns:1fr; gap:1.6rem; }
     .faq-grid{ grid-template-columns:1fr; }
@@ -388,7 +342,7 @@
       <a href="#faq">FAQ</a>
       <a href="#next">What's next</a>
     </nav>
-    <a class="btn small" href="#reels">Get the Reels Bundle</a>
+    <a class="btn small" href="#architecture">Get the bundle · ₹1,499</a>
     <a class="cart" href="/checkout.html" aria-label="View cart">
       <svg viewBox="0 0 24 24"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
     </a>
@@ -401,60 +355,41 @@
     <h1 class="reveal">Big bundles of <span class="u">ready-to-use</span> design.</h1>
     <p class="lede reveal" style="transition-delay:.08s">
       Digital Asset Lab packs thousands of assets into single-purchase bundles.
-      The Instagram Reels Bundle is live, the Architecture Bundle just launched,
-      and Notion systems are next out of the lab. Buy once, own forever,
-      commercial licence included.
+      The Architecture Bundle is live, and Notion systems are next out of the lab.
+      Buy once, own forever, commercial licence included.
     </p>
     <div class="hero-cta reveal" style="transition-delay:.16s">
-      <a class="btn" href="#reels">Get the Reels Bundle · ₹530</a>
+      <a class="btn" href="#architecture">Get the Architecture Bundle · ₹1,499</a>
       <a class="btn ghost" href="#shelf">See all bundles</a>
     </div>
   </div>
 </section>
 
-<section class="feature" id="reels">
+<section class="feature" id="architecture">
   <div class="wrap feature-grid">
-    <div class="mini reveal" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=70" alt="">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=70" alt="">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70" alt="">
-    </div>
-    <div>
-      <span class="chip reveal">Launch price · first 500 buyers only</span>
-      <h2 class="reveal">The Instagram Reels Bundle</h2>
-      <p class="reveal" style="margin-top:.6rem; color:var(--on-reels-muted); font-size:.96rem;">Works with CapCut, Premiere Pro, After Effects and Final Cut Pro.</p>
-      <div class="worth reveal" aria-label="What's inside this bundle">
-        <div class="row"><span>6,100+ templates &amp; creator clips</span><span>10 categories</span></div>
-        <div class="row"><span>2,250+ faceless creator files</span><span>13 packs</span></div>
-        <div class="row"><span>1,000+ motion-graphics animations</span><span>3 bundles</span></div>
-        <div class="row"><span>Bonus: AI money-making ideas guide</span><span>PDF</span></div>
-        <div class="row pay"><span>Today, everything</span><span>₹530</span></div>
-      </div>
-      <div class="feature-cta reveal">
-        <button class="btn lime" data-buy="reels">Get instant access · ₹530</button>
-        <span class="trust">Instant delivery · Secure UPI &amp; card checkout · Lifetime updates</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="arch-band" id="architecture">
-  <div class="wrap inner">
-    <div class="mini-sheet reveal" aria-hidden="true">
+    <div class="sheet reveal" aria-hidden="true">
       <svg viewBox="0 0 100 100"><rect x="25" y="30" width="50" height="42" rx="6"/><rect x="20" y="22" width="60" height="12" rx="5"/></svg>
       <svg viewBox="0 0 100 100"><line x1="20" y1="80" x2="80" y2="80"/><line x1="22" y1="80" x2="22" y2="24"/><path d="M22 24 A 56 56 0 0 1 78 80"/></svg>
       <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4"/><line x1="71" y1="29" x2="78" y2="22"/><line x1="29" y1="71" x2="22" y2="78"/></svg>
       <svg viewBox="0 0 100 100"><rect x="24" y="16" width="52" height="68" rx="4"/><line x1="24" y1="44" x2="76" y2="44"/></svg>
     </div>
-    <div class="reveal">
-      <span class="chip">New · Bundle № 02 · first 100 buyers get launch price</span>
-      <h2>The Architecture Bundle</h2>
-      <p>CAD blocks, SketchUp assets, moodboards, legal documentation and a client-onboarding questionnaire kit — the working library of a practice, in one purchase.</p>
-    </div>
-    <div class="price-tag reveal">
-      <b>₹1,499</b>
-      <small>launch price · one-time</small>
-      <button class="btn" data-buy="architecture" style="margin-top:.6rem">Buy now</button>
+    <div>
+      <span class="chip reveal">Launch price · first 100 buyers only</span>
+      <h2 class="reveal">The Architecture Bundle</h2>
+      <p class="reveal" style="margin-top:.6rem; color:var(--on-clay-muted); font-size:.96rem;">The working library of a practice — CAD blocks, SketchUp models, boards and client documents, in one purchase.</p>
+      <div class="worth reveal" aria-label="What's inside this bundle">
+        <div class="row"><span>2,000+ CAD blocks, layered and purged</span><s>₹1,999</s></div>
+        <div class="row"><span>300+ SketchUp models, cleaned &amp; low-poly</span><s>₹1,999</s></div>
+        <div class="row"><span>40 moodboard &amp; concept templates</span><s>₹999</s></div>
+        <div class="row"><span>25+ legal documents for Indian practice</span><s>₹2,499</s></div>
+        <div class="row"><span>Client onboarding questionnaire kit</span><s>₹699</s></div>
+        <div class="row total"><span>Total value</span><s>₹8,195</s></div>
+        <div class="row pay"><span>Today, everything</span><span>₹1,499 <span class="save">Save 82%</span></span></div>
+      </div>
+      <div class="feature-cta reveal">
+        <button class="btn pop" data-buy="architecture">Get instant access · ₹1,499</button>
+        <span class="trust">Instant delivery · Secure UPI &amp; card checkout · Lifetime updates</span>
+      </div>
     </div>
   </div>
 </section>
@@ -463,27 +398,19 @@
   <div class="wrap">
     <div class="shelf-label reveal">The shelf · one lab, many bundles</div>
     <div class="shelf">
-      <a class="box reels-box reveal" href="/reels-bundle.html">
-        <span class="status live">Available · ₹530</span>
-        <div class="art" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=70" alt="">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=300&q=70" alt="">
-        </div>
-        <div class="label"><h3>Instagram Reels Bundle</h3><p class="sub">6,100+ files · 10 categories</p></div>
-      </a>
-      <a class="box arch reveal" href="/architecture-bundle.html" style="transition-delay:.06s">
-        <span class="status live">New · ₹1,499</span>
+      <a class="box arch reveal" href="/architecture-bundle.html">
+        <span class="status live">Available · ₹1,499</span>
         <div class="art" aria-hidden="true">
           <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=70" alt="">
         </div>
         <div class="label"><h3>Architecture Bundle</h3><p class="sub">CAD blocks · boards · decks</p></div>
       </a>
-      <a class="box notion reveal" href="#next" style="transition-delay:.12s">
+      <a class="box notion reveal" href="#next" style="transition-delay:.06s">
         <span class="status">In development</span>
         <div class="art" aria-hidden="true"></div>
         <div class="label"><h3>Notion Systems</h3><p class="sub">Client OS · content calendar</p></div>
       </a>
-      <a class="box propose reveal" href="#next" style="transition-delay:.18s">
+      <a class="box propose reveal" href="#next" style="transition-delay:.12s">
         <div>
           <div class="plus">+</div>
           <h3>Propose a bundle</h3>
@@ -529,7 +456,7 @@
       </details>
       <details>
         <summary>Do I need professional software?</summary>
-        <p>No. The Reels Bundle works with CapCut (free) as well as Premiere Pro, After Effects and Final Cut Pro. Every product page lists exact formats and software before you pay — honest file manifests, no surprises after checkout.</p>
+        <p>The CAD blocks open in AutoCAD and any DWG-compatible application, the models in SketchUp, and the practice documents in a standard word processor. Every product page lists exact formats and software before you pay — honest file manifests, no surprises after checkout.</p>
       </details>
       <details>
         <summary>Can I use these for client work?</summary>
@@ -537,11 +464,11 @@
       </details>
       <details>
         <summary>Will the price change?</summary>
-        <p>Yes. Each bundle's launch price is limited to a fixed number of buyers — 500 for the Reels Bundle, 100 for the Architecture Bundle — and rises once those spots are gone. Bundles also keep growing with free updates, so buying early gets more for less.</p>
+        <p>Yes. The Architecture Bundle's launch price is limited to the first 100 buyers and rises once those spots are gone. Bundles also keep growing with free updates, so buying early gets more for less.</p>
       </details>
       <details>
         <summary>What if something goes wrong with my order?</summary>
-        <p>If a download fails, you're double-charged, or a product isn't what its page described, support will make it right — including a refund where the fault is ours. As with most digital products, there are no change-of-mind refunds once files are downloaded. See the full <a href="#">refund policy</a>.</p>
+        <p>If a download fails, you're double-charged, or a product isn't what its page described, support will make it right — including a refund where the fault is ours. As with most digital products, there are no change-of-mind refunds once files are downloaded. See the full <a href="/refund-policy.html">refund policy</a>.</p>
       </details>
     </div>
   </div>
@@ -575,11 +502,11 @@
     <div class="foot-grid">
       <div>
         <a class="wordmark" href="#" style="color:var(--ink)"><span class="dot"></span>Digital Asset Lab</a>
-        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for creators, marketers and small businesses in India and beyond.</p>
+        <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for architects, designers and small businesses in India and beyond.</p>
       </div>
       <div>
         <h4>Products</h4>
-        <ul><li><a href="/reels-bundle.html">Instagram Reels Bundle</a></li><li><a href="/architecture-bundle.html">The Architecture Bundle</a></li><li><a href="#next">Upcoming bundles</a></li></ul>
+        <ul><li><a href="/architecture-bundle.html">The Architecture Bundle</a></li><li><a href="#next">Upcoming bundles</a></li></ul>
       </div>
       <div>
         <h4>Support</h4>

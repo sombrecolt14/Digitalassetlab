@@ -12,7 +12,7 @@
   :root{
     --ink: oklch(23% 0.015 265); --ink-soft: oklch(42% 0.015 265);
     --paper: oklch(96.5% 0.004 250); --surface: oklch(99% 0.002 250);
-    --line: oklch(88% 0.008 255); --reels: oklch(30% 0.06 148); --pop: oklch(87% 0.185 132);
+    --line: oklch(88% 0.008 255); --clay: oklch(33% 0.075 40); --pop: oklch(79% 0.135 64);
     font-size:16px;
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -54,7 +54,7 @@
   .cart-row-side b{ font-variant-numeric:tabular-nums; }
   .row-remove, .row-add{ font:inherit; font-size:.82rem; font-weight:600; cursor:pointer; border-radius:999px; padding:.35rem .85rem; border:1.5px solid var(--line); background:var(--paper); color:var(--ink-soft); transition:color .2s, border-color .2s; }
   .row-remove:hover{ color:#a4232a; border-color:#a4232a; }
-  .row-add{ background:var(--pop); color:oklch(25% 0.055 145); border-color:transparent; }
+  .row-add{ background:var(--pop); color:oklch(28% 0.06 42); border-color:transparent; }
   #cart-add:empty{ display:none; }
   #cart-add .cart-row{ border-top:none; padding:.9rem 0 0; }
 
@@ -65,17 +65,17 @@
   #contact-form label{ font-size:.85rem; font-weight:600; display:grid; gap:.35rem; }
   #contact-form input{ font:inherit; font-size:.95rem; padding:.7rem .9rem; border-radius:10px; border:1.5px solid var(--line); background:var(--paper); width:100%; }
   #contact-form input:focus{ outline:2px solid var(--ink); outline-offset:1px; }
-  .pay-btn{ font:inherit; font-weight:750; font-size:1.05rem; padding:1rem 1.2rem; border-radius:999px; border:none; background:var(--pop); color:oklch(25% 0.055 145); cursor:pointer; box-shadow:0 6px 24px oklch(87% 0.185 132 / .35); animation:pay-pulse 2.4s ease-in-out infinite; transition:transform .2s; }
+  .pay-btn{ font:inherit; font-weight:750; font-size:1.05rem; padding:1rem 1.2rem; border-radius:999px; border:none; background:var(--pop); color:oklch(28% 0.06 42); cursor:pointer; box-shadow:0 6px 24px oklch(79% 0.135 64 / .35); animation:pay-pulse 2.4s ease-in-out infinite; transition:transform .2s; }
   .pay-btn:hover{ transform:translateY(-2px); }
   .pay-btn:disabled{ opacity:.6; cursor:wait; animation:none; }
-  @keyframes pay-pulse{ 0%,100%{ box-shadow:0 6px 24px oklch(87% 0.185 132 / .35), 0 0 0 0 oklch(87% 0.185 132 / .4); } 50%{ box-shadow:0 6px 24px oklch(87% 0.185 132 / .35), 0 0 0 10px oklch(87% 0.185 132 / 0); } }
+  @keyframes pay-pulse{ 0%,100%{ box-shadow:0 6px 24px oklch(79% 0.135 64 / .35), 0 0 0 0 oklch(79% 0.135 64 / .4); } 50%{ box-shadow:0 6px 24px oklch(79% 0.135 64 / .35), 0 0 0 10px oklch(79% 0.135 64 / 0); } }
   @media (prefers-reduced-motion: reduce){ .pay-btn{ animation:none; transition:none; } }
-  .dl-chip{ display:inline-flex; align-items:center; gap:.25rem; background:oklch(94% 0.06 132); color:oklch(32% 0.06 145); font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:999px; margin-top:.3rem; }
-  .deal-band{ background:var(--reels); color:oklch(96% 0.02 130); border-radius:12px; padding:.7rem 1.1rem; font-size:.88rem; font-weight:650; display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+  .dl-chip{ display:inline-flex; align-items:center; gap:.25rem; background:oklch(93% 0.05 65); color:oklch(34% 0.07 45); font-size:.7rem; font-weight:700; padding:.18rem .55rem; border-radius:999px; margin-top:.3rem; }
+  .deal-band{ background:var(--clay); color:oklch(96% 0.015 55); border-radius:12px; padding:.7rem 1.1rem; font-size:.88rem; font-weight:650; display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
   .deal-band .zap{ color:var(--pop); }
   .save-note{ display:flex; justify-content:space-between; align-items:baseline; padding-top:.9rem; font-size:.88rem; color:var(--ink-soft); }
   .save-note s{ text-decoration-thickness:1.5px; }
-  .save-note .pct{ color:oklch(40% 0.09 145); font-weight:750; }
+  .save-note .pct{ color:oklch(45% 0.11 45); font-weight:750; }
   .pay-err{ color:#a4232a; font-size:.85rem; display:none; }
   .fine{ color:var(--ink-soft); font-size:.78rem; text-align:center; }
 
@@ -105,7 +105,6 @@
     <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
     <nav>
       <a href="/#shelf">Products</a>
-      <a href="/gallery.html">Gallery</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
     </nav>
@@ -122,7 +121,6 @@
   <div id="dal-checkout">
     <div id="cart-empty" hidden>
       <p>Your cart is empty. Pick a bundle to get started.</p>
-      <a class="btn" href="/reels-bundle.html">Reels Bundle · ₹530</a>
       <a class="btn" href="/architecture-bundle.html">Architecture Bundle · ₹1,499</a>
     </div>
 

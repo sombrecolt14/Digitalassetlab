@@ -13,7 +13,7 @@
     --ink: oklch(23% 0.015 265);
     --ink-soft: oklch(42% 0.015 265);
     --paper: oklch(96.5% 0.004 250);
-    --pop: oklch(87% 0.185 132);
+    --pop: oklch(79% 0.135 64);
     --line: oklch(88% 0.008 255);
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -62,10 +62,10 @@
     el.hidden = false;
   }
   // conversion event — fires once per payment id per browser
-  const productsParam = params.get("products") || params.get("product") || "reels";
+  const productsParam = params.get("products") || params.get("product") || "architecture";
   const keys = productsParam.split(",");
-  const PRICES = { reels: 530, architecture: 1499 };
-  const value = keys.reduce((sum, k) => sum + (PRICES[k] || 0), 0) || 530;
+  const PRICES = { architecture: 1499 };
+  const value = keys.reduce((sum, k) => sum + (PRICES[k] || 0), 0) || 1499;
   if (pid && window.dalTrack && !localStorage.getItem("dal_tracked_" + pid)) {
     localStorage.setItem("dal_tracked_" + pid, "1");
     dalTrack("purchase", {

@@ -25,20 +25,6 @@ const {
 
 // Product catalog — prices live server-side only, never trusted from the client.
 const PRODUCTS = {
-  reels: {
-    name: "Instagram Reels Bundle",
-    amount: 53000, // ₹530 in paise
-    downloadUrl: "https://drive.google.com/drive/folders/1u8MHsk-VBMh75iufo9GhmFjpWmIp3URE?usp=share_link",
-    includes: [
-      "6,100+ Reel Templates & Creator Clips",
-      "10 Organised Categories (Creator Vault)",
-      "2,250+ Faceless Creator Files",
-      "1,000+ Motion-Graphics Animations",
-      "Bonus: AI Money-Making Ideas Guide (PDF)",
-      "Commercial License",
-      "Lifetime Updates",
-    ],
-  },
   architecture: {
     name: "The Architecture Bundle",
     amount: 149900, // ₹1,499 in paise
@@ -57,14 +43,14 @@ const PRODUCTS = {
 
 const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
 const productByName = (name) =>
-  Object.values(PRODUCTS).find((p) => p.name === name) || PRODUCTS.reels;
+  Object.values(PRODUCTS).find((p) => p.name === name) || PRODUCTS.architecture;
 
 // Resolve requested product keys (multi-item cart, or legacy single "product")
 // to catalog entries. Returns null if any key is unknown.
 function resolveProducts(body) {
   let keys = Array.isArray(body && body.products) && body.products.length
     ? body.products.map(String)
-    : [String((body && body.product) || "reels")];
+    : [String((body && body.product) || "architecture")];
   keys = [...new Set(keys)];
   if (!keys.every((k) => PRODUCTS[k])) return null;
   return { keys, items: keys.map((k) => PRODUCTS[k]) };
@@ -456,7 +442,7 @@ app.post("/api/verify-payment", async (req, res) => {
 
     // Send download links to buyer + notify owner (idempotent vs the webhook)
     const { customerEmail, customerName } = req.body;
-    const sel = resolveProducts(req.body) || { keys: ["reels"], items: [PRODUCTS.reels] };
+    const sel = resolveProducts(req.body) || { keys: ["architecture"], items: [PRODUCTS.architecture] };
     deliverPurchase(razorpay_payment_id, customerEmail, customerName, sel.items);
 
     return res.json({ ok: true });
