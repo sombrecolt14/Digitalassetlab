@@ -24,17 +24,56 @@ const {
 } = process.env;
 
 // Product catalog — prices live server-side only, never trusted from the client.
+// "architecture" is the full bundle; the other three are the same libraries
+// sold separately (₹2,797 apart, ₹1,499 together).
 const PRODUCTS = {
   architecture: {
     name: "The Architecture Bundle",
     amount: 149900, // ₹1,499 in paise
     downloadUrl: process.env.ARCH_DOWNLOAD_URL || "",
     includes: [
-      "2,000+ CAD Blocks (Plan & Elevation)",
-      "300+ SketchUp Models",
-      "40 Moodboard Templates",
-      "25+ Legal Document Templates",
-      "Client Onboarding Questionnaire Kit",
+      "The Presentation Library — mood boards, styles, full material system",
+      "The Drafting Library — CAD block templates, SketchUp models, textures",
+      "Contracts & Billing — 9 contract suites, 65+ quotation formats",
+      "Commercial License",
+      "Lifetime Updates",
+    ],
+  },
+  presentation: {
+    name: "The Presentation Library",
+    amount: 99900, // ₹999
+    downloadUrl: process.env.PRESENTATION_DOWNLOAD_URL || "",
+    includes: [
+      "Mood boards & colour palettes — residential, commercial, hotel",
+      "Style & material specifications for 10+ space types",
+      "Materials: rooms, surfaces & systems, with indicative rates",
+      "Editable in Canva",
+      "Commercial License",
+      "Lifetime Updates",
+    ],
+  },
+  drafting: {
+    name: "The Drafting Library",
+    amount: 119900, // ₹1,199
+    downloadUrl: process.env.DRAFTING_DOWNLOAD_URL || "",
+    includes: [
+      "CAD block templates — furniture, openings, kitchen, bath, entourage",
+      "Floor plans, construction details & AutoCAD standards",
+      "1,000+ SketchUp models, cleaned and purged",
+      "1,400+ seamless material textures",
+      "Commercial License",
+      "Lifetime Updates",
+    ],
+  },
+  contracts: {
+    name: "Contracts & Billing",
+    amount: 59900, // ₹599
+    downloadUrl: process.env.CONTRACTS_DOWNLOAD_URL || "",
+    includes: [
+      "9 contract suites in 6 layouts each — 54 typeset documents",
+      "Client, turnkey, CAD drafting, consultancy, vendor, freelancer",
+      "Employment, partnership and joint venture agreements",
+      "65+ quotation, estimate & invoice formats",
       "Commercial License",
       "Lifetime Updates",
     ],

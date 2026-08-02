@@ -4,15 +4,38 @@
 // Keys not in PRODUCTS are dropped by getCart(), so retired products clear themselves
 // out of a returning visitor's saved cart.
 (function () {
+  // The bundle is every library at once; the three parts are also sold alone.
+  // BUNDLE is handled separately from the cross-sell list so a cart can be
+  // upgraded to it in one click instead of stacking parts alongside it.
+  var BUNDLE = "architecture";
   var PRODUCTS = {
     architecture: {
       label: "The Architecture Bundle",
       price: 1499,
-      worth: 8195,
-      blurb: "CAD blocks, SketchUp models, moodboards, client documents",
+      worth: 2797,
+      blurb: "All three libraries: presentation, drafting, contracts",
       href: "/architecture-bundle.html",
     },
+    presentation: {
+      label: "The Presentation Library",
+      price: 999,
+      blurb: "Mood boards, styles and the full material system",
+      href: "/presentation-library.html",
+    },
+    drafting: {
+      label: "The Drafting Library",
+      price: 1199,
+      blurb: "CAD block templates, SketchUp models, 1,400+ textures",
+      href: "/drafting-library.html",
+    },
+    contracts: {
+      label: "Contracts & Billing",
+      price: 599,
+      blurb: "9 contract suites, 65+ quotation & invoice formats",
+      href: "/contracts-billing.html",
+    },
   };
+  var PARTS = Object.keys(PRODUCTS).filter(function (k) { return k !== BUNDLE; });
   var fmt = function (n) { return "₹" + n.toLocaleString("en-IN"); };
 
   // ── cart store ──
@@ -28,6 +51,9 @@
   }
   function addToCart(key) {
     var c = getCart();
+    // The bundle already contains every part, so the two never co-exist.
+    if (key === BUNDLE) c = [];
+    else c = c.filter(function (k) { return k !== BUNDLE; });
     if (c.indexOf(key) === -1) c.push(key);
     setCart(c);
   }
@@ -126,22 +152,51 @@
         }
       }
 
-      // cross-sell: whatever isn't in the cart yet
+      // cross-sell: the parts not in the cart yet (never the bundle — that's
+      // the one-click upgrade below, so the two can't stack)
       addEl.innerHTML = "";
-      Object.keys(PRODUCTS).forEach(function (key) {
-        if (cart.indexOf(key) !== -1) return;
-        var p = PRODUCTS[key];
-        var row = document.createElement("div");
-        row.className = "cart-row add";
-        row.innerHTML =
-          '<div class="cart-row-info"><b>Add ' + p.label + "</b><span>" + p.blurb + "</span></div>" +
-          '<div class="cart-row-side"><b>' + fmt(p.price) + '</b><button type="button" class="row-add">Add</button></div>';
-        row.querySelector(".row-add").addEventListener("click", function () {
-          addToCart(key);
-          draw();
+      var hasBundle = cart.indexOf(BUNDLE) !== -1;
+      if (!hasBundle) {
+        PARTS.forEach(function (key) {
+          if (cart.indexOf(key) !== -1) return;
+          var p = PRODUCTS[key];
+          var row = document.createElement("div");
+          row.className = "cart-row add";
+          row.innerHTML =
+            '<div class="cart-row-info"><b>Add ' + p.label + "</b><span>" + p.blurb + "</span></div>" +
+            '<div class="cart-row-side"><b>' + fmt(p.price) + '</b><button type="button" class="row-add">Add</button></div>';
+          row.querySelector(".row-add").addEventListener("click", function () {
+            addToCart(key);
+            draw();
+          });
+          addEl.appendChild(row);
         });
-        addEl.appendChild(row);
-      });
+      }
+
+      // upgrade nudge: swap a part-cart for the whole bundle in one click
+      var upEl = document.getElementById("cart-upgrade");
+      if (upEl) {
+        var missing = PARTS.filter(function (k) { return cart.indexOf(k) === -1; });
+        var showUp = !hasBundle && missing.length > 0;
+        upEl.hidden = !showUp;
+        if (showUp) {
+          var bundle = PRODUCTS[BUNDLE];
+          var delta = bundle.price - total;
+          upEl.innerHTML =
+            '<div class="up-info"><b>Or take ' + bundle.label + " · " + fmt(bundle.price) + "</b><span>" +
+            (delta > 0
+              ? "Add the remaining " + (missing.length === 1 ? "library" : missing.length + " libraries") +
+                " for just " + fmt(delta) + " more."
+              : "Everything above, and you save " + fmt(-delta) + ".") +
+            " Lifetime updates on all of it.</span></div>" +
+            '<button type="button" class="up-btn">Upgrade</button>';
+          upEl.querySelector(".up-btn").addEventListener("click", function () {
+            addToCart(BUNDLE);
+            if (window.dalTrack) dalTrack("cart_upgrade", { product: bundle.label });
+            draw();
+          });
+        }
+      }
     }
     draw();
 

@@ -38,6 +38,9 @@
   menu.className = "nav-drop-menu";
   menu.innerHTML =
     '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,499</span></a>' +
+    '<a href="/presentation-library.html"><b>Presentation Library</b><span class="p">₹999</span></a>' +
+    '<a href="/drafting-library.html"><b>Drafting Library</b><span class="p">₹1,199</span></a>' +
+    '<a href="/contracts-billing.html"><b>Contracts &amp; Billing</b><span class="p">₹599</span></a>' +
     '<a class="all" href="' + link.getAttribute("href") + '">All products →</a>';
   wrap.appendChild(menu);
 })();

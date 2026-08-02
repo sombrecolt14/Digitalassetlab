@@ -60,7 +60,7 @@
   }
   .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; }
   .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
-  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .wordmark .mark{ width:1.5rem; height:1.5rem; display:block; }
   .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
   .nav nav a{ color:var(--ink-soft); transition:color .2s; } .nav nav a:hover{ color:var(--ink); }
   .nav-toggle{ display:none; align-items:center; justify-content:center; width:2.6rem; height:2.6rem; border-radius:10px; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; padding:0; }
@@ -143,10 +143,12 @@
     box-shadow:0 2px 10px oklch(23% 0.015 265 / .08);
   }
   .box:hover{ transform:translateY(-8px) rotate(-1deg); box-shadow:0 26px 50px oklch(23% 0.015 265 / .22); }
-  .box .art{ position:absolute; inset:0; }
+  .box .art{ position:absolute; inset:0; background:oklch(30% 0.02 40); }
+  .box .art img{ width:100%; height:100%; object-fit:cover; }
   .box .label{
-    position:relative; z-index:2; padding:1.1rem 1.15rem 1.15rem;
-    background:linear-gradient(to top, oklch(0% 0 0 / .55), oklch(0% 0 0 / 0));
+    position:relative; z-index:2; padding:1.6rem 1.15rem 1.15rem;
+    background:linear-gradient(to top, oklch(0% 0 0 / .88) 35%, oklch(0% 0 0 / .55) 70%, oklch(0% 0 0 / 0));
+    text-shadow:0 1px 3px oklch(0% 0 0 / .5);
   }
   .box h3{ font-size:1.12rem; font-weight:720; letter-spacing:-0.01em; line-height:1.12; }
   .box .sub{ font-size:.8rem; opacity:.88; margin-top:.3rem; font-weight:450; }
@@ -335,7 +337,7 @@
 
 <header class="site">
   <div class="wrap nav">
-    <a class="wordmark" href="#"><span class="dot"></span>Digital Asset Lab</a>
+    <a class="wordmark" href="#"><svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M22 21 A76 76 0 0 1 98 97 L22 97 Z" fill="none" stroke="currentColor" stroke-width="11" stroke-linejoin="miter"/></svg>Digital Asset Lab</a>
     <nav>
       <a href="#shelf">Products</a>
       <a href="#how">How it works</a>
@@ -376,15 +378,13 @@
     <div>
       <span class="chip reveal">Launch price · first 100 buyers only</span>
       <h2 class="reveal">The Architecture Bundle</h2>
-      <p class="reveal" style="margin-top:.6rem; color:var(--on-clay-muted); font-size:.96rem;">The working library of a practice — CAD blocks, SketchUp models, boards and client documents, in one purchase.</p>
+      <p class="reveal" style="margin-top:.6rem; color:var(--on-clay-muted); font-size:.96rem;">Three libraries in one purchase: the presentation system, the drafting library and the paperwork. Each is also sold on its own.</p>
       <div class="worth reveal" aria-label="What's inside this bundle">
-        <div class="row"><span>2,000+ CAD blocks, layered and purged</span><s>₹1,999</s></div>
-        <div class="row"><span>300+ SketchUp models, cleaned &amp; low-poly</span><s>₹1,999</s></div>
-        <div class="row"><span>40 moodboard &amp; concept templates</span><s>₹999</s></div>
-        <div class="row"><span>25+ legal documents for Indian practice</span><s>₹2,499</s></div>
-        <div class="row"><span>Client onboarding questionnaire kit</span><s>₹699</s></div>
-        <div class="row total"><span>Total value</span><s>₹8,195</s></div>
-        <div class="row pay"><span>Today, everything</span><span>₹1,499 <span class="save">Save 82%</span></span></div>
+        <div class="row"><span>Presentation Library · boards, styles, materials</span><s>₹999</s></div>
+        <div class="row"><span>Drafting Library · CAD templates, SketchUp, textures</span><s>₹1,199</s></div>
+        <div class="row"><span>Contracts &amp; Billing · 9 suites, 65+ quotations</span><s>₹599</s></div>
+        <div class="row total"><span>Bought separately</span><s>₹2,797</s></div>
+        <div class="row pay"><span>Today, everything</span><span>₹1,499 <span class="save">Save ₹1,298</span></span></div>
       </div>
       <div class="feature-cta reveal">
         <button class="btn pop" data-buy="architecture">Get instant access · ₹1,499</button>
@@ -396,21 +396,37 @@
 
 <section class="shelf-sec" id="shelf">
   <div class="wrap">
-    <div class="shelf-label reveal">The shelf · one lab, many bundles</div>
+    <div class="shelf-label reveal">The shelf · one bundle, or any library alone</div>
     <div class="shelf">
       <a class="box arch reveal" href="/architecture-bundle.html">
-        <span class="status live">Available · ₹1,499</span>
+        <span class="status live">Everything · ₹1,499</span>
         <div class="art" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&q=70" alt="">
+          <img src="/assets/cv-mb2-3.jpg" alt="">
         </div>
-        <div class="label"><h3>Architecture Bundle</h3><p class="sub">CAD blocks · boards · decks</p></div>
+        <div class="label"><h3>The Architecture Bundle</h3><p class="sub">All three libraries · save ₹1,298</p></div>
       </a>
-      <a class="box notion reveal" href="#next" style="transition-delay:.06s">
-        <span class="status">In development</span>
-        <div class="art" aria-hidden="true"></div>
-        <div class="label"><h3>Notion Systems</h3><p class="sub">Client OS · content calendar</p></div>
+      <a class="box reveal" href="/presentation-library.html" style="transition-delay:.06s">
+        <span class="status live">₹999</span>
+        <div class="art" aria-hidden="true">
+          <img src="/assets/canva-rooms-1.jpg" alt="">
+        </div>
+        <div class="label"><h3>Presentation Library</h3><p class="sub">Mood boards · styles · materials</p></div>
       </a>
-      <a class="box propose reveal" href="#next" style="transition-delay:.12s">
+      <a class="box reveal" href="/drafting-library.html" style="transition-delay:.12s">
+        <span class="status live">₹1,199</span>
+        <div class="art" aria-hidden="true">
+          <img src="/assets/tex-00.jpg" alt="">
+        </div>
+        <div class="label"><h3>Drafting Library</h3><p class="sub">CAD templates · SketchUp · textures</p></div>
+      </a>
+      <a class="box reveal" href="/contracts-billing.html" style="transition-delay:.18s">
+        <span class="status live">₹599</span>
+        <div class="art" aria-hidden="true">
+          <img src="/assets/canva-contract-1.jpg" alt="">
+        </div>
+        <div class="label"><h3>Contracts &amp; Billing</h3><p class="sub">9 contract suites · 65+ quotations</p></div>
+      </a>
+      <a class="box propose reveal" href="#next" style="transition-delay:.24s">
         <div>
           <div class="plus">+</div>
           <h3>Propose a bundle</h3>
@@ -501,7 +517,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="wordmark" href="#" style="color:var(--ink)"><span class="dot"></span>Digital Asset Lab</a>
+        <a class="wordmark" href="#" style="color:var(--ink)"><svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M22 21 A76 76 0 0 1 98 97 L22 97 Z" fill="none" stroke="currentColor" stroke-width="11" stroke-linejoin="miter"/></svg>Digital Asset Lab</a>
         <p style="margin-top:1rem; max-width:30ch;">Ready-to-use digital assets for architects, designers and small businesses in India and beyond.</p>
       </div>
       <div>
