@@ -24,7 +24,7 @@
   header.site{ position:sticky; top:0; z-index:40; background:color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
   .nav{ display:flex; align-items:center; gap:2rem; padding:.9rem 0; }
   .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; }
-  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .wordmark .mark{ width:1.5rem; height:1.5rem; display:block; }
   .nav nav{ display:flex; gap:1.5rem; font-size:.92rem; margin-left:auto; }
   .nav nav a{ color:var(--ink-soft); transition:color .2s; } .nav nav a:hover{ color:var(--ink); }
   .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; background:var(--ink); color:var(--paper); font-weight:600; font-size:.95rem; padding:.7rem 1.3rem; border-radius:999px; border:none; cursor:pointer; transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s; }
@@ -105,11 +105,12 @@
   }
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after, .btn{ transition:none; } }
 </style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <header class="site">
   <div class="wrap nav">
-    <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+    <a class="wordmark" href="/"><svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M31 98 V22 H69 A20 20 0 0 1 89 42 V98 H73.5 V54 A13.5 13.5 0 0 0 46.5 54 V98 Z" fill="currentColor"/></svg>Digital Asset Lab</a>
     <nav>
       <a href="/#shelf">Products</a>
       <a href="/about.html">About</a>

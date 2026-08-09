@@ -20,7 +20,7 @@
   header.site{ position:sticky; top:0; z-index:40; background:color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
   .nav{ width:min(1200px, calc(100% - 2.5rem)); margin-inline:auto; display:flex; align-items:center; justify-content:space-between; padding:.9rem 0; }
   .wordmark{ font-weight:750; font-size:1.05rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:.55rem; text-decoration:none; }
-  .wordmark .dot{ width:.62rem; height:.62rem; border-radius:2px; background:var(--ink); }
+  .wordmark .mark{ width:1.5rem; height:1.5rem; display:block; }
   .nav a.back{ font-size:.9rem; color:var(--ink-soft); text-decoration:none; }
   .nav a.back:hover{ color:var(--ink); }
   main{ max-width:44rem; margin-inline:auto; padding:clamp(2.5rem,6vh,4.5rem) 1.25rem 4rem; }
@@ -38,10 +38,11 @@
   footer nav a{ text-decoration:none; }
   footer nav a:hover{ color:var(--ink); }
 </style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <header class="site"><div class="nav">
-  <a class="wordmark" href="/"><span class="dot"></span>Digital Asset Lab</a>
+  <a class="wordmark" href="/"><svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M31 98 V22 H69 A20 20 0 0 1 89 42 V98 H73.5 V54 A13.5 13.5 0 0 0 46.5 54 V98 Z" fill="currentColor"/></svg>Digital Asset Lab</a>
   <a class="back" href="/">&larr; Back to the shop</a>
 </div></header>
 <main>
