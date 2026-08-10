@@ -20,9 +20,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink: oklch(23% 0.015 265); --ink-soft: oklch(42% 0.015 265);
-    --paper: oklch(96.5% 0.004 250); --surface: oklch(99% 0.002 250);
-    --line: oklch(88% 0.008 255); --clay: oklch(33% 0.075 40); --pop: oklch(79% 0.135 64);
+    --ink: oklch(20% 0.008 250); --ink-soft: oklch(46% 0.008 250);
+    --paper: oklch(96.8% 0.006 85); --surface: oklch(99% 0.003 85);
+    --line: oklch(87% 0.006 250); --clay: oklch(24% 0.008 250); --pop: oklch(56% 0.13 42);
     font-size:16px;
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -73,7 +73,8 @@
   .cta-band{ background:var(--clay); color:oklch(96% 0.015 55); border-radius:18px; padding:clamp(2rem,5vw,3.5rem); display:flex; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; margin-block:clamp(2.5rem,5vh,4rem); }
   .cta-band h2{ font-size:clamp(1.5rem,2.6vw,2.1rem); font-weight:740; letter-spacing:-0.02em; }
   .cta-band p{ color:oklch(84% 0.035 50); margin-top:.4rem; }
-  .cta-band .btn{ background:var(--pop); color:oklch(28% 0.06 42); white-space:nowrap; }
+  /* Palette A put dark text on a light amber pop; on terracotta it needs to be light. */
+  .cta-band .btn{ background:var(--pop); color:oklch(98% 0.01 60); white-space:nowrap; }
 
   footer{ border-top:1px solid var(--line); padding-block:2.5rem 2rem; font-size:.9rem; color:var(--ink-soft); }
   .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; }

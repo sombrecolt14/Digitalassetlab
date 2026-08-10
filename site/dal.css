@@ -1,19 +1,36 @@
 
+  /* ── Palette B: graphite surfaces, terracotta as annotation ──────────────
+     Big surfaces are graphite, the way an architecture practice brands; clay
+     survives only where a red pencil would land — chips, ticks, rules, the
+     buy button. Nineteen of the twenty-one var(--clay) uses were already
+     accents, so this is a token swap rather than a redesign.
+
+     To go back to Palette A (terracotta as a surface), restore these:
+       --clay:#(56% 0.125 42)  --clay-deep:#(33% 0.075 40)  --clay-deep-2:#(38% 0.085 42)
+       --on-clay:#(96% 0.015 55)  --on-clay-muted:#(84% 0.035 50)
+       --ink:#(26% 0.025 40)  --ink-soft:#(43% 0.025 40)
+       --paper:#(96.5% 0.009 55)  --surface:#(99% 0.004 55)  --line:#(88% 0.015 50)
+     …where # is oklch, and set .announce back to background:var(--clay).
+     Easier still: git revert the commit that introduced this block.
+     ──────────────────────────────────────────────────────────────────────── */
   :root{
-    --clay: oklch(56% 0.125 42);
-    --clay-deep: oklch(33% 0.075 40);
-    --clay-deep-2: oklch(38% 0.085 42);
-    --on-clay: oklch(96% 0.015 55);
-    --on-clay-muted: oklch(84% 0.035 50);
-    --ink: oklch(26% 0.025 40);
-    --ink-soft: oklch(43% 0.025 40);
-    --paper: oklch(96.5% 0.009 55);
-    --surface: oklch(99% 0.004 55);
-    --line: oklch(88% 0.015 50);
+    --clay: oklch(54% 0.135 42);
+    /* Same accent, lifted for text sitting on a graphite section — 56% only
+       reaches 3.4:1 there, which is fine for a dot and not for a word. */
+    --clay-lift: oklch(72% 0.15 47);
+    --clay-deep: oklch(24% 0.008 250);
+    --clay-deep-2: oklch(19% 0.008 250);
+    --on-clay: oklch(96% 0.004 250);
+    --on-clay-muted: oklch(78% 0.005 250);
+    --ink: oklch(20% 0.008 250);
+    --ink-soft: oklch(46% 0.008 250);
+    --paper: oklch(96.8% 0.006 85);
+    --surface: oklch(99% 0.003 85);
+    --line: oklch(87% 0.006 250);
     --cad-bg: oklch(16% 0.008 260);
     --cad-card: oklch(20% 0.01 260);
     --cad-line: oklch(92% 0.005 260);
-    --cad-dim: oklch(58% 0.01 260);
+    --cad-dim: oklch(65% 0.01 260);
     --radius: 14px;
     --eo: cubic-bezier(0.23, 1, 0.32, 1);
     font-size:16px;
@@ -45,7 +62,10 @@
   }
 
   .announce{
-    background:var(--clay); color:oklch(98% 0.005 55);
+    /* Palette A had this terracotta. A full-width band is a surface, not an
+       annotation, so it goes graphite; the hairline keeps it off the header. */
+    background:var(--ink); color:oklch(96% 0.004 250);
+    border-bottom:1px solid oklch(96% 0.004 250 / .12);
     text-align:center; font-size:.85rem; font-weight:650; padding:.5rem 1rem;
   }
   .announce b{ font-weight:780; }
@@ -53,13 +73,13 @@
   .announce .live{ position:relative; padding-left:1rem; }
   .announce .live::before{
     content:""; position:absolute; left:0; top:50%; margin-top:-.22rem;
-    width:.44rem; height:.44rem; border-radius:999px; background:oklch(88% 0.16 95);
+    width:.44rem; height:.44rem; border-radius:999px; background:oklch(66% 0.16 42);
     animation:live-dot 2s ease-out infinite;
   }
   @keyframes live-dot{
-    0%{ box-shadow:0 0 0 0 oklch(88% 0.16 95 / .7); }
-    70%{ box-shadow:0 0 0 .5rem oklch(88% 0.16 95 / 0); }
-    100%{ box-shadow:0 0 0 0 oklch(88% 0.16 95 / 0); }
+    0%{ box-shadow:0 0 0 0 oklch(66% 0.16 42 / .7); }
+    70%{ box-shadow:0 0 0 .5rem oklch(66% 0.16 42 / 0); }
+    100%{ box-shadow:0 0 0 0 oklch(66% 0.16 42 / 0); }
   }
   @media (prefers-reduced-motion: reduce){ .announce .live::before{ animation:none; } }
 
@@ -136,7 +156,9 @@
   .fan .board:nth-child(3){ left:8%; bottom:0; transform:rotate(-1.5deg); z-index:3; }
   @media (hover:hover){ .fan .board:hover{ transform:rotate(0) translateY(-8px) scale(1.02); z-index:5; } }
 
-  .ticker{ background:var(--ink); color:var(--paper); overflow:hidden; padding:.85rem 0; }
+  /* Hairline, because graphite now meets graphite where clay used to meet ink. */
+  .ticker{ background:var(--ink); color:var(--paper); overflow:hidden; padding:.85rem 0;
+    border-block:1px solid oklch(96% 0.004 250 / .12); }
   .ticker .track{ display:flex; gap:3.5rem; width:max-content; animation:tick 34s linear infinite; }
   .ticker span{ font-size:.92rem; font-weight:650; letter-spacing:.02em; white-space:nowrap; display:flex; align-items:center; gap:.6rem; }
   .ticker span::before{ content:""; width:.5rem; height:.5rem; background:var(--clay); border-radius:2px; }
@@ -294,6 +316,8 @@
   .comp.hero-comp .cname{ font-size:.72rem; padding:.55rem .85rem; }
 
   .texwrap{ background:var(--clay-deep); color:var(--on-clay); }
+  .texwrap .n, .texwrap .more, .band .n, .band .more, .hero .n,
+  .cad-sec .n, .cad-sec .more{ color:var(--clay-lift); }
   .texgrid{ display:grid; grid-template-columns:repeat(6, 1fr); gap:.6rem; }
   .texgrid img{ border-radius:8px; aspect-ratio:1; object-fit:cover; }
   @media (hover:hover){ .texgrid img:hover{ outline:2.5px solid var(--clay); outline-offset:2px; } }
