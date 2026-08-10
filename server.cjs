@@ -96,6 +96,8 @@ const productByName = (name) =>
 // buyer can spoof. We only ever need to know how many of the first 100 are
 // taken, so a single 100-item page of payments is always enough to answer it.
 const LAUNCH_TOTAL = 100;
+// 10 Aug 2026, 00:00 IST — payments before this are test runs, not spots sold.
+const LAUNCH_START = 1786300200;
 const COUPONS = {
   // Only while launch spots remain.
   NEW15: { percent: 15, launchOnly: true },
@@ -114,9 +116,9 @@ async function launchSold() {
     const auth = Buffer.from(
       `${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`
     ).toString("base64");
-    // LAUNCH_FROM (unix seconds) scopes the count to this launch, so payments
-    // taken before it don't eat the 100 spots. Unset means "count everything".
-    const from = Number(process.env.LAUNCH_FROM || 0);
+    // Scoped to the launch so earlier payments — the pre-launch test one —
+    // don't eat a spot. LAUNCH_FROM overrides; 0 counts everything.
+    const from = Number(process.env.LAUNCH_FROM || LAUNCH_START);
     const r = await fetch(
       `https://api.razorpay.com/v1/payments?count=${LAUNCH_TOTAL}` + (from ? `&from=${from}` : ""),
       { headers: { Authorization: `Basic ${auth}` } }
