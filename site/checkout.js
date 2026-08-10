@@ -19,7 +19,7 @@
     presentation: {
       label: "The Presentation Library",
       price: 999,
-      blurb: "Mood boards, styles and the full material system",
+      blurb: "Mood boards, styles, materials and 32 client questionnaires",
       href: "/presentation-library.html",
     },
     drafting: {
@@ -29,9 +29,9 @@
       href: "/drafting-library.html",
     },
     contracts: {
-      label: "Contracts & Billing",
+      label: "Contracts",
       price: 599,
-      blurb: "9 contract suites, 65+ quotation & invoice formats",
+      blurb: "11 contract templates, 149 typeset pages",
       href: "/contracts-billing.html",
     },
   };

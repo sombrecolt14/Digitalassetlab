@@ -84,19 +84,76 @@
   .btn.pop{ background:var(--pop); color:var(--on-pop); }
   .btn.pop:hover{ box-shadow:0 10px 26px oklch(79% 0.135 64 / .35); }
 
+  /* ── announce ── */
+  .announce{
+    background:var(--clay); color:oklch(98% 0.005 55);
+    text-align:center; font-size:.85rem; font-weight:650; padding:.5rem 1rem;
+  }
+  .announce b{ font-weight:780; }
+
   /* ── hero ── */
-  .hero{ padding-block:clamp(3.5rem, 8vh, 5.5rem) clamp(3rem, 6vh, 4.5rem); }
-  .hero-top{ max-width:54rem; }
+  .hero{ position:relative; overflow:hidden; }
+  .hero::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 47px, oklch(23% 0.015 265 / .06) 47px 48px),
+      repeating-linear-gradient(90deg, transparent 0 47px, oklch(23% 0.015 265 / .06) 47px 48px);
+    -webkit-mask-image:linear-gradient(to bottom, #000 45%, transparent);
+    mask-image:linear-gradient(to bottom, #000 45%, transparent);
+  }
+  .hero-grid{
+    position:relative; display:grid; grid-template-columns:1.05fr .95fr;
+    gap:clamp(2rem, 5vw, 4rem); align-items:center;
+    padding-block:clamp(2.6rem, 6vh, 4.2rem) clamp(3rem, 6vh, 4.5rem);
+  }
+  .eyebrow{
+    display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
+    font-size:.75rem; font-weight:750; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .eyebrow::before{ content:""; width:2.2rem; height:2px; background:var(--pop); }
   .hero h1{
-    font-size:clamp(2.6rem, 6vw, 5rem);
-    line-height:1.0; font-weight:770; letter-spacing:-0.028em;
+    font-size:clamp(2.5rem, 5.4vw, 4.4rem);
+    line-height:1.0; font-weight:770; letter-spacing:-0.03em;
   }
-  .hero h1 .u{ box-shadow:inset 0 -0.18em 0 var(--pop); }
+  .hero h1 .u{ box-shadow:inset 0 -0.16em 0 var(--pop); }
   .hero .lede{
-    margin-top:1.5rem; max-width:38rem; font-size:clamp(1rem, 1.35vw, 1.15rem);
-    color:var(--ink-soft); line-height:1.65;
+    margin-top:1.3rem; max-width:34rem; font-size:clamp(1rem, 1.3vw, 1.12rem);
+    color:var(--ink-soft); line-height:1.62;
   }
-  .hero-cta{ display:flex; gap:.9rem; margin-top:2rem; flex-wrap:wrap; }
+  .hero-deal{ display:flex; align-items:baseline; gap:.7rem; margin-top:1.6rem; flex-wrap:wrap; }
+  .hero-deal .deal-now{ font-size:clamp(2.1rem, 4.5vw, 3rem); font-weight:780; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; line-height:1; }
+  .hero-deal .deal-was{ font-size:1.15rem; color:var(--ink-soft); text-decoration-thickness:2px; }
+  .hero-deal .deal-chip{
+    background:var(--pop); color:var(--on-pop); font-size:.72rem; font-weight:780;
+    letter-spacing:.06em; text-transform:uppercase; padding:.4rem .75rem; border-radius:999px;
+  }
+  .hero-cta{ display:flex; gap:.9rem; margin-top:1.6rem; flex-wrap:wrap; }
+  .hero .fine{ margin-top:.95rem; font-size:.82rem; color:var(--ink-soft); }
+
+  /* the product, in the fold — whole A4 sheets, never cropped */
+  .fan{ position:relative; aspect-ratio:1/.89; }
+  .fan figure{
+    position:absolute; width:46%; border-radius:8px; overflow:hidden; background:var(--surface);
+    box-shadow:0 26px 60px oklch(23% 0.015 265 / .3);
+    transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .fan figure img{ width:100%; }
+  .fan figcaption{
+    position:absolute; left:0; right:0; bottom:0; padding:1.9rem .7rem .6rem;
+    font-size:.66rem; font-weight:750; letter-spacing:.08em; text-transform:uppercase; color:#fff;
+    background:linear-gradient(to top, oklch(0% 0 0 / .85), transparent);
+  }
+  .fan figure:nth-child(1){ left:0; top:0; transform:rotate(-5deg); z-index:1; }
+  .fan figure:nth-child(2){ right:2%; top:14%; transform:rotate(4deg); z-index:2; }
+  .fan figure:nth-child(3){ left:22%; bottom:0; transform:rotate(-1.5deg); z-index:3; }
+  @media (hover:hover){ .fan figure:hover{ transform:rotate(0) translateY(-8px) scale(1.02); z-index:5; } }
+
+  /* ── proof ticker ── */
+  .ticker{ background:var(--ink); color:var(--paper); overflow:hidden; padding:.85rem 0; }
+  .ticker .track{ display:flex; gap:3.5rem; width:max-content; animation:tick 34s linear infinite; }
+  .ticker span{ font-size:.9rem; font-weight:650; white-space:nowrap; display:flex; align-items:center; gap:.6rem; }
+  .ticker span::before{ content:""; width:.5rem; height:.5rem; background:var(--pop); border-radius:2px; }
+  @keyframes tick{ to{ transform:translateX(-50%); } }
 
   /* ── featured product (the conversion block) ── */
   .feature{ background:linear-gradient(170deg, var(--clay) 60%, var(--clay-deep)); color:var(--on-clay); }
@@ -114,17 +171,20 @@
   .feature-cta{ margin-top:1.9rem; display:flex; align-items:center; gap:1.1rem; flex-wrap:wrap; }
   .feature-cta .trust{ font-size:.85rem; color:var(--on-clay-muted); }
 
-  /* drafting sheet visual */
-  .sheet{
-    width:min(100%, 380px); aspect-ratio:3/3.7; margin-inline:auto;
-    background:oklch(98.5% 0.003 55); border-radius:12px;
-    box-shadow:0 26px 64px oklch(0% 0 0/.4); transform:rotate(-2.5deg);
-    display:grid; grid-template-columns:1fr 1fr; gap:.9rem; padding:1.2rem;
+  /* open deck: two real pages, gutter down the middle */
+  .spread{
+    display:grid; grid-template-columns:1fr 1fr; gap:2px; padding:2px;
+    width:min(100%, 520px); margin-inline:auto;
+    background:oklch(0% 0 0 / .4); border-radius:5px;
+    box-shadow:0 30px 70px oklch(0% 0 0 / .5);
+    transform:rotate(-1.2deg);
     transition:transform .45s cubic-bezier(.22,1,.36,1);
   }
-  .sheet:hover{ transform:rotate(0) translateY(-6px); }
-  .sheet svg{ width:100%; height:100%; overflow:visible; }
-  .sheet svg *{ fill:none; stroke:oklch(26% 0.025 40); stroke-width:1.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+  .spread:hover{ transform:rotate(0) translateY(-6px); }
+  .spread img{ width:100%; }
+  .spread-note{
+    margin-top:1rem; text-align:center; font-size:.8rem; color:var(--on-clay-muted);
+  }
 
   /* ── shelf ── */
   section.shelf-sec{ padding-block:clamp(4rem, 8vh, 6rem); }
@@ -298,13 +358,20 @@
 
   @media (prefers-reduced-motion: reduce){
     .js .reveal{ opacity:1; transform:none; transition:none; }
-    .btn, .box, .sheet{ transition:none; }
+    .btn, .box, .spread, .fan figure{ transition:none; }
+    .ticker .track{ animation:none; }
     html{ scroll-behavior:auto; }
   }
 
   @media (max-width: 900px){
+    /* the boards sit between the promise and the price, so the product is still in the fold */
+    .hero-grid{ grid-template-columns:1fr; gap:0; }
+    .hero-copy{ display:contents; }
+    .hero .eyebrow{ order:1 } .hero h1{ order:2 } .hero .lede{ order:3 }
+    .fan{ order:4; margin:1.8rem auto .4rem; width:min(100%, 420px); }
+    .hero-deal{ order:5 } .hero-cta{ order:6 } .hero .fine{ order:7 }
     .feature-grid{ grid-template-columns:1fr; }
-    .sheet{ max-width:340px; }
+    .spread{ max-width:440px; }
     .band-inner{ grid-template-columns:1fr; }
     .how-row{ grid-template-columns:1fr; gap:1.6rem; }
     .faq-grid{ grid-template-columns:1fr; }
@@ -326,6 +393,7 @@
     .nav nav a{ padding:.9rem .1rem; font-size:1.02rem; border-top:1px solid var(--line); }
   }
   @media (max-width: 640px){
+    .announce .xtra{ display:none; }
     .shelf{ grid-template-columns:repeat(2, 1fr); }
     .box.propose{ grid-column:span 2; aspect-ratio:auto; padding-block:2rem; }
     .band form{ flex-direction:column; }
@@ -335,6 +403,8 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
+
+<div class="announce">Launch price <b>₹1,499</b> · first 100 buyers only<span class="xtra"> · everything added later is free for early buyers</span></div>
 
 <header class="site">
   <div class="wrap nav">
@@ -354,36 +424,59 @@
 </header>
 
 <section class="hero">
-  <div class="wrap hero-top">
-    <h1 class="reveal">Big bundles of <span class="u">ready-to-use</span> design.</h1>
-    <p class="lede reveal" style="transition-delay:.08s">
-      Digital Asset Lab packs thousands of assets into single-purchase bundles.
-      The Architecture Bundle is live, and Notion systems are next out of the lab.
-      Buy once, own forever, commercial licence included.
-    </p>
-    <div class="hero-cta reveal" style="transition-delay:.16s">
-      <a class="btn" href="#architecture">Get the Architecture Bundle · ₹1,499</a>
-      <a class="btn ghost" href="#shelf">See all bundles</a>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow reveal">For architects &amp; interior designers</div>
+      <h1 class="reveal" style="transition-delay:.04s">Start the project <span class="u">already half-finished</span>.</h1>
+      <p class="lede reveal" style="transition-delay:.08s">
+        Everything a studio redraws from scratch: 3,300+ CAD blocks, 1,000+ SketchUp
+        models, 1,400+ material textures, 160+ style &amp; material pages, 90+ mood boards
+        and palettes, 32 client questionnaires and 11 contracts that get you paid.
+        One download, yours forever.
+      </p>
+      <div class="hero-deal reveal" style="transition-delay:.12s">
+        <span class="deal-now">₹1,499</span>
+        <s class="deal-was">₹2,797</s>
+        <span class="deal-chip">Everything · save 46%</span>
+      </div>
+      <div class="hero-cta reveal" style="transition-delay:.16s">
+        <a class="btn" href="/architecture-bundle.html">Get the Architecture Bundle</a>
+        <a class="btn ghost" href="#shelf">See what's inside</a>
+      </div>
+      <p class="fine reveal" style="transition-delay:.2s">Instant download · Full commercial licence · Lifetime updates</p>
+    </div>
+    <div class="fan reveal" style="transition-delay:.1s">
+      <figure><img src="/assets/canva-rooms-1.jpg" alt="Materials by room: 88 room-by-room material options with cost tiers"><figcaption>Materials &amp; rates</figcaption></figure>
+      <figure><img src="/assets/canva-contract-1.jpg" alt="Client contract template, ready to edit"><figcaption>Contract templates</figcaption></figure>
+      <figure><img src="/assets/cv-mb2-3.jpg" alt="Named mood boards: Teal &amp; Copper, Greige &amp; Brass"><figcaption>Mood boards &amp; palettes</figcaption></figure>
     </div>
   </div>
 </section>
 
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>3,300+ CAD blocks</span><span>1,000+ SketchUp models</span><span>1,400+ material textures</span><span>90+ mood boards &amp; palettes</span><span>160+ style &amp; material pages</span><span>32 client questionnaires</span><span>300+ material &amp; labour rates</span><span>11 contract templates</span>
+    <span>3,300+ CAD blocks</span><span>1,000+ SketchUp models</span><span>1,400+ material textures</span><span>90+ mood boards &amp; palettes</span><span>160+ style &amp; material pages</span><span>32 client questionnaires</span><span>300+ material &amp; labour rates</span><span>11 contract templates</span>
+  </div>
+</div>
+
 <section class="feature" id="architecture">
   <div class="wrap feature-grid">
-    <div class="sheet reveal" aria-hidden="true">
-      <svg viewBox="0 0 100 100"><rect x="25" y="30" width="50" height="42" rx="6"/><rect x="20" y="22" width="60" height="12" rx="5"/></svg>
-      <svg viewBox="0 0 100 100"><line x1="20" y1="80" x2="80" y2="80"/><line x1="22" y1="80" x2="22" y2="24"/><path d="M22 24 A 56 56 0 0 1 78 80"/></svg>
-      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4"/><line x1="71" y1="29" x2="78" y2="22"/><line x1="29" y1="71" x2="22" y2="78"/></svg>
-      <svg viewBox="0 0 100 100"><rect x="24" y="16" width="52" height="68" rx="4"/><line x1="24" y1="44" x2="76" y2="44"/></svg>
+    <div class="reveal">
+      <div class="spread">
+        <img loading="lazy" decoding="async" src="/assets/cv-mb2-5.jpg" alt="Named mood boards: Black Terrazzo, Pale Oak and Cream">
+        <img loading="lazy" decoding="async" src="/assets/cv-mb2-6.jpg" alt="Named mood boards: Walnut and Oxblood, Terracotta and Olive">
+      </div>
+      <p class="spread-note">Two pages from the mood board deck. Every board named, palletted and costed.</p>
     </div>
     <div>
       <span class="chip reveal">Launch price · first 100 buyers only</span>
       <h2 class="reveal">The Architecture Bundle</h2>
       <p class="reveal" style="margin-top:.6rem; color:var(--on-clay-muted); font-size:.96rem;">Three libraries in one purchase: the presentation system, the drafting library and the paperwork. Each is also sold on its own.</p>
       <div class="worth reveal" aria-label="What's inside this bundle">
-        <div class="row"><span>Presentation Library · boards, styles, materials</span><s>₹999</s></div>
+        <div class="row"><span>Presentation Library · boards, styles, materials, questionnaires</span><s>₹999</s></div>
         <div class="row"><span>Drafting Library · CAD templates, SketchUp, textures</span><s>₹1,199</s></div>
-        <div class="row"><span>Contracts &amp; Billing · 9 suites, 65+ quotations</span><s>₹599</s></div>
+        <div class="row"><span>Contracts · 11 templates, 149 typeset pages</span><s>₹599</s></div>
         <div class="row total"><span>Bought separately</span><s>₹2,797</s></div>
         <div class="row pay"><span>Today, everything</span><span>₹1,499 <span class="save">Save ₹1,298</span></span></div>
       </div>
@@ -425,7 +518,7 @@
         <div class="art" aria-hidden="true">
           <img src="/assets/canva-contract-1.jpg" alt="">
         </div>
-        <div class="label"><h3>Contracts &amp; Billing</h3><p class="sub">9 contract suites · 65+ quotations</p></div>
+        <div class="label"><h3>Contracts</h3><p class="sub">11 contract templates · 149 pages</p></div>
       </a>
       <a class="box propose reveal" href="#next" style="transition-delay:.24s">
         <div>
