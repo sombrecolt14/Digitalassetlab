@@ -37,7 +37,7 @@
   var menu = document.createElement("div");
   menu.className = "nav-drop-menu";
   menu.innerHTML =
-    '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,699</span></a>' +
+    '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,899</span></a>' +
     '<a href="/presentation-library.html"><b>Presentation Library</b><span class="p">₹999</span></a>' +
     '<a href="/drafting-library.html"><b>Drafting Library</b><span class="p">₹1,199</span></a>' +
     '<a href="/contracts-billing.html"><b>Contracts</b><span class="p">₹599</span></a>' +
@@ -65,7 +65,7 @@
         ? "first " + s.total + " buyers"
         : '<b class="live">' + s.left + " of " + s.total + " spots left</b>";
       var html = s.open
-        ? 'Launch price <b>₹1,699</b> · code <b>' + s.code + '</b> takes <b>' + pct + "% off</b> · " + spots
+        ? 'Launch price <b>₹1,899</b> · code <b>' + s.code + '</b> takes <b>' + pct + "% off</b> · " + spots
         : "Launch spots are gone · code <b>" + s.code + "</b> still takes <b>" + pct + "% off</b>";
       bars.forEach(function (b) {
         (b.querySelector("[data-launch-text]") || b).innerHTML = html;

@@ -11,7 +11,7 @@
   var PRODUCTS = {
     architecture: {
       label: "The Architecture Bundle",
-      price: 1699,
+      price: 1899,
       worth: 2797,
       blurb: "All three libraries: presentation, drafting, contracts",
       href: "/architecture-bundle.html",

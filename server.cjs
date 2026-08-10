@@ -29,7 +29,7 @@ const {
 const PRODUCTS = {
   architecture: {
     name: "The Architecture Bundle",
-    amount: 169900, // ₹1,699 in paise
+    amount: 189900, // ₹1,899 in paise
     downloadUrl: process.env.ARCH_DOWNLOAD_URL || "",
     includes: [
       "The Presentation Library — mood boards, styles, full material system",

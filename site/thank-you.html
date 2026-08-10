@@ -65,8 +65,8 @@
   // conversion event — fires once per payment id per browser
   const productsParam = params.get("products") || params.get("product") || "architecture";
   const keys = productsParam.split(",");
-  const PRICES = { architecture: 1699 };
-  const value = keys.reduce((sum, k) => sum + (PRICES[k] || 0), 0) || 1699;
+  const PRICES = { architecture: 1899 };
+  const value = keys.reduce((sum, k) => sum + (PRICES[k] || 0), 0) || 1899;
   if (pid && window.dalTrack && !localStorage.getItem("dal_tracked_" + pid)) {
     localStorage.setItem("dal_tracked_" + pid, "1");
     dalTrack("purchase", {
