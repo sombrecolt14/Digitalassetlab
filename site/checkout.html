@@ -41,7 +41,72 @@
   .eyebrow{ font-size:.85rem; font-weight:600; color:var(--ink-soft); }
   .hero h1{ font-size:clamp(2rem,4.5vw,3rem); font-weight:760; letter-spacing:-0.025em; line-height:1.05; margin-top:.6rem; }
 
-  #dal-checkout{ max-width:44rem; padding-bottom:clamp(3rem,7vh,5rem); }
+  #dal-checkout{ padding-bottom:clamp(3rem,7vh,5rem); }
+  .co-grid{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:clamp(1.2rem,2.5vw,2rem); align-items:start; }
+  .co-rail{ display:grid; gap:1.2rem; position:sticky; top:5rem; }
+  .co-rail .panel h2{ margin-bottom:.8rem; }
+  .rail-list{ list-style:none; display:grid; gap:.7rem; font-size:.9rem; }
+  .rail-list li{ display:flex; gap:.6rem; align-items:flex-start; color:var(--ink-soft); }
+  .rail-list li::before{
+    content:""; flex:none; width:1.05rem; height:1.05rem; margin-top:.15rem; border-radius:999px;
+    background:var(--pop) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a2b1f' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/.7rem no-repeat;
+  }
+  .rail-list li b{ color:var(--ink); font-weight:700; }
+  .rail-steps{ list-style:none; counter-reset:s; display:grid; gap:.85rem; font-size:.9rem; color:var(--ink-soft); }
+  .rail-steps li{ counter-increment:s; display:flex; gap:.7rem; align-items:flex-start; }
+  .rail-steps li::before{
+    content:counter(s); flex:none; width:1.35rem; height:1.35rem; border-radius:999px;
+    background:var(--ink); color:var(--paper); font-size:.72rem; font-weight:750;
+    display:grid; place-items:center;
+  }
+  .rail-trust{ font-size:.85rem; color:var(--ink-soft); display:grid; gap:.55rem; }
+  .rail-trust a{ border-bottom:1.5px solid var(--pop); font-weight:600; color:var(--ink); }
+
+  /* discount code */
+  .coupon{ display:flex; gap:.6rem; margin-top:1.1rem; }
+  .coupon input{
+    flex:1; min-width:0; font:inherit; font-size:.92rem; letter-spacing:.06em; text-transform:uppercase;
+    padding:.65rem .9rem; border-radius:10px; border:1.5px dashed var(--line); background:var(--paper);
+  }
+  .coupon input::placeholder{ letter-spacing:0; text-transform:none; }
+  .coupon input:focus{ outline:2px solid var(--ink); outline-offset:1px; border-style:solid; }
+  .coupon-btn{
+    font:inherit; font-weight:700; font-size:.88rem; cursor:pointer;
+    padding:.65rem 1.2rem; border-radius:999px; border:1.5px solid var(--ink);
+    background:transparent; color:var(--ink); transition:background .2s, color .2s;
+  }
+  .coupon-btn:hover{ background:var(--ink); color:var(--paper); }
+  .coupon-btn:disabled{ opacity:.5; cursor:wait; }
+  .coupon-msg{ margin-top:.6rem; font-size:.85rem; color:#a4232a; }
+  .coupon-hint{ margin-top:.6rem; font-size:.8rem; color:var(--ink-soft); }
+
+  /* applied — the payoff moment */
+  .coupon-win{
+    margin-top:1.1rem; border-radius:12px; padding:.9rem 1.1rem;
+    background:linear-gradient(100deg, oklch(72% 0.15 145), oklch(66% 0.16 152));
+    color:#fff; display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;
+    animation:win-pop .5s cubic-bezier(.22,1.4,.36,1) both;
+  }
+  .coupon-win .tick{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:999px; background:oklch(100% 0 0 / .22);
+    display:grid; place-items:center; font-size:.95rem; animation:win-tick .5s .12s cubic-bezier(.22,1.6,.36,1) both;
+  }
+  .coupon-win b{ font-weight:780; }
+  .coupon-win .off{ margin-left:auto; font-weight:800; font-size:1.05rem; font-variant-numeric:tabular-nums; }
+  .coupon-win .drop{ font-size:.85rem; opacity:.9; width:100%; }
+  @keyframes win-pop{ from{ opacity:0; transform:translateY(10px) scale(.97); } to{ opacity:1; transform:none; } }
+  @keyframes win-tick{ from{ transform:scale(0) rotate(-40deg); } to{ transform:none; } }
+  .disc-row{ display:flex; justify-content:space-between; align-items:baseline; padding-top:.7rem; font-size:.9rem; color:oklch(52% 0.14 150); font-weight:650; }
+  .disc-row b{ letter-spacing:.06em; }
+  .total-row b.flash{ animation:total-flash .7s ease-out both; }
+  @keyframes total-flash{
+    0%{ transform:scale(1); color:var(--ink); }
+    35%{ transform:scale(1.14); color:oklch(58% 0.15 150); }
+    100%{ transform:scale(1); color:var(--ink); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .coupon-win, .coupon-win .tick, .total-row b.flash{ animation:none; }
+  }
   .panel{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:clamp(1.2rem,3vw,1.8rem); }
   .panel + .panel{ margin-top:1.2rem; }
   .panel h2{ font-size:1.05rem; font-weight:720; margin-bottom:1rem; }
@@ -94,6 +159,17 @@
   .foot-note{ display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
   .foot-note a:hover{ color:var(--ink); }
 
+  @media (max-width: 900px){
+    /* One column, and the reasons to buy sit between the cart and the form
+       rather than after it, where nobody scrolling to pay would read them. */
+    .co-grid{ grid-template-columns:1fr; gap:1.2rem; }
+    .co-main{ display:contents; }
+    .deal-band{ order:1; margin-bottom:0; }
+    .co-order{ order:2; }
+    .co-rail{ order:3; position:static; }
+    .co-details{ order:4; }
+    .panel + .panel{ margin-top:0; }
+  }
   @media (max-width: 720px){
     .nav{ flex-wrap:wrap; gap:.7rem; }
     .wordmark{ order:1; } .nav-toggle{ display:inline-flex; order:2; margin-left:auto; }
@@ -129,30 +205,64 @@
   <div id="dal-checkout">
     <div id="cart-empty" hidden>
       <p>Your cart is empty. Pick a library to get started.</p>
-      <a class="btn" href="/architecture-bundle.html">The Architecture Bundle · ₹1,499</a>
+      <a class="btn" href="/architecture-bundle.html">The Architecture Bundle · ₹1,699</a>
     </div>
 
     <div id="cart-panel" hidden>
-      <div class="deal-band"><span class="zap">⚡</span>Launch pricing active — instant delivery to your inbox after payment</div>
-      <div class="panel">
-        <h2>Order</h2>
-        <div id="cart-items"></div>
-        <div id="cart-add"></div>
-        <div id="cart-upgrade" hidden></div>
-        <div class="save-note" id="cart-save" hidden><span>Total value <s id="cart-worth"></s></span><span class="pct" id="cart-pct"></span></div>
-        <div class="total-row"><span>You pay today</span><b id="cart-total"></b></div>
-      </div>
+      <div class="co-grid">
+        <div class="co-main">
+          <div class="deal-band" data-launch><span class="zap">⚡</span><span data-launch-text>Launch pricing active — instant delivery to your inbox after payment</span></div>
+          <div class="panel co-order">
+            <h2>Order</h2>
+            <div id="cart-items"></div>
+            <div id="cart-add"></div>
+            <div id="cart-upgrade" hidden></div>
 
-      <div class="panel">
-        <h2>Delivery details</h2>
-        <form id="contact-form" novalidate>
-          <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Email (your downloads go here)<input name="email" type="email" autocomplete="email" required></label>
-          <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="numeric" required></label>
-          <p class="pay-err"></p>
-          <button type="submit" class="pay-btn">Pay with Razorpay</button>
-          <p class="fine">Secure checkout by Razorpay · UPI, cards, netbanking &amp; wallets · Instant email delivery</p>
-        </form>
+            <form class="coupon" id="coupon-form" novalidate>
+              <input id="coupon-input" name="coupon" placeholder="Discount code" autocomplete="off" spellcheck="false" aria-label="Discount code">
+              <button type="submit" class="coupon-btn">Apply</button>
+            </form>
+            <p class="coupon-hint" id="coupon-hint" hidden></p>
+            <p class="coupon-msg" id="coupon-msg" hidden role="status"></p>
+            <div id="coupon-win"></div>
+
+            <div class="save-note" id="cart-save" hidden><span>Total value <s id="cart-worth"></s></span><span class="pct" id="cart-pct"></span></div>
+            <div class="disc-row" id="cart-disc" hidden><span>Code <b id="disc-code"></b></span><span id="disc-amt"></span></div>
+            <div class="total-row"><span>You pay today</span><b id="cart-total"></b></div>
+          </div>
+
+          <div class="panel co-details">
+            <h2>Delivery details</h2>
+            <form id="contact-form" novalidate>
+              <label>Name<input name="name" autocomplete="name" required></label>
+              <label>Email (your downloads go here)<input name="email" type="email" autocomplete="email" required></label>
+              <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="numeric" required></label>
+              <p class="pay-err"></p>
+              <button type="submit" class="pay-btn">Pay with Razorpay</button>
+              <p class="fine">Secure checkout by Razorpay · UPI, cards, netbanking &amp; wallets · Instant email delivery</p>
+            </form>
+          </div>
+        </div>
+
+        <aside class="co-rail">
+          <div class="panel">
+            <h2>What this actually does</h2>
+            <ul class="rail-list" id="rail-points"></ul>
+          </div>
+          <div class="panel">
+            <h2>After you pay</h2>
+            <ol class="rail-steps">
+              <li>Razorpay confirms, and the download links land in your inbox within minutes.</li>
+              <li>Download everything at once. The files are yours to keep, on any machine.</li>
+              <li>Anything we add to a library you bought reaches you free, forever.</li>
+            </ol>
+          </div>
+          <div class="panel rail-trust">
+            <span><b>Full commercial licence</b> — use it in paid client work, no attribution.</span>
+            <span><b>Secure checkout by Razorpay</b> — UPI, cards, netbanking and wallets. We never see your card.</span>
+            <span>Questions before you buy? <a href="/contact.html">Talk to us</a> · <a href="/refund-policy.html">Refund policy</a></span>
+          </div>
+        </aside>
       </div>
     </div>
   </div>

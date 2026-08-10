@@ -49,6 +49,19 @@
     text-align:center; font-size:.85rem; font-weight:650; padding:.5rem 1rem;
   }
   .announce b{ font-weight:780; }
+  /* live spot count — a dot that ticks so the number reads as real, not pasted */
+  .announce .live{ position:relative; padding-left:1rem; }
+  .announce .live::before{
+    content:""; position:absolute; left:0; top:50%; margin-top:-.22rem;
+    width:.44rem; height:.44rem; border-radius:999px; background:oklch(88% 0.16 95);
+    animation:live-dot 2s ease-out infinite;
+  }
+  @keyframes live-dot{
+    0%{ box-shadow:0 0 0 0 oklch(88% 0.16 95 / .7); }
+    70%{ box-shadow:0 0 0 .5rem oklch(88% 0.16 95 / 0); }
+    100%{ box-shadow:0 0 0 0 oklch(88% 0.16 95 / 0); }
+  }
+  @media (prefers-reduced-motion: reduce){ .announce .live::before{ animation:none; } }
 
   header.site{
     position:sticky; top:0; z-index:40;

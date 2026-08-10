@@ -37,12 +37,38 @@
   var menu = document.createElement("div");
   menu.className = "nav-drop-menu";
   menu.innerHTML =
-    '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,499</span></a>' +
+    '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,699</span></a>' +
     '<a href="/presentation-library.html"><b>Presentation Library</b><span class="p">₹999</span></a>' +
     '<a href="/drafting-library.html"><b>Drafting Library</b><span class="p">₹1,199</span></a>' +
     '<a href="/contracts-billing.html"><b>Contracts</b><span class="p">₹599</span></a>' +
     '<a class="all" href="' + link.getAttribute("href") + '">All products →</a>';
   wrap.appendChild(menu);
+})();
+
+// ── Live launch counter ──────────────────────────────────────────────────
+// Every announce bar is filled from one server number, counted off real
+// captured payments, so the spots left can't drift between pages or go stale
+// the way a pasted figure does. The HTML underneath stays true if this never
+// answers: it names the offer without claiming a count.
+(function () {
+  var bars = document.querySelectorAll("[data-launch]");
+  if (!bars.length || !window.fetch) return;
+
+  fetch("/api/launch-status")
+    .then(function (r) { return r.json(); })
+    .then(function (s) {
+      if (!s || !s.ok) return;
+      var pct = s.open ? 15 : 10;
+      var html = s.open
+        ? 'Launch price <b>₹1,699</b> · code <b>' + s.code + '</b> takes <b>' + pct +
+          '% off</b> · <b class="live">' + s.left + " of " + s.total + " spots left</b>"
+        : "Launch spots are gone · code <b>" + s.code + "</b> still takes <b>" + pct + "% off</b>";
+      bars.forEach(function (b) {
+        (b.querySelector("[data-launch-text]") || b).innerHTML = html;
+        b.setAttribute("data-live", "1");
+      });
+    })
+    .catch(function () {});
 })();
 
 // ── Mobile nav toggle — shared across all pages with the sticky .nav header ──

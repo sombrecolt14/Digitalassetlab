@@ -11,28 +11,53 @@
   var PRODUCTS = {
     architecture: {
       label: "The Architecture Bundle",
-      price: 1499,
+      price: 1699,
       worth: 2797,
       blurb: "All three libraries: presentation, drafting, contracts",
       href: "/architecture-bundle.html",
+      points: [
+        "<b>Walk into the first meeting with the brief already written</b> — send a questionnaire, get the answers back in the client's own words.",
+        "<b>Present boards a client can approve</b>, each one named, palletted and costed, instead of a mood you have to defend.",
+        "<b>Open AutoCAD to a library that's already drawn</b> — one template per category, not a folder of single blocks.",
+        "<b>Send a contract that names the fee, the stages and the revision limit</b> before the work starts.",
+        "<b>One payment, lifetime updates</b>, full commercial licence on client work.",
+      ],
     },
     presentation: {
       label: "The Presentation Library",
       price: 999,
       blurb: "Mood boards, styles, materials and 32 client questionnaires",
       href: "/presentation-library.html",
+      points: [
+        "<b>\"Show me something else\" stops being a dead end</b> — enough named boards to answer it in the same meeting.",
+        "<b>Materials carry indicative rates on the page</b>, so the budget conversation happens once, not three weeks later.",
+        "<b>32 client questionnaires</b> in PDF, Word and Google Form — the brief arrives in writing before you draw.",
+        "<b>Editable in Canva</b>: swap an image or a swatch and it's your studio's deck.",
+      ],
     },
     drafting: {
       label: "The Drafting Library",
       price: 1199,
       blurb: "CAD block templates, SketchUp models, 1,400+ textures",
       href: "/drafting-library.html",
+      points: [
+        "<b>No more opening one DWG to get one chair</b> — each category is a single template with the whole library on the sheet.",
+        "<b>1,000+ SketchUp models, cleaned and purged</b>, so they drop into a scene without dragging junk geometry with them.",
+        "<b>1,400+ seamless textures</b>, sorted by material family, for boards and renders alike.",
+        "<b>Draw the standard details once</b> and stop redrawing them on every project.",
+      ],
     },
     contracts: {
       label: "Contracts",
       price: 599,
       blurb: "11 contract templates, 149 typeset pages",
       href: "/contracts-billing.html",
+      points: [
+        "<b>Scope, stages and revision limits agreed in writing</b> before work starts, so \"just one more change\" has a price.",
+        "<b>Fee tables tied to deliverables, not dates</b> — payments fall due when you hand something over.",
+        "<b>11 contracts</b> covering clients, staff, vendors, freelancers, consultants, partners and one-off collaborations.",
+        "<b>Written for Indian practice</b>, with jurisdiction and arbitration named. Review once with your advocate, reuse forever.",
+      ],
     },
   };
   var PARTS = Object.keys(PRODUCTS).filter(function (k) { return k !== BUNDLE; });
@@ -113,6 +138,97 @@
     var form = document.getElementById("contact-form");
     var err = form.querySelector(".pay-err");
     var payBtn = form.querySelector(".pay-btn");
+    var coupon = { code: "", percent: 0 };
+
+    // ── why this is worth it, per thing in the cart ──
+    function renderPoints(cart) {
+      var el = document.getElementById("rail-points");
+      if (!el) return;
+      var seen = {};
+      var html = "";
+      cart.forEach(function (key) {
+        (PRODUCTS[key].points || []).forEach(function (p) {
+          if (seen[p]) return;
+          seen[p] = 1;
+          html += "<li>" + p + "</li>";
+        });
+      });
+      el.innerHTML = html;
+    }
+
+    // ── discount code ──
+    var cForm = document.getElementById("coupon-form");
+    var cInput = document.getElementById("coupon-input");
+    var cMsg = document.getElementById("coupon-msg");
+    var cHint = document.getElementById("coupon-hint");
+    var cWin = document.getElementById("coupon-win");
+
+    if (cHint) {
+      fetch("/api/launch-status")
+        .then(function (r) { return r.json(); })
+        .then(function (s) {
+          if (!s || !s.ok || !cHint) return;
+          cHint.hidden = false;
+          cHint.innerHTML = s.open
+            ? "First 100 buyers: use <b>" + s.code + "</b> for 15% off · <b>" + s.left + " spots left</b>"
+            : "Use <b>" + s.code + "</b> for 10% off.";
+        })
+        .catch(function () {});
+    }
+
+    function couponFail(msg) {
+      cWin.innerHTML = "";
+      coupon = { code: "", percent: 0 };
+      cMsg.hidden = false;
+      cMsg.textContent = msg;
+      draw();
+    }
+
+    // Painted from the live cart on every draw, so adding a library or taking
+    // the upgrade can't leave the banner quoting a total that no longer exists.
+    function paintWin(subtotal, disc, payable) {
+      cWin.innerHTML =
+        '<div class="coupon-win"><span class="tick">✓</span>' +
+        "<span><b>" + coupon.code + "</b> applied</span>" +
+        '<span class="off">−' + coupon.percent + "%</span>" +
+        '<span class="drop">' + fmt(subtotal) + " → <b>" + fmt(payable) +
+        "</b>, you save " + fmt(disc) + "</span></div>";
+    }
+
+    function couponWin(res) {
+      cMsg.hidden = true;
+      if (cHint) cHint.hidden = true;
+      coupon = { code: res.code, percent: res.percent };
+      draw();
+      totalEl.classList.remove("flash");
+      void totalEl.offsetWidth; // restart the animation on a re-apply
+      totalEl.classList.add("flash");
+      if (window.dalTrack) dalTrack("coupon_applied", { product: res.code });
+    }
+
+    if (cForm) {
+      cForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var code = (cInput.value || "").trim();
+        if (!code) return;
+        var btn = cForm.querySelector(".coupon-btn");
+        btn.disabled = true;
+        try {
+          var r = await fetch("/api/check-coupon", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ products: getCart(), coupon: code }),
+          });
+          var res = await r.json();
+          if (res && res.valid) couponWin(res);
+          else if (res && res.reason === "expired") couponFail("The launch code has been used up. Try NEW10 instead.");
+          else couponFail("That code isn't valid.");
+        } catch (e3) {
+          couponFail("Couldn't check that code. Try again in a moment.");
+        }
+        btn.disabled = false;
+      });
+    }
 
     function draw() {
       var cart = getCart();
@@ -138,8 +254,22 @@
         });
         itemsEl.appendChild(row);
       });
-      totalEl.textContent = fmt(total);
-      payBtn.textContent = "Pay " + fmt(total) + " with Razorpay";
+      // A held code keeps working as the cart changes; the server recomputes
+      // the real discount at create-order either way.
+      var disc = coupon.percent ? Math.round((total * coupon.percent) / 100) : 0;
+      var payable = total - disc;
+      var discEl = document.getElementById("cart-disc");
+      if (discEl) {
+        discEl.hidden = !disc;
+        if (disc) {
+          document.getElementById("disc-code").textContent = coupon.code;
+          document.getElementById("disc-amt").textContent = "− " + fmt(disc);
+        }
+      }
+      if (cWin) { if (disc) paintWin(total, disc, payable); else cWin.innerHTML = ""; }
+      totalEl.textContent = fmt(payable);
+      payBtn.textContent = "Pay " + fmt(payable) + " with Razorpay";
+      renderPoints(cart);
 
       // value anchor — only shown when every item has an honest worth figure
       var saveEl = document.getElementById("cart-save");
@@ -228,7 +358,7 @@
         var orderRes = await fetch("/api/create-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ products: cart }),
+          body: JSON.stringify({ products: cart, coupon: coupon.code }),
         });
         var order = await orderRes.json();
         if (!order.ok) throw new Error(order.message || "Could not start checkout. Please try again in a minute.");

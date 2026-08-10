@@ -29,12 +29,12 @@ const {
 const PRODUCTS = {
   architecture: {
     name: "The Architecture Bundle",
-    amount: 149900, // ₹1,499 in paise
+    amount: 169900, // ₹1,699 in paise
     downloadUrl: process.env.ARCH_DOWNLOAD_URL || "",
     includes: [
       "The Presentation Library — mood boards, styles, full material system",
       "The Drafting Library — CAD block templates, SketchUp models, textures",
-      "Contracts & Billing — 9 contract suites, 65+ quotation formats",
+      "Contracts — 11 contract templates, 149 typeset pages",
       "Commercial License",
       "Lifetime Updates",
     ],
@@ -47,6 +47,7 @@ const PRODUCTS = {
       "Mood boards & colour palettes — residential, commercial, hotel",
       "Style & material specifications for 10+ space types",
       "Materials: rooms, surfaces & systems, with indicative rates",
+      "32 client questionnaires — PDF, Word and Google Form",
       "Editable in Canva",
       "Commercial License",
       "Lifetime Updates",
@@ -66,14 +67,14 @@ const PRODUCTS = {
     ],
   },
   contracts: {
-    name: "Contracts & Billing",
+    name: "Contracts",
     amount: 59900, // ₹599
     downloadUrl: process.env.CONTRACTS_DOWNLOAD_URL || "",
     includes: [
-      "9 contract suites in 6 layouts each — 54 typeset documents",
-      "Client, turnkey, CAD drafting, consultancy, vendor, freelancer",
+      "11 contract templates — 149 typeset pages",
+      "Client, turnkey, 3D render, CAD drafting, consultancy, vendor, freelancer",
       "Employment, partnership and joint venture agreements",
-      "65+ quotation, estimate & invoice formats",
+      "Client confirmation document for sign-off before work starts",
       "Commercial License",
       "Lifetime Updates",
     ],
@@ -81,8 +82,84 @@ const PRODUCTS = {
 };
 
 const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
+// Names that shipped on older orders, so a legacy webhook still delivers the
+// right library instead of falling through to the bundle.
+const LEGACY_NAMES = { "Contracts & Billing": "contracts" };
 const productByName = (name) =>
-  Object.values(PRODUCTS).find((p) => p.name === name) || PRODUCTS.architecture;
+  PRODUCTS[LEGACY_NAMES[name]] ||
+  Object.values(PRODUCTS).find((p) => p.name === name) ||
+  PRODUCTS.architecture;
+
+// ── launch counter & coupons ──────────────────────────────────────────────
+// Razorpay is the only source of truth for how many spots are gone, so there
+// is no counter to keep in sync, nothing to reset on redeploy, and nothing a
+// buyer can spoof. We only ever need to know how many of the first 100 are
+// taken, so a single 100-item page of payments is always enough to answer it.
+const LAUNCH_TOTAL = 100;
+const COUPONS = {
+  // Only while launch spots remain.
+  NEW15: { percent: 15, launchOnly: true },
+  // The standing code once the launch window closes.
+  NEW10: { percent: 10, launchOnly: false },
+};
+
+let soldCache = { at: 0, count: null };
+
+async function launchSold() {
+  if (soldCache.count !== null && Date.now() - soldCache.at < 60000) {
+    return soldCache.count;
+  }
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) return soldCache.count || 0;
+  try {
+    const auth = Buffer.from(
+      `${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`
+    ).toString("base64");
+    // LAUNCH_FROM (unix seconds) scopes the count to this launch, so payments
+    // taken before it don't eat the 100 spots. Unset means "count everything".
+    const from = Number(process.env.LAUNCH_FROM || 0);
+    const r = await fetch(
+      `https://api.razorpay.com/v1/payments?count=${LAUNCH_TOTAL}` + (from ? `&from=${from}` : ""),
+      { headers: { Authorization: `Basic ${auth}` } }
+    );
+    const d = await r.json();
+    if (!r.ok || !Array.isArray(d.items)) throw new Error(d.error ? d.error.description : "bad response");
+    const count = d.items.filter((p) => p.status === "captured").length;
+    soldCache = { at: Date.now(), count };
+    return count;
+  } catch (error) {
+    console.error("Launch count error:", error.message);
+    // ponytail: last known count, or 0 on a cold start. Erring low keeps the
+    // offer open rather than falsely telling a buyer they missed it.
+    return soldCache.count || 0;
+  }
+}
+
+async function launchStatus() {
+  const sold = await launchSold();
+  const left = Math.max(0, LAUNCH_TOTAL - sold);
+  return { sold, left, total: LAUNCH_TOTAL, open: left > 0, code: left > 0 ? "NEW15" : "NEW10" };
+}
+
+// Pure: what a code is worth, given whether launch spots remain.
+function couponRule(rawCode, open) {
+  const code = String(rawCode || "").trim().toUpperCase();
+  if (!code) return { code: "", valid: false, percent: 0 };
+  const c = COUPONS[code];
+  if (!c) return { code, valid: false, percent: 0, reason: "unknown" };
+  if (c.launchOnly && !open) return { code, valid: false, percent: 0, reason: "expired" };
+  return { code, valid: true, percent: c.percent };
+}
+
+// Resolves a code against the live launch state. Never trusts a percentage
+// sent by the browser — the discount is always recomputed here.
+async function resolveCoupon(rawCode) {
+  const status = await launchStatus();
+  return { ...couponRule(rawCode, status.open), status };
+}
+
+// Discounts land on whole rupees so nobody is asked to pay 1,444.15.
+const discountFor = (subtotal, percent) =>
+  percent ? Math.round((subtotal * percent) / 100 / 100) * 100 : 0;
 
 // Resolve requested product keys (multi-item cart, or legacy single "product")
 // to catalog entries. Returns null if any key is unknown.
@@ -363,6 +440,34 @@ app.get("/health", (req, res) => {
   res.json({ ok: true, port: PORT });
 });
 
+// Live launch state for the announce bars and the checkout.
+app.get("/api/launch-status", async (req, res) => {
+  const status = await launchStatus();
+  res.set("Cache-Control", "public, max-age=30");
+  res.json({ ok: true, ...status });
+});
+
+// Checks a code before payment so the buyer sees the new total immediately.
+// Advisory only: create-order recomputes the discount from scratch.
+app.post("/api/check-coupon", async (req, res) => {
+  const sel = resolveProducts(req.body);
+  const subtotal = sel ? totalAmount(sel.items) : 0;
+  const c = await resolveCoupon(req.body && req.body.coupon);
+  const discount = c.valid ? discountFor(subtotal, c.percent) : 0;
+  res.json({
+    ok: true,
+    valid: c.valid,
+    code: c.code,
+    percent: c.percent,
+    reason: c.reason || null,
+    subtotal,
+    discount,
+    total: subtotal - discount,
+    left: c.status.left,
+    open: c.status.open,
+  });
+});
+
 app.post("/api/create-order", async (req, res) => {
   try {
     const sel = resolveProducts(req.body);
@@ -377,8 +482,12 @@ app.post("/api/create-order", async (req, res) => {
       });
     }
 
-    // Amount is always computed server-side from the catalog.
-    const amount = totalAmount(sel.items);
+    // Amount is always computed server-side from the catalog, and the coupon
+    // is re-validated here — whatever discount the browser showed is ignored.
+    const subtotal = totalAmount(sel.items);
+    const coupon = await resolveCoupon(req.body && req.body.coupon);
+    const discount = coupon.valid ? discountFor(subtotal, coupon.percent) : 0;
+    const amount = subtotal - discount;
     const currency = "INR";
     const description = sel.items.map((p) => p.name).join(" + ");
 
@@ -397,8 +506,9 @@ app.post("/api/create-order", async (req, res) => {
         currency,
         receipt: `receipt_${Date.now()}`,
         notes: {
-          product: description,        // human-readable in the Razorpay dashboard
-          products: sel.keys.join(",") // machine-readable keys for the webhook
+          product: description,         // human-readable in the Razorpay dashboard
+          products: sel.keys.join(","), // machine-readable keys for the webhook
+          coupon: coupon.valid ? coupon.code : ""
         }
       })
     });
@@ -415,6 +525,9 @@ app.post("/api/create-order", async (req, res) => {
       keyId: RAZORPAY_KEY_ID,
       orderId: data.id,
       amount,
+      subtotal,
+      discount,
+      coupon: coupon.valid ? coupon.code : "",
       currency,
       name: "Digital Asset Lab",
       description
@@ -508,3 +621,5 @@ if (require.main === module) {
 }
 
 module.exports = app;
+// Money rules, exposed for test-pricing.cjs.
+module.exports.__pricing = { PRODUCTS, totalAmount, couponRule, discountFor, LAUNCH_TOTAL };
