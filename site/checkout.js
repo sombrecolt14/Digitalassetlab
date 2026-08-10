@@ -12,7 +12,7 @@
     architecture: {
       label: "The Architecture Bundle",
       price: 1899,
-      worth: 2797,
+      worth: 3197,
       blurb: "All three libraries: presentation, drafting, contracts",
       href: "/architecture-bundle.html",
       points: [
@@ -25,7 +25,7 @@
     },
     presentation: {
       label: "The Presentation Library",
-      price: 999,
+      price: 1199,
       blurb: "Mood boards, styles, materials and 32 client questionnaires",
       href: "/presentation-library.html",
       points: [
@@ -49,7 +49,7 @@
     },
     contracts: {
       label: "Contracts",
-      price: 599,
+      price: 799,
       blurb: "11 contract templates, 149 typeset pages",
       href: "/contracts-billing.html",
       points: [

@@ -15,7 +15,7 @@ const after = (code, open, ...keys) => {
 
 // Catalogue
 assert.equal(rupees(priceOf("architecture")), 1899);
-assert.equal(rupees(priceOf("presentation", "drafting", "contracts")), 2797);
+assert.equal(rupees(priceOf("presentation", "drafting", "contracts")), 3197);
 
 // The advertised drops
 assert.equal(after("NEW15", true, "architecture"), 1614, "NEW15 on the bundle");
@@ -26,7 +26,7 @@ assert.equal(after(" new15 ", true, "architecture"), 1614);
 
 // Discounts land on whole rupees — nobody is billed 1,614.15
 assert.equal(discountFor(189900, 15) % 100, 0);
-assert.equal(discountFor(159800, 15), 24000);
+assert.equal(discountFor(199800, 15), 30000);
 
 // Launch-only expiry: NEW15 dies with the last spot, NEW10 carries on
 assert.equal(couponRule("NEW15", false).valid, false);
@@ -40,6 +40,6 @@ assert.equal(couponRule("", true).valid, false);
 assert.equal(after("FREE", true, "architecture"), 1899);
 
 // Codes apply to part-carts too
-assert.equal(after("NEW15", true, "presentation", "contracts"), 1358);
+assert.equal(after("NEW15", true, "presentation", "contracts"), 1698);
 
 console.log("pricing ok — bundle 1899, NEW15 1614, NEW10 1709, expiry holds");

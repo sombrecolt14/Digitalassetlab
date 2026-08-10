@@ -25,7 +25,7 @@ const {
 
 // Product catalog — prices live server-side only, never trusted from the client.
 // "architecture" is the full bundle; the other three are the same libraries
-// sold separately (₹2,797 apart, ₹1,499 together).
+// sold separately (₹3,197 apart, ₹1,899 together).
 const PRODUCTS = {
   architecture: {
     name: "The Architecture Bundle",
@@ -41,7 +41,7 @@ const PRODUCTS = {
   },
   presentation: {
     name: "The Presentation Library",
-    amount: 99900, // ₹999
+    amount: 119900, // ₹1,199
     downloadUrl: process.env.PRESENTATION_DOWNLOAD_URL || "",
     includes: [
       "Mood boards & colour palettes — residential, commercial, hotel",
@@ -68,7 +68,7 @@ const PRODUCTS = {
   },
   contracts: {
     name: "Contracts",
-    amount: 59900, // ₹599
+    amount: 79900, // ₹799
     downloadUrl: process.env.CONTRACTS_DOWNLOAD_URL || "",
     includes: [
       "11 contract templates — 149 typeset pages",
