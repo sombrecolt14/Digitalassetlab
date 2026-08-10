@@ -96,8 +96,9 @@ const productByName = (name) =>
 // buyer can spoof. We only ever need to know how many of the first 100 are
 // taken, so a single 100-item page of payments is always enough to answer it.
 const LAUNCH_TOTAL = 100;
-// 10 Aug 2026, 00:00 IST — payments before this are test runs, not spots sold.
-const LAUNCH_START = 1786300200;
+// 10 Aug 2026, 15:40 IST — the moment pricing went live. The one captured
+// payment before it was a test run, not a spot sold.
+const LAUNCH_START = 1786356657;
 const COUPONS = {
   // Only while launch spots remain.
   NEW15: { percent: 15, launchOnly: true },
