@@ -1,0 +1,67 @@
+# Netlify's free plan ran out of credits on 10 Aug 2026 with work already
+# merged to main, so production deploys are paused until the billing cycle
+# renews on 22 Aug. This job nudges Netlify to build once that happens.
+#
+# It pushes an empty commit rather than calling a build hook, so there is no
+# token to store or rotate. Netlify's normal "deploy on push to main" rule
+# does the rest.
+name: Publish when Netlify credits reset
+
+on:
+  schedule:
+    # 22 Aug, 12:00 UTC (17:30 IST) — well after the cycle renews.
+    - cron: "0 12 22 8 *"
+    # Fallback the next morning in case the renewal lands late in the day.
+    # It exits early if the 22nd already worked, so it costs nothing.
+    - cron: "0 6 23 8 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-on-credit-reset
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The marker is a string that exists only in the queued work, so this
+      # distinguishes "already published" from "still waiting".
+      - name: Skip if the queued work is already live
+        id: check
+        run: |
+          if curl -sf --max-time 20 https://digitalassetlab.in/presentation-library.html \
+             | grep -q "Mood boards and colour palettes, ready to present"; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "Queued work is already live — nothing to do."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+            echo "Queued work is not live yet — triggering a deploy."
+          fi
+
+      - name: Trigger a Netlify build
+        if: steps.check.outputs.already == 'false'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Publish the work queued while Netlify credits were paused"
+          git push
+
+      - name: Wait for it to go live
+        if: steps.check.outputs.already == 'false'
+        run: |
+          for i in $(seq 1 20); do
+            sleep 30
+            if curl -sf --max-time 20 https://digitalassetlab.in/presentation-library.html \
+               | grep -q "Mood boards and colour palettes, ready to present"; then
+              echo "Live after about $((i * 30))s."
+              exit 0
+            fi
+            echo "  not yet (${i}/20)…"
+          done
+          echo "::error::Still not live after 10 minutes. Check Netlify — credits may not have reset yet."
+          exit 1
