@@ -2,7 +2,7 @@
 // Paste your IDs below, redeploy, and tracking goes live. Leave empty to disable.
 window.DAL_ANALYTICS = {
   ga4: "",        // e.g. "G-XXXXXXXXXX"  (Google Analytics 4 measurement ID)
-  metaPixel: "",  // e.g. "1234567890"    (Meta/Facebook Pixel ID)
+  metaPixel: "1750369246382750",  // Meta Pixel — dataset "Digital Asset Lab Web"
 };
 
 (function () {
@@ -45,8 +45,9 @@ window.DAL_ANALYTICS = {
         });
       }
       if (c.metaPixel && window.fbq) {
-        var fbName = { begin_checkout: "InitiateCheckout", purchase: "Purchase" }[name] || name;
-        fbq("track", fbName, { value: data.value, currency: data.currency || "INR" });
+        // Standard Meta events go via track(); anything else must use trackCustom().
+        var std = { add_to_cart: "AddToCart", begin_checkout: "InitiateCheckout", purchase: "Purchase" }[name];
+        fbq(std ? "track" : "trackCustom", std || name, { value: data.value, currency: data.currency || "INR" });
       }
     } catch (e) { /* analytics must never break the store */ }
   };
