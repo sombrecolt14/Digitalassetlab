@@ -59,9 +59,13 @@
     .then(function (s) {
       if (!s || !s.ok) return;
       var pct = s.open ? 15 : 10;
+      // Before the first sale, counting down from full only advertises that
+      // nobody has bought yet — name the offer instead.
+      var spots = s.sold === 0
+        ? "first " + s.total + " buyers"
+        : '<b class="live">' + s.left + " of " + s.total + " spots left</b>";
       var html = s.open
-        ? 'Launch price <b>₹1,699</b> · code <b>' + s.code + '</b> takes <b>' + pct +
-          '% off</b> · <b class="live">' + s.left + " of " + s.total + " spots left</b>"
+        ? 'Launch price <b>₹1,699</b> · code <b>' + s.code + '</b> takes <b>' + pct + "% off</b> · " + spots
         : "Launch spots are gone · code <b>" + s.code + "</b> still takes <b>" + pct + "% off</b>";
       bars.forEach(function (b) {
         (b.querySelector("[data-launch-text]") || b).innerHTML = html;
