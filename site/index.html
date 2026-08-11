@@ -244,14 +244,17 @@
   }
   .box .status.live{ background:var(--pop); color:var(--on-pop); }
 
-  .box.arch .art{ background:var(--arch); }
-  .box.arch .art img{ width:100%; height:100%; object-fit:cover; opacity:.85; mix-blend-mode:luminosity; }
+  /* The bundle tile is the hero of the shelf, so the photograph carries it.
+     A drafting grid sits over the top — the terracotta wash and the luminosity
+     blend that used to desaturate it were terracotta-as-a-surface, which is
+     the one thing Palette B took out everywhere else. */
+  .box.arch .art{ background:var(--ink); }
+  .box.arch .art img{ width:100%; height:100%; object-fit:cover; }
   .box.arch .art::after{
     content:""; position:absolute; inset:0;
     background:
-      repeating-linear-gradient(0deg, transparent 0 39px, oklch(100% 0 0 / .18) 39px 40px),
-      repeating-linear-gradient(90deg, transparent 0 39px, oklch(100% 0 0 / .18) 39px 40px),
-      oklch(56% 0.125 42 / .45);
+      repeating-linear-gradient(0deg, transparent 0 39px, oklch(100% 0 0 / .13) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, oklch(100% 0 0 / .13) 39px 40px);
   }
 
   .box.notion .art{ background:var(--notion); }
@@ -519,14 +522,14 @@
       <a class="box arch reveal" href="/architecture-bundle.html">
         <span class="status live">Everything · ₹1,899</span>
         <div class="art" aria-hidden="true">
-          <img src="/assets/cv-mbc-03.jpg" alt="">
+          <img src="/assets/tile-bundle.jpg" alt="">
         </div>
         <div class="label"><h3>The Architecture Bundle</h3><p class="sub">All three libraries · save ₹898</p></div>
       </a>
       <a class="box reveal" href="/presentation-library.html" style="transition-delay:.06s">
         <span class="status live">₹1,199</span>
         <div class="art" aria-hidden="true">
-          <img src="/assets/canva-rooms-1.jpg" alt="">
+          <img src="/assets/tile-presentation.jpg" alt="">
         </div>
         <div class="label"><h3>Presentation Library</h3><p class="sub">Mood boards · styles · materials</p></div>
       </a>
@@ -540,7 +543,7 @@
       <a class="box reveal" href="/contracts-billing.html" style="transition-delay:.18s">
         <span class="status live">₹799</span>
         <div class="art" aria-hidden="true">
-          <img src="/assets/canva-contract-1.jpg" alt="">
+          <img src="/assets/canva-contract-1.jpg" alt="" style="object-position:top">
         </div>
         <div class="label"><h3>Contracts</h3><p class="sub">11 contract templates · 149 pages</p></div>
       </a>
