@@ -443,6 +443,77 @@ app.get("/health", (req, res) => {
   res.json({ ok: true, port: PORT });
 });
 
+// ── resend a lost download link ───────────────────────────────────────────
+// The most common support request for a digital product. Razorpay already
+// knows who paid and for what, so there is no order table to keep: we look
+// the payment up and re-send the same delivery email.
+//
+// Safe by construction — the mail only ever goes to the address on the
+// payment record, so asking about someone else's email tells you nothing and
+// sends them nothing. The reply is deliberately identical either way, so this
+// can't be used to discover who bought.
+const resendLog = new Map();
+
+// ponytail: in-memory, per-instance. Enough to stop a bored person hammering
+// it; move to a shared store only if that ever actually happens.
+function resendAllowed(email) {
+  const now = Date.now();
+  const hits = (resendLog.get(email) || []).filter((t) => now - t < 3600000);
+  if (hits.length >= 3) return false;
+  hits.push(now);
+  resendLog.set(email, hits);
+  return true;
+}
+
+app.post("/api/resend", async (req, res) => {
+  const email = String((req.body && req.body.email) || "").trim().toLowerCase();
+  const generic = { ok: true, message: "If that email has an order, the download links are on their way." };
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ ok: false, message: "Please enter a valid email address." });
+  }
+  if (!resendAllowed(email)) {
+    return res.status(429).json({ ok: false, message: "Too many requests. Try again in an hour, or email support." });
+  }
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) return res.json(generic);
+
+  try {
+    const auth = Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString("base64");
+    const r = await fetch("https://api.razorpay.com/v1/payments?count=100", {
+      headers: { Authorization: `Basic ${auth}` },
+    });
+    const d = await r.json();
+    const paid = (d.items || []).filter(
+      (p) => p.status === "captured" && String(p.email || "").toLowerCase() === email
+    );
+    if (!paid.length) {
+      console.log(`Resend: no captured payment for ${email}`);
+      return res.json(generic);
+    }
+
+    // Everything they have ever bought, de-duplicated, newest payment id first.
+    const keys = new Set();
+    for (const pay of paid) {
+      const notes = pay.notes || {};
+      if (notes.products) {
+        String(notes.products).split(",").filter((k) => PRODUCTS[k]).forEach((k) => keys.add(k));
+      } else if (notes.product) {
+        const match = Object.entries(PRODUCTS).find(([, v]) => v === productByName(notes.product));
+        if (match) keys.add(match[0]);
+      }
+    }
+    const items = [...keys].map((k) => PRODUCTS[k]);
+    if (!items.length) return res.json(generic);
+
+    await sendDeliveryEmail(email, "", paid[0].id, items);
+    console.log(`Resend: re-sent ${items.length} download link(s) to ${email}`);
+    return res.json(generic);
+  } catch (error) {
+    console.error("Resend error:", error.message);
+    return res.json(generic);
+  }
+});
+
 // Live launch state for the announce bars and the checkout.
 app.get("/api/launch-status", async (req, res) => {
   const status = await launchStatus();

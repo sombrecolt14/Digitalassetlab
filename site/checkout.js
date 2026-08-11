@@ -38,12 +38,12 @@
     drafting: {
       label: "The Drafting Library",
       price: 1199,
-      blurb: "CAD block templates, SketchUp models, 1,400+ textures",
+      blurb: "CAD block templates, SketchUp models, 1,646 textures",
       href: "/drafting-library.html",
       points: [
         "<b>No more opening one DWG to get one chair</b> — each category is a single template with the whole library on the sheet.",
-        "<b>1,000+ SketchUp models, cleaned and purged</b>, so they drop into a scene without dragging junk geometry with them.",
-        "<b>1,400+ seamless textures</b>, sorted by material family, for boards and renders alike.",
+        "<b>1,070 SketchUp models, cleaned and purged</b>, so they drop into a scene without dragging junk geometry with them.",
+        "<b>1,646 seamless textures</b>, sorted by material family, for boards and renders alike.",
         "<b>Draw the standard details once</b> and stop redrawing them on every project.",
       ],
     },
