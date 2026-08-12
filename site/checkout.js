@@ -32,7 +32,7 @@
         "<b>\"Show me something else\" stops being a dead end</b> — enough named boards to answer it in the same meeting.",
         "<b>Materials carry indicative rates on the page</b>, so the budget conversation happens once, not three weeks later.",
         "<b>32 client questionnaires</b> in PDF, Word and Google Form — the brief arrives in writing before you draw.",
-        "<b>Editable in Canva</b>: swap an image or a swatch and it's your studio's deck.",
+        "<b>Print-ready PDFs</b>: open, print, hand it to the client — nothing to set up first.",
       ],
     },
     drafting: {
@@ -50,7 +50,7 @@
     contracts: {
       label: "Contracts",
       price: 799,
-      blurb: "11 contract templates, 149 typeset pages",
+      blurb: "11 contract templates, 155 typeset pages",
       href: "/contracts-billing.html",
       points: [
         "<b>Scope, stages and revision limits agreed in writing</b> before work starts, so \"just one more change\" has a price.",

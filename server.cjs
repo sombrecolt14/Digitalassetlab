@@ -34,7 +34,7 @@ const PRODUCTS = {
     includes: [
       "The Presentation Library — mood boards, styles, full material system",
       "The Drafting Library — CAD block templates, SketchUp models, textures",
-      "Contracts — 11 contract templates, 149 typeset pages",
+      "Contracts — 11 contract templates, 155 typeset pages",
       "Commercial License",
       "Lifetime Updates",
     ],
@@ -48,7 +48,7 @@ const PRODUCTS = {
       "Style & material specifications for 10+ space types",
       "Materials: rooms, surfaces & systems, with indicative rates",
       "32 client questionnaires — PDF, Word and Google Form",
-      "Editable in Canva",
+      "Print-ready PDFs, ready to send to a client",
       "Commercial License",
       "Lifetime Updates",
     ],
@@ -71,7 +71,8 @@ const PRODUCTS = {
     amount: 79900, // ₹799
     downloadUrl: process.env.CONTRACTS_DOWNLOAD_URL || "",
     includes: [
-      "11 contract templates — 149 typeset pages",
+      "11 contract templates — 155 typeset pages",
+      "Editable in Canva",
       "Client, turnkey, 3D render, CAD drafting, consultancy, vendor, freelancer",
       "Employment, partnership and joint venture agreements",
       "Client confirmation document for sign-off before work starts",
