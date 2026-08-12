@@ -184,18 +184,28 @@ const totalLabel = (items) => `₹${(totalAmount(items) / 100).toLocaleString("e
 // is one duplicate email — harmless. Move to a DB if we ever scale out.
 const processedPayments = new Set();
 
-function deliverPurchase(paymentId, customerEmail, customerName, products) {
+// Must be awaited by every caller. On Netlify this runs in a Lambda, and the
+// container is frozen the moment the route sends its response — a floating
+// promise here is killed mid-SMTP-handshake and the buyer silently gets
+// nothing, while Razorpay still sees HTTP 200 and never retries.
+async function deliverPurchase(paymentId, customerEmail, customerName, products) {
   if (processedPayments.has(paymentId)) {
     console.log(`Payment ${paymentId} already delivered — skipping`);
     return;
   }
   processedPayments.add(paymentId);
+  const jobs = [];
   if (customerEmail) {
-    sendDeliveryEmail(customerEmail, customerName, paymentId, products)
-      .catch(err => console.error("Delivery email error:", err));
+    jobs.push(
+      sendDeliveryEmail(customerEmail, customerName, paymentId, products)
+        .catch(err => console.error("Delivery email error:", err))
+    );
   }
-  sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products)
-    .catch(err => console.error("Owner notification error:", err));
+  jobs.push(
+    sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products)
+      .catch(err => console.error("Owner notification error:", err))
+  );
+  await Promise.all(jobs);
 }
 
 // Create email transporter (only if SMTP credentials are set)
@@ -395,7 +405,7 @@ app.use(cors({
 app.post(
   "/api/razorpay-webhook",
   express.raw({ type: "application/json" }),
-  (req, res) => {
+  async (req, res) => {
     try {
       const signature = req.headers["x-razorpay-signature"];
 
@@ -425,7 +435,7 @@ app.post(
             if (keys.length) items = keys.map((k) => PRODUCTS[k]);
           }
           if (!items) items = [productByName(notes.product)];
-          deliverPurchase(pay.id, pay.email, "", items);
+          await deliverPurchase(pay.id, pay.email, "", items);
         }
       }
 
@@ -670,7 +680,7 @@ app.post("/api/verify-payment", async (req, res) => {
     // Send download links to buyer + notify owner (idempotent vs the webhook)
     const { customerEmail, customerName } = req.body;
     const sel = resolveProducts(req.body) || { keys: ["architecture"], items: [PRODUCTS.architecture] };
-    deliverPurchase(razorpay_payment_id, customerEmail, customerName, sel.items);
+    await deliverPurchase(razorpay_payment_id, customerEmail, customerName, sel.items);
 
     return res.json({ ok: true });
   } catch (error) {
