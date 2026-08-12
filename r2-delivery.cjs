@@ -152,11 +152,22 @@ function presign(key, expiresSeconds = PRESIGN_TTL_SECONDS) {
 // Links and friends) fetch every URL in an email to check it is safe; if a GET
 // spent a redemption, a scanner could burn a buyer's entire allowance before
 // they clicked anything. So GET only ever peeks, and spending needs a POST.
+// Never swallow this quietly. A silent null here means the cap stops being
+// enforced while every download still succeeds, which looks fine from outside
+// and is only visible in the logs — so say so, once per cold start.
+let blobWarned = false;
 function blobStore() {
   try {
     const { getStore } = require("@netlify/blobs");
     return getStore("downloads");
-  } catch {
+  } catch (err) {
+    if (!blobWarned) {
+      blobWarned = true;
+      console.error(
+        "Netlify Blobs unavailable, download cap NOT enforced:",
+        err.message
+      );
+    }
     return null;
   }
 }
