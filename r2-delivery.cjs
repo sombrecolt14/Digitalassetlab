@@ -39,20 +39,23 @@ const START = {
 // is shown to the buyer so they can pick what they actually need.
 const FILES = {
   drafting: [
-    { key: "drafting/01-CAD-Blocks.zip", label: "CAD Blocks", gb: 0.4 },
-    { key: "drafting/02-SketchUp-Interior-Scenes.zip", label: "SketchUp — Interior Scenes", gb: 11.9 },
-    { key: "drafting/03-SketchUp-Exterior-and-Architecture.zip", label: "SketchUp — Exterior & Architecture", gb: 4.8 },
-    { key: "drafting/04-SketchUp-Furniture.zip", label: "SketchUp — Furniture", gb: 6.0 },
-    { key: "drafting/05-SketchUp-Joinery-and-Interior-Details.zip", label: "SketchUp — Joinery & Interior Details", gb: 3.0 },
-    { key: "drafting/06-SketchUp-Lighting-and-Electrical.zip", label: "SketchUp — Lighting & Electrical", gb: 0.5 },
-    { key: "drafting/07-SketchUp-Decor-Props-and-People.zip", label: "SketchUp — Decor, Props & People", gb: 3.8 },
-    { key: "drafting/08-SketchUp-Materials-and-Textures.zip", label: "SketchUp — Materials & Textures", gb: 5.3 },
+    { key: "drafting/01-CAD-Blocks.zip", label: "CAD Blocks", gb: 0.43 },
+    { key: "drafting/02-SketchUp-Interior-Scenes.zip", label: "SketchUp — Interior Scenes", gb: 6.52 },
+    { key: "drafting/03-SketchUp-Exterior-and-Architecture.zip", label: "SketchUp — Exterior & Architecture", gb: 2.69 },
+    { key: "drafting/04-SketchUp-Furniture.zip", label: "SketchUp — Furniture", gb: 3.02 },
+    { key: "drafting/05-SketchUp-Joinery-and-Interior-Details.zip", label: "SketchUp — Joinery & Interior Details", gb: 1.38 },
+    { key: "drafting/06-SketchUp-Lighting-and-Electrical.zip", label: "SketchUp — Lighting & Electrical", gb: 0.54 },
+    { key: "drafting/07-SketchUp-Decor-Props-and-People.zip", label: "SketchUp — Decor, Props & People", gb: 1.56 },
+    { key: "drafting/08-SketchUp-Materials-and-Textures.zip", label: "SketchUp — Materials & Textures", gb: 5.18 },
   ],
   presentation: [
+    { key: "presentation/01-Commercial-Design-Guides.zip", label: "13 Commercial Design Guides", gb: 0.54 },
+    { key: "presentation/02-Residential-Design-Guides.zip", label: "3 Residential Design Guides", gb: 0.29 },
+    { key: "presentation/03-Mood-Boards-and-Colour-Palettes.zip", label: "Mood Boards & Colour Palettes", gb: 0.16 },
     { key: "presentation/Questionnaires.zip", label: "32 Client Questionnaires", gb: 0.01 },
   ],
   contracts: [
-    { key: "contracts/Contracts.zip", label: "11 Contract Templates", gb: 0.01 },
+    { key: "contracts/Contracts.zip", label: "11 Contract Templates", gb: 0.0 },
   ],
 };
 // The bundle gets its own guide rather than the three separate ones, then

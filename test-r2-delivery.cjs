@@ -80,6 +80,16 @@ const r2 = require("./r2-delivery.cjs");
   assert.ok(badRes.status === 403, `tampered signature should 403, got ${badRes.status}`);
   console.log("ok  presign: tampered signature rejected by R2");
 
+  // Every catalogued key must actually exist in the bucket. A typo here ships
+  // a dead link to someone who has paid, and nothing else would catch it.
+  const missing = [];
+  for (const f of r2.FILES.architecture) {
+    const r = await fetch(r2.presign(f.key, 120), { headers: { Range: "bytes=0-0" } });
+    if (r.status !== 206 && r.status !== 200) missing.push(`${f.key} (HTTP ${r.status})`);
+  }
+  assert.equal(missing.length, 0, `objects not found in bucket:\n  ${missing.join("\n  ")}`);
+  console.log(`ok  bucket: all ${r2.FILES.architecture.length} catalogued objects exist`);
+
   // ── routes ──────────────────────────────────────────────────────────────
   // The scanner-safety property is the point of the two verbs, so exercise
   // both against the real app rather than trusting the code reads right.
