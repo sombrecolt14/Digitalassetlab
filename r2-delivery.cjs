@@ -175,20 +175,26 @@ function blobStore() {
 const counterId = (token) =>
   crypto.createHash("sha256").update(token).digest("hex").slice(0, 32);
 
-// Blobs reads are eventually consistent by default, which quietly breaks a
-// read-modify-write: the increment lands but the next read returns the stale
-// value, so the counter sits still and the cap never trips. Both reads ask for
-// strong consistency.
+// Reads here are eventually consistent, and cannot be otherwise: asking for
+// strong consistency on this runtime fails with "the environment has not been
+// configured with a 'uncachedEdgeURL' property", because Express runs through
+// serverless-http in Lambda-compat mode rather than as a native Netlify
+// function.
 //
-// ponytail: two clicks landing in the same instant can still both read N and
-// write N+1, costing one extra download. Not worth a lock for a 3-use counter.
-const CONSISTENT = { consistency: "strong" };
+// That is acceptable for what this counts. Redemptions are minutes or hours
+// apart in real use, which is far longer than propagation takes; back-to-back
+// clicks within a second or two may read a stale value and cost the buyer
+// nothing. The failure mode is a buyer getting an extra download, never being
+// wrongly refused one.
+//
+// ponytail: if this ever needs to be exact, the counter belongs in a
+// Cloudflare Durable Object next to the bucket, not here.
 
 async function peekRedemption(token) {
   const store = blobStore();
   if (!store) return { used: 0, left: MAX_REDEMPTIONS, counted: false };
   try {
-    const used = Number((await store.get(counterId(token), CONSISTENT)) || 0);
+    const used = Number((await store.get(counterId(token))) || 0);
     return { used, left: Math.max(0, MAX_REDEMPTIONS - used), counted: true };
   } catch (err) {
     console.error("Redemption peek error:", err.message);
@@ -201,7 +207,7 @@ async function spendRedemption(token) {
   if (!store) return { used: 0, allowed: true, counted: false };
   const id = counterId(token);
   try {
-    const used = Number((await store.get(id, CONSISTENT)) || 0);
+    const used = Number((await store.get(id)) || 0);
     if (used >= MAX_REDEMPTIONS) return { used, allowed: false, counted: true };
     await store.set(id, String(used + 1));
     return { used: used + 1, allowed: true, counted: true };
