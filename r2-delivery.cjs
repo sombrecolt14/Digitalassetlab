@@ -47,6 +47,7 @@ const FILES = {
     { key: "drafting/06-SketchUp-Lighting-and-Electrical.zip", label: "SketchUp — Lighting & Electrical", gb: 0.54 },
     { key: "drafting/07-SketchUp-Decor-Props-and-People.zip", label: "SketchUp — Decor, Props & People", gb: 1.56 },
     { key: "drafting/08-SketchUp-Materials-and-Textures.zip", label: "SketchUp — Materials & Textures", gb: 5.18 },
+    { key: "drafting/09-Floor-Plans-and-Drawings.zip", label: "Floor Plans, Structural & Construction Details", gb: 1.59 },
   ],
   presentation: [
     { key: "presentation/01-Commercial-Design-Guides.zip", label: "13 Commercial Design Guides", gb: 0.54 },
