@@ -25,6 +25,16 @@ const LINK_TTL_DAYS = 7;
 const MAX_REDEMPTIONS = 3;
 const PRESIGN_TTL_SECONDS = 6 * 60 * 60;
 
+// Every product opens with its own START HERE guide: what is in the download,
+// how to use it, the licence in one line. Small, so it is the one a buyer can
+// read before committing to a 12 GB archive.
+const START = {
+  architecture: { key: "bundle/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
+  presentation: { key: "presentation/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
+  drafting: { key: "drafting/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
+  contracts: { key: "contracts/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
+};
+
 // Object keys in the bucket, grouped by product. `gb` is the archive size and
 // is shown to the buyer so they can pick what they actually need.
 const FILES = {
@@ -45,7 +55,10 @@ const FILES = {
     { key: "contracts/Contracts.zip", label: "11 Contract Templates", gb: 0.01 },
   ],
 };
-FILES.architecture = [...FILES.presentation, ...FILES.drafting, ...FILES.contracts];
+// The bundle gets its own guide rather than the three separate ones, then
+// every archive from all three libraries.
+FILES.architecture = [START.architecture, ...FILES.presentation, ...FILES.drafting, ...FILES.contracts];
+for (const k of ["presentation", "drafting", "contracts"]) FILES[k] = [START[k], ...FILES[k]];
 
 const configured = () =>
   Boolean(R2_ACCOUNT_ID && R2_ACCESS_KEY_ID && R2_SECRET_ACCESS_KEY && R2_BUCKET);
@@ -180,7 +193,7 @@ async function spendRedemption(token) {
 
 // Label and size for a key, so the confirm page can name what it is about to
 // hand over instead of showing a bare object path.
-const ALL_FILES = [...FILES.drafting, ...FILES.presentation, ...FILES.contracts];
+const ALL_FILES = [START.architecture, ...FILES.drafting, ...FILES.presentation, ...FILES.contracts];
 const fileByKey = (key) =>
   ALL_FILES.find((f) => f.key === key) || { key, label: key.split("/").pop(), gb: 0 };
 

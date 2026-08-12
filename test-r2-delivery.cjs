@@ -37,12 +37,28 @@ const r2 = require("./r2-delivery.cjs");
   console.log("ok  token: sign, verify, tamper, expiry");
 
   // ── catalog ─────────────────────────────────────────────────────────────
-  assert.equal(
-    r2.FILES.architecture.length,
-    r2.FILES.drafting.length + r2.FILES.presentation.length + r2.FILES.contracts.length,
-    "bundle must contain every file from the three parts"
-  );
-  console.log(`ok  catalog: ${r2.FILES.architecture.length} files in the bundle`);
+  // Every product opens with exactly one START HERE, and the bundle carries
+  // its own rather than the three separate ones.
+  const isStart = (f) => f.key.endsWith("00-START-HERE.pdf");
+  for (const k of ["architecture", "presentation", "drafting", "contracts"]) {
+    const list = r2.FILES[k];
+    assert.equal(list.filter(isStart).length, 1, `${k} should have exactly one START HERE`);
+    assert.ok(isStart(list[0]), `${k} should open with its START HERE`);
+  }
+
+  // nothing a buyer paid for may be missing from the bundle
+  const parts = ["presentation", "drafting", "contracts"]
+    .flatMap((k) => r2.FILES[k].filter((f) => !isStart(f)).map((f) => f.key));
+  const bundle = new Set(r2.FILES.architecture.map((f) => f.key));
+  for (const key of parts) assert.ok(bundle.has(key), `bundle is missing ${key}`);
+  assert.equal(r2.FILES.architecture.length, parts.length + 1, "bundle should be every archive plus one guide");
+
+  // every catalogued key must resolve to a real label, including the bundle guide
+  for (const key of [...bundle]) {
+    assert.ok(r2.fileByKey(key).label, `no label for ${key}`);
+    assert.notEqual(r2.fileByKey(key).label, key.split("/").pop(), `fileByKey fell through for ${key}`);
+  }
+  console.log(`ok  catalog: ${r2.FILES.architecture.length} files in the bundle, all labelled`);
 
   // ── presign against the real bucket ─────────────────────────────────────
   if (!r2.configured()) {
