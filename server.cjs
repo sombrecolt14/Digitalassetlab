@@ -3,6 +3,7 @@ const cors = require("cors");
 const crypto = require("crypto");
 const path = require("path");
 const nodemailer = require("nodemailer");
+const r2 = require("./r2-delivery.cjs");
 
 console.log("SERVER BOOTING");
 
@@ -226,19 +227,35 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
     return;
   }
 
-  // One download box per purchased product.
-  const downloadBlocks = products.map((product) => `
-      <div style="background:#163300;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;border:3px solid #000;">
-        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 8px;letter-spacing:1px;">
+  // One download box per purchased product. Each library is split into
+  // per-category archives so nobody has to pull 36 GB to get one of them.
+  const base = (SITE_URL || "https://digitalassetlab.in").replace(/\/$/, "");
+  const downloadBlocks = products.map((product) => {
+    const productKey = Object.keys(PRODUCTS).find((k) => PRODUCTS[k] === product);
+    const files = (r2.configured() && r2.FILES[productKey]) || [];
+
+    const body = files.length
+      ? files.map((f) => `
+          <a href="${base}/api/download/${r2.makeToken(paymentId, f.key)}"
+             style="display:block;background:#9FE870;color:#163300;font-weight:800;font-size:14px;padding:12px 16px;border-radius:8px;text-decoration:none;border:2px solid #000;margin-bottom:8px;text-align:left;">
+            ${f.label}
+            <span style="float:right;font-weight:600;opacity:.75;">${f.gb < 0.1 ? "" : f.gb + " GB"}</span>
+          </a>`).join("")
+      : (product.downloadUrl
+        ? `<p style="color:#fff;font-size:14px;margin:0 0 20px;">Click the button below to access your complete bundle</p>
+           <a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
+             DOWNLOAD YOUR BUNDLE →
+           </a>`
+        : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`);
+
+    return `
+      <div style="background:#163300;border-radius:12px;padding:24px;margin-bottom:24px;border:3px solid #000;">
+        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 12px;letter-spacing:1px;text-align:center;">
           ${product.name.toUpperCase()}
         </p>
-        ${product.downloadUrl
-          ? `<p style="color:#fff;font-size:14px;margin:0 0 20px;">Click the button below to access your complete bundle</p>
-             <a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
-               DOWNLOAD YOUR BUNDLE →
-             </a>`
-          : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`}
-      </div>`).join("");
+        ${body}
+      </div>`;
+  }).join("");
 
   const html = `
 <!DOCTYPE html>
@@ -271,6 +288,13 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
 
       <!-- Download boxes (one per product) -->
       ${downloadBlocks}
+
+      ${r2.configured() ? `
+      <p style="color:#4a5565;font-size:13px;line-height:1.6;text-align:center;margin:-8px 0 28px;">
+        These links work for <b>${r2.LINK_TTL_DAYS} days</b> and can be used <b>${r2.MAX_REDEMPTIONS} times</b> each.
+        A download that stops partway can be resumed for six hours without using another.<br>
+        Run out? <a href="${base}/contact.html#resend-form" style="color:#163300;">Request a fresh set</a> — your purchase never expires.
+      </p>` : ""}
 
       <!-- What's included -->
       ${products.map(product => `
@@ -452,6 +476,107 @@ app.use(express.json());
 
 app.get("/health", (req, res) => {
   res.json({ ok: true, port: PORT });
+});
+
+// ── redeem a download link ────────────────────────────────────────────────
+// Buyers only ever see this URL, never an R2 one. The token carries the
+// payment id, the object key and an expiry, all signed, so there is nothing to
+// look up and no way to edit it into a product they did not buy.
+//
+// A redemption buys a six-hour window at R2, not a single byte-stream, so a
+// stalled 12 GB download can resume without spending another of the three.
+const linkPage = (title, message, tone) => `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${title} — Digital Asset Lab</title></head>
+<body style="margin:0;font-family:Inter,Arial,sans-serif;background:#f5f5f5;">
+  <div style="max-width:520px;margin:12vh auto;background:#fff;border:3px solid #000;border-radius:16px;padding:40px 32px;text-align:center;">
+    <div style="font-size:40px;margin-bottom:12px;">${tone}</div>
+    <h1 style="font-size:22px;margin:0 0 12px;color:#163300;">${title}</h1>
+    <p style="color:#4a5565;line-height:1.6;margin:0 0 24px;">${message}</p>
+    <a href="/contact.html#resend-form" style="background:#9FE870;color:#163300;font-weight:800;padding:12px 24px;border-radius:50px;text-decoration:none;border:2px solid #000;display:inline-block;">
+      Send me fresh links
+    </a>
+    <p style="color:#8a8a8a;font-size:13px;margin:20px 0 0;">Enter the email you paid with and we will send a new set.</p>
+  </div>
+</body></html>`;
+
+// Shared by both verbs: reject a bad token the same way whichever arrives.
+function rejectClaim(res, claim) {
+  const expired = claim.reason === "expired";
+  return res.status(410).type("html").send(linkPage(
+    expired ? "This link has expired" : "This link is not valid",
+    expired
+      ? `Download links last ${r2.LINK_TTL_DAYS} days. Yours has run out, but your purchase has not — request a fresh set below.`
+      : "That link could not be verified. It may have been copied incompletely from the email.",
+    expired ? "⏳" : "🔒"
+  ));
+}
+
+const limitPage = () => linkPage(
+  "Download limit reached",
+  `Each link can be used ${r2.MAX_REDEMPTIONS} times. You still own this product — request a fresh set of links below and the count starts again.`,
+  "🔁"
+);
+
+const confirmPage = (token, file, left) => `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Download ${file.label} — Digital Asset Lab</title></head>
+<body style="margin:0;font-family:Inter,Arial,sans-serif;background:#f5f5f5;">
+  <div style="max-width:520px;margin:10vh auto;background:#fff;border:3px solid #000;border-radius:16px;padding:40px 32px;text-align:center;">
+    <p style="color:#8a8a8a;font-size:12px;letter-spacing:1px;font-weight:800;margin:0 0 8px;">DIGITAL ASSET LAB</p>
+    <h1 style="font-size:24px;margin:0 0 6px;color:#163300;">${file.label}</h1>
+    <p style="color:#4a5565;margin:0 0 28px;">${file.gb >= 0.1 ? file.gb + " GB &middot; " : ""}ZIP archive</p>
+    <form method="POST" action="/api/download/${token}">
+      <button type="submit" style="background:#9FE870;color:#163300;font-weight:900;font-size:17px;padding:15px 40px;border-radius:50px;border:3px solid #000;cursor:pointer;">
+        Start download
+      </button>
+    </form>
+    <p style="color:#4a5565;font-size:13px;line-height:1.6;margin:24px 0 0;">
+      <b>${left} of ${r2.MAX_REDEMPTIONS}</b> downloads remaining on this link.<br>
+      Once started you have six hours to finish it — a download that stops
+      partway can be resumed without using another.
+    </p>
+    <p style="color:#8a8a8a;font-size:12px;margin:16px 0 0;">
+      Out of downloads? <a href="/contact.html#resend-form" style="color:#163300;">Request a fresh set</a> &mdash; your purchase never expires.
+    </p>
+  </div>
+</body></html>`;
+
+// GET only ever looks. Mail scanners fetch every link in an email to check it
+// is safe, and if that spent a redemption a buyer could arrive to find their
+// allowance already gone. Spending requires the POST below, which no scanner
+// issues.
+app.get("/api/download/:token", async (req, res) => {
+  const token = req.params.token;
+  const claim = r2.readToken(token);
+  if (!claim.ok) return rejectClaim(res, claim);
+
+  const { left } = await r2.peekRedemption(token);
+  if (left <= 0) return res.status(429).type("html").send(limitPage());
+
+  res.set("Cache-Control", "no-store");
+  return res.type("html").send(confirmPage(token, r2.fileByKey(claim.key), left));
+});
+
+app.post("/api/download/:token", async (req, res) => {
+  const token = req.params.token;
+  const claim = r2.readToken(token);
+  if (!claim.ok) return rejectClaim(res, claim);
+
+  if (!r2.configured()) return res.status(503).type("html").send(linkPage(
+    "Downloads are being set up",
+    "Your purchase is safe. Email support@digitalassetlab.in and we will send your files directly.",
+    "🛠"
+  ));
+
+  const gate = await r2.spendRedemption(token);
+  if (!gate.allowed) return res.status(429).type("html").send(limitPage());
+
+  console.log(`Download ${claim.key} for ${claim.paymentId} (use ${gate.used}/${r2.MAX_REDEMPTIONS})`);
+  res.set("Cache-Control", "no-store");
+  // 303 so the browser turns the POST into a GET for the R2 URL.
+  return res.redirect(303, r2.presign(claim.key));
 });
 
 // ── resend a lost download link ───────────────────────────────────────────
