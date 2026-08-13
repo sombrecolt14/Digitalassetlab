@@ -235,11 +235,17 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
     const files = (r2.configured() && r2.FILES[productKey]) || [];
 
     const body = files.length
+      // A two-cell table, not float:right — on a phone the label wraps to two
+      // lines and a floated size lands on top of it.
       ? files.map((f) => `
           <a href="${base}/api/download/${r2.makeToken(paymentId, f.key)}"
-             style="display:block;background:#9FE870;color:#163300;font-weight:800;font-size:14px;padding:12px 16px;border-radius:8px;text-decoration:none;border:2px solid #000;margin-bottom:8px;text-align:left;">
-            ${f.label}
-            <span style="float:right;font-weight:600;opacity:.75;">${f.gb < 0.1 ? "" : f.gb + " GB"}</span>
+             style="display:block;background:#9FE870;color:#163300;padding:12px 16px;border-radius:8px;text-decoration:none;border:2px solid #000;margin-bottom:8px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="color:#163300;font-weight:800;font-size:14px;line-height:1.35;">${f.label}</td>
+                <td align="right" valign="top" style="color:#163300;font-weight:600;font-size:13px;white-space:nowrap;padding-left:14px;">${f.gb < 0.1 ? "" : f.gb + " GB"}</td>
+              </tr>
+            </table>
           </a>`).join("")
       : (product.downloadUrl
         ? `<p style="color:#fff;font-size:14px;margin:0 0 20px;">Click the button below to access your complete bundle</p>
