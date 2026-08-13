@@ -31,7 +31,7 @@ require("nodemailer").createTransport = () => ({
   sendMail: async (msg) => ((captured = msg), { messageId: "preview" }),
 });
 
-const [paymentId = "pay_TEST", productKey = "architecture", outFile = "delivery-email-preview.html"] =
+const [paymentId = "pay_TEST", productKey = "architecture", outFile = "delivery-email-preview.html", paise] =
   process.argv.slice(2);
 
 const app = require("./server.cjs");
@@ -44,7 +44,7 @@ const r2 = require("./r2-delivery.cjs");
     process.exit(1);
   }
 
-  await app.sendDeliveryEmail("buyer@example.com", "", paymentId, [product]);
+  await app.sendDeliveryEmail("buyer@example.com", "", paymentId, [product], paise ? Number(paise) : undefined);
   if (!captured) {
     console.error("no email was produced");
     process.exit(1);

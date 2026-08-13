@@ -83,6 +83,21 @@ const PRODUCTS = {
   },
 };
 
+// The site's palette, resolved from the oklch tokens in dal.css to hex —
+// no mail client understands oklch, and none of them support CSS variables,
+// so these have to be literals inlined on every element.
+const C = {
+  paper: "#f6f4f0",     // --paper
+  surface: "#fdfcf9",   // --surface
+  ink: "#13161a",       // --ink
+  inkSoft: "#55585c",   // --ink-soft
+  line: "#d1d5d8",      // --line
+  clay: "#ad4f26",      // --clay
+};
+// Bricolage Grotesque is the site face; almost no mail client will have it, so
+// this falls through to the same system stack the site itself falls back to.
+const FONT = "'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif";
+
 const priceLabel = (p) => `₹${(p.amount / 100).toLocaleString("en-IN")}`;
 // Names that shipped on older orders, so a legacy webhook still delivers the
 // right library instead of falling through to the bundle.
@@ -189,16 +204,35 @@ const processedPayments = new Set();
 // container is frozen the moment the route sends its response — a floating
 // promise here is killed mid-SMTP-handshake and the buyer silently gets
 // nothing, while Razorpay still sees HTTP 200 and never retries.
+// What Razorpay actually captured, in paise. The catalog total is the list
+// price and is wrong for anyone who used a coupon, so a receipt must never be
+// built from it. Returns null if the lookup fails; callers fall back.
+async function capturedAmount(paymentId) {
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET || !paymentId) return null;
+  try {
+    const auth = Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString("base64");
+    const r = await fetch(`https://api.razorpay.com/v1/payments/${paymentId}`, {
+      headers: { Authorization: `Basic ${auth}` },
+    });
+    const d = await r.json();
+    return typeof d.amount === "number" ? d.amount : null;
+  } catch (error) {
+    console.error("Amount lookup error:", error.message);
+    return null;
+  }
+}
+
 async function deliverPurchase(paymentId, customerEmail, customerName, products) {
   if (processedPayments.has(paymentId)) {
     console.log(`Payment ${paymentId} already delivered — skipping`);
     return;
   }
   processedPayments.add(paymentId);
+  const amountPaid = await capturedAmount(paymentId);
   const jobs = [];
   if (customerEmail) {
     jobs.push(
-      sendDeliveryEmail(customerEmail, customerName, paymentId, products)
+      sendDeliveryEmail(customerEmail, customerName, paymentId, products, amountPaid)
         .catch(err => console.error("Delivery email error:", err))
     );
   }
@@ -220,7 +254,7 @@ function createTransporter() {
   });
 }
 
-async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
+async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPaid) {
   const transporter = createTransporter();
   if (!transporter) {
     console.log("SMTP not configured — skipping delivery email");
@@ -239,25 +273,24 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
       // lines and a floated size lands on top of it.
       ? files.map((f) => `
           <a href="${base}/api/download/${r2.makeToken(paymentId, f.key)}"
-             style="display:block;background:#9FE870;color:#163300;padding:12px 16px;border-radius:8px;text-decoration:none;border:2px solid #000;margin-bottom:8px;">
+             style="display:block;background:${C.surface};border:1px solid ${C.line};border-radius:10px;padding:13px 16px;margin-bottom:7px;text-decoration:none;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="color:#163300;font-weight:800;font-size:14px;line-height:1.35;">${f.label}</td>
-                <td align="right" valign="top" style="color:#163300;font-weight:600;font-size:13px;white-space:nowrap;padding-left:14px;">${f.gb < 0.1 ? "" : f.gb + " GB"}</td>
+                <td style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:14px;line-height:1.35;">${f.label}</td>
+                <td align="right" valign="top" style="font-family:${FONT};color:${C.inkSoft};font-size:13px;white-space:nowrap;padding-left:14px;">${f.gb < 0.1 ? "" : f.gb + " GB"}</td>
               </tr>
             </table>
           </a>`).join("")
       : (product.downloadUrl
-        ? `<p style="color:#fff;font-size:14px;margin:0 0 20px;">Click the button below to access your complete bundle</p>
-           <a href="${product.downloadUrl}" style="background:#9FE870;color:#163300;font-weight:900;font-size:16px;padding:14px 32px;border-radius:50px;text-decoration:none;display:inline-block;border:2px solid #000;">
-             DOWNLOAD YOUR BUNDLE →
+        ? `<a href="${product.downloadUrl}" style="display:inline-block;background:${C.clay};color:#ffffff;font-family:${FONT};font-weight:500;font-size:15px;padding:13px 28px;border-radius:10px;text-decoration:none;">
+             Download your bundle
            </a>`
-        : `<p style="color:#fff;font-size:14px;margin:0;">Your download link will arrive in a separate email within a few hours. Your payment ID below is your proof of purchase.</p>`);
+        : `<p style="font-family:${FONT};color:${C.inkSoft};font-size:14px;margin:0;line-height:1.6;">Your download link will arrive in a separate email within a few hours. The payment ID below is your proof of purchase.</p>`);
 
     return `
-      <div style="background:#163300;border-radius:12px;padding:24px;margin-bottom:24px;border:3px solid #000;">
-        <p style="color:#9FE870;font-weight:900;font-size:14px;margin:0 0 12px;letter-spacing:1px;text-align:center;">
-          ${product.name.toUpperCase()}
+      <div style="margin:0 0 26px;">
+        <p style="font-family:${FONT};color:${C.clay};font-weight:500;font-size:12px;margin:0 0 10px;letter-spacing:0.06em;text-transform:uppercase;">
+          ${product.name}
         </p>
         ${body}
       </div>`;
@@ -270,74 +303,86 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:Inter,Arial,sans-serif;">
-  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;border:3px solid #000;overflow:hidden;">
-    <!-- Header -->
-    <div style="background:#163300;padding:32px;text-align:center;">
-      <h1 style="color:#9FE870;font-size:28px;font-weight:900;margin:0;letter-spacing:-0.5px;">
-        DIGITAL ASSET LAB
-      </h1>
-    </div>
+<body style="margin:0;padding:0;background:${C.paper};">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.paper};">
+    <tr><td align="center" style="padding:36px 14px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:${C.surface};border:1px solid ${C.line};border-radius:14px;">
 
-    <!-- Body -->
-    <div style="padding:40px 32px;">
-      <div style="background:#9FE870;border-radius:50%;width:64px;height:64px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:64px;font-size:32px;border:3px solid #000;">
-        ✓
-      </div>
+        <!-- Header -->
+        <tr><td style="padding:22px 32px;border-bottom:1px solid ${C.line};">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+            <td style="font-family:${FONT};font-size:15px;font-weight:500;color:${C.ink};letter-spacing:-0.01em;">Digital Asset Lab</td>
+            <td align="right" style="font-family:${FONT};font-size:11px;color:${C.inkSoft};letter-spacing:0.08em;text-transform:uppercase;">Order confirmed</td>
+          </tr></table>
+        </td></tr>
 
-      <h2 style="color:#163300;font-size:26px;font-weight:900;text-align:center;margin:0 0 8px;">
-        PAYMENT CONFIRMED!
-      </h2>
-      <p style="color:#4a5565;text-align:center;margin:0 0 32px;font-size:16px;">
-        Hi ${toName || "there"}, your purchase is complete.
-      </p>
+        <tr><td style="padding:38px 32px 0;">
+          <h1 style="font-family:${FONT};font-size:27px;font-weight:500;color:${C.ink};margin:0 0 10px;letter-spacing:-0.02em;line-height:1.2;">Your files are ready</h1>
+          <p style="font-family:${FONT};font-size:15px;color:${C.inkSoft};margin:0;line-height:1.65;">
+            Hi ${toName || "there"} — thanks for your purchase. Everything you bought is below, split by part so you only pull what you need.
+          </p>
+        </td></tr>
 
-      <!-- Download boxes (one per product) -->
-      ${downloadBlocks}
+        <tr><td style="padding:30px 32px 0;">
+          ${downloadBlocks}
+        </td></tr>
 
-      ${r2.configured() ? `
-      <p style="color:#4a5565;font-size:13px;line-height:1.6;text-align:center;margin:-8px 0 28px;">
-        These links work for <b>${r2.LINK_TTL_DAYS} days</b> and can be used <b>${r2.MAX_REDEMPTIONS} times</b> each.
-        A download that stops partway can be resumed for six hours without using another.<br>
-        Run out? <a href="${base}/contact.html#resend-form" style="color:#163300;">Request a fresh set</a> — your purchase never expires.
-      </p>` : ""}
+        ${r2.configured() ? `
+        <tr><td style="padding:2px 32px 30px;">
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.7;margin:0;">
+            These links work for ${r2.LINK_TTL_DAYS} days and can be used ${r2.MAX_REDEMPTIONS} times each. A download that stops
+            partway can be resumed for six hours without using another.
+            <a href="${base}/contact.html#resend-form" style="color:${C.clay};text-decoration:none;border-bottom:1px solid ${C.line};">Request a fresh set</a>
+            any time — your purchase never expires.
+          </p>
+        </td></tr>` : ""}
 
-      <!-- What's included -->
-      ${products.map(product => `
-      <div style="background:#f5f5f5;border-radius:12px;padding:20px;margin-bottom:24px;">
-        <p style="color:#163300;font-weight:900;font-size:13px;letter-spacing:1px;margin:0 0 12px;">
-          ${product.name.toUpperCase()} — WHAT'S INCLUDED:
-        </p>
-        <ul style="margin:0;padding:0;list-style:none;">
-          ${product.includes.map(item => `<li style="color:#4a5565;font-size:14px;padding:4px 0;">✓ &nbsp;${item}</li>`).join("")}
-        </ul>
-      </div>`).join("")}
+        ${products.map(product => `
+        <tr><td style="padding:0 32px 26px;">
+          <div style="background:${C.paper};border-radius:12px;padding:20px 22px;">
+            <p style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 12px;">
+              ${product.name} — what's included
+            </p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              ${product.includes.map(item => `
+              <tr>
+                <td valign="top" style="font-family:${FONT};color:${C.clay};font-size:13px;line-height:1.7;width:16px;">&bull;</td>
+                <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.7;padding-bottom:2px;">${item}</td>
+              </tr>`).join("")}
+            </table>
+          </div>
+        </td></tr>`).join("")}
 
-      <!-- Order details -->
-      <div style="border-top:2px solid #f5f5f5;padding-top:20px;margin-bottom:24px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-          <span style="color:#4a5565;font-size:13px;">Payment ID</span>
-          <span style="color:#163300;font-size:13px;font-weight:700;">${paymentId}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;">
-          <span style="color:#4a5565;font-size:13px;">Amount Paid</span>
-          <span style="color:#163300;font-size:15px;font-weight:900;">${totalLabel(products)}</span>
-        </div>
-      </div>
+        <tr><td style="padding:0 32px 30px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid ${C.line};">
+            <tr>
+              <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;padding:16px 0 4px;">Payment ID</td>
+              <td align="right" style="font-family:ui-monospace,Consolas,monospace;color:${C.ink};font-size:12px;padding:16px 0 4px;">${paymentId}</td>
+            </tr>
+            <tr>
+              <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;padding:0 0 4px;">Amount paid</td>
+              <td align="right" style="font-family:${FONT};color:${C.ink};font-size:15px;font-weight:500;padding:0 0 4px;">${typeof amountPaid === "number" ? `₹${(amountPaid / 100).toLocaleString("en-IN")}` : totalLabel(products)}</td>
+            </tr>
+          </table>
+        </td></tr>
 
-      <p style="color:#4a5565;font-size:13px;text-align:center;margin:0;">
-        Questions? Email us at
-        <a href="mailto:support@digitalassetlab.in" style="color:#163300;font-weight:700;">support@digitalassetlab.in</a>
-      </p>
-    </div>
+        <tr><td style="padding:0 32px 34px;">
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.7;margin:0;">
+            Any trouble at all, reply to this email or write to
+            <a href="mailto:support@digitalassetlab.in" style="color:${C.clay};text-decoration:none;border-bottom:1px solid ${C.line};">support@digitalassetlab.in</a>.
+            We reply within 24 hours.
+          </p>
+        </td></tr>
 
-    <!-- Footer -->
-    <div style="background:#f5f5f5;padding:20px;text-align:center;border-top:2px solid #e0e0e0;">
-      <p style="color:#4a5565;font-size:12px;margin:0;">
-        © 2025 Digital Asset Lab. All rights reserved.
-      </p>
-    </div>
-  </div>
+        <tr><td style="padding:18px 32px;border-top:1px solid ${C.line};">
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:11px;margin:0;">
+            &copy; ${new Date().getFullYear()} Digital Asset Lab &middot; digitalassetlab.in
+          </p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
 </body>
 </html>
   `.trim();
@@ -647,7 +692,7 @@ app.post("/api/resend", async (req, res) => {
     const items = [...keys].map((k) => PRODUCTS[k]);
     if (!items.length) return res.json(generic);
 
-    await sendDeliveryEmail(email, "", paid[0].id, items);
+    await sendDeliveryEmail(email, "", paid[0].id, items, paid[0].amount);
     console.log(`Resend: re-sent ${items.length} download link(s) to ${email}`);
     return res.json(generic);
   } catch (error) {
