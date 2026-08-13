@@ -29,34 +29,39 @@ const PRESIGN_TTL_SECONDS = 6 * 60 * 60;
 // how to use it, the licence in one line. Small, so it is the one a buyer can
 // read before committing to a 12 GB archive.
 const START = {
-  architecture: { key: "bundle/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
-  presentation: { key: "presentation/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
-  drafting: { key: "drafting/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
-  contracts: { key: "contracts/00-START-HERE.pdf", label: "START HERE — read this first", gb: 0 },
+  architecture: { key: "bundle/00-START-HERE.pdf", label: "Start here", gb: 0 },
+  presentation: { key: "presentation/00-START-HERE.pdf", label: "Start here", gb: 0 },
+  drafting: { key: "drafting/00-START-HERE.pdf", label: "Start here", gb: 0 },
+  contracts: { key: "contracts/00-START-HERE.pdf", label: "Start here", gb: 0 },
 };
 
-// Object keys in the bucket, grouped by product. `gb` is the archive size and
-// is shown to the buyer so they can pick what they actually need.
+// Object keys in the bucket, grouped by product. `gb` is the archive size, shown
+// to the buyer so they can pick what they need. `group` is the sub-heading the
+// bundle email files an archive under; a single-product email drops them,
+// because the product name is already the heading.
+//
+// No em dashes in any label. They render inconsistently across mail clients and
+// read as filler; a colon or a comma says the same thing.
 const FILES = {
   drafting: [
-    { key: "drafting/01-CAD-Blocks.zip", label: "CAD Blocks", gb: 0.43 },
-    { key: "drafting/02-SketchUp-Interior-Scenes.zip", label: "SketchUp — Interior Scenes", gb: 6.52 },
-    { key: "drafting/03-SketchUp-Exterior-and-Architecture.zip", label: "SketchUp — Exterior & Architecture", gb: 2.69 },
-    { key: "drafting/04-SketchUp-Furniture.zip", label: "SketchUp — Furniture", gb: 3.02 },
-    { key: "drafting/05-SketchUp-Joinery-and-Interior-Details.zip", label: "SketchUp — Joinery & Interior Details", gb: 1.38 },
-    { key: "drafting/06-SketchUp-Lighting-and-Electrical.zip", label: "SketchUp — Lighting & Electrical", gb: 0.54 },
-    { key: "drafting/07-SketchUp-Decor-Props-and-People.zip", label: "SketchUp — Decor, Props & People", gb: 1.56 },
-    { key: "drafting/08-SketchUp-Materials-and-Textures.zip", label: "SketchUp — Materials & Textures", gb: 5.18 },
-    { key: "drafting/09-Floor-Plans-and-Drawings.zip", label: "Floor Plans, Structural & Construction Details", gb: 1.59 },
+    { key: "drafting/01-CAD-Blocks.zip", label: "CAD Blocks", gb: 0.43, group: "The Drafting Library" },
+    { key: "drafting/02-SketchUp-Interior-Scenes.zip", label: "SketchUp: Interior Scenes", gb: 6.52, group: "The Drafting Library" },
+    { key: "drafting/03-SketchUp-Exterior-and-Architecture.zip", label: "SketchUp: Exterior & Architecture", gb: 2.69, group: "The Drafting Library" },
+    { key: "drafting/04-SketchUp-Furniture.zip", label: "SketchUp: Furniture", gb: 3.02, group: "The Drafting Library" },
+    { key: "drafting/05-SketchUp-Joinery-and-Interior-Details.zip", label: "SketchUp: Joinery & Interior Details", gb: 1.38, group: "The Drafting Library" },
+    { key: "drafting/06-SketchUp-Lighting-and-Electrical.zip", label: "SketchUp: Lighting & Electrical", gb: 0.54, group: "The Drafting Library" },
+    { key: "drafting/07-SketchUp-Decor-Props-and-People.zip", label: "SketchUp: Decor, Props & People", gb: 1.56, group: "The Drafting Library" },
+    { key: "drafting/08-SketchUp-Materials-and-Textures.zip", label: "SketchUp: Materials & Textures", gb: 5.18, group: "The Drafting Library" },
+    { key: "drafting/09-Floor-Plans-and-Drawings.zip", label: "Floor Plans, Structural & Construction Details", gb: 1.59, group: "The Drafting Library" },
   ],
   presentation: [
-    { key: "presentation/01-Commercial-Design-Guides.zip", label: "13 Commercial Design Guides", gb: 0.54 },
-    { key: "presentation/02-Residential-Design-Guides.zip", label: "3 Residential Design Guides", gb: 0.29 },
-    { key: "presentation/03-Mood-Boards-and-Colour-Palettes.zip", label: "Mood Boards & Colour Palettes", gb: 0.16 },
-    { key: "presentation/Questionnaires.zip", label: "32 Client Questionnaires", gb: 0.01 },
+    { key: "presentation/01-Commercial-Design-Guides.zip", label: "13 Commercial Design Guides", gb: 0.54, group: "The Presentation Library" },
+    { key: "presentation/02-Residential-Design-Guides.zip", label: "3 Residential Design Guides", gb: 0.29, group: "The Presentation Library" },
+    { key: "presentation/03-Mood-Boards-and-Colour-Palettes.zip", label: "Mood Boards & Colour Palettes", gb: 0.16, group: "The Presentation Library" },
+    { key: "presentation/Questionnaires.zip", label: "32 Client Questionnaires", gb: 0.01, group: "The Presentation Library" },
   ],
   contracts: [
-    { key: "contracts/Contracts.zip", label: "11 Contract Templates", gb: 0.0 },
+    { key: "contracts/Contracts.zip", label: "11 Contract Templates", gb: 0.0, group: "Contracts" },
   ],
 };
 // The bundle gets its own guide rather than the three separate ones, then

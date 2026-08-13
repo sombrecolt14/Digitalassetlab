@@ -33,9 +33,9 @@ const PRODUCTS = {
     amount: 189900, // ₹1,899 in paise
     downloadUrl: process.env.ARCH_DOWNLOAD_URL || "",
     includes: [
-      "The Presentation Library — mood boards, styles, full material system",
-      "The Drafting Library — CAD block templates, SketchUp models, textures",
-      "Contracts — 11 contract templates, 155 typeset pages",
+      "The Presentation Library: mood boards, styles, full material system",
+      "The Drafting Library: CAD block templates, SketchUp models, textures",
+      "Contracts: 11 contract templates, 155 typeset pages",
       "Commercial License",
       "Lifetime Updates",
     ],
@@ -45,10 +45,10 @@ const PRODUCTS = {
     amount: 119900, // ₹1,199
     downloadUrl: process.env.PRESENTATION_DOWNLOAD_URL || "",
     includes: [
-      "Mood boards & colour palettes — residential, commercial, hotel",
+      "Mood boards & colour palettes: residential, commercial, hotel",
       "Style & material specifications for 10+ space types",
       "Materials: rooms, surfaces & systems, with indicative rates",
-      "32 client questionnaires — PDF, Word and Google Form",
+      "32 client questionnaires in PDF, Word and Google Form",
       "Print-ready PDFs, ready to send to a client",
       "Commercial License",
       "Lifetime Updates",
@@ -59,7 +59,7 @@ const PRODUCTS = {
     amount: 119900, // ₹1,199
     downloadUrl: process.env.DRAFTING_DOWNLOAD_URL || "",
     includes: [
-      "CAD block templates — furniture, openings, kitchen, bath, entourage",
+      "CAD block templates: furniture, openings, kitchen, bath, entourage",
       "Floor plans, construction details & AutoCAD standards",
       "1,000+ SketchUp models, cleaned and purged",
       "1,400+ seamless material textures",
@@ -72,7 +72,7 @@ const PRODUCTS = {
     amount: 79900, // ₹799
     downloadUrl: process.env.CONTRACTS_DOWNLOAD_URL || "",
     includes: [
-      "11 contract templates — 155 typeset pages",
+      "11 contract templates, 155 typeset pages",
       "Editable in Canva",
       "Client, turnkey, 3D render, CAD drafting, consultancy, vendor, freelancer",
       "Employment, partnership and joint venture agreements",
@@ -237,7 +237,7 @@ async function deliverPurchase(paymentId, customerEmail, customerName, products)
     );
   }
   jobs.push(
-    sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products)
+    sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products, amountPaid)
       .catch(err => console.error("Owner notification error:", err))
   );
   await Promise.all(jobs);
@@ -269,9 +269,23 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
     const files = (r2.configured() && r2.FILES[productKey]) || [];
 
     const body = files.length
-      // A two-cell table, not float:right — on a phone the label wraps to two
-      // lines and a floated size lands on top of it.
-      ? files.map((f) => `
+      // Sub-headings only when a purchase spans more than one library, i.e. the
+      // bundle. On a single-product email the product name is already the
+      // heading, so repeating it would be noise.
+      ? (() => {
+        const groups = [...new Set(files.map((f) => f.group).filter(Boolean))];
+        const showGroups = groups.length > 1;
+        let current = null;
+        return files.map((f) => {
+          let heading = "";
+          if (showGroups && f.group && f.group !== current) {
+            current = f.group;
+            heading = `
+          <p style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:15px;margin:22px 0 9px;letter-spacing:-0.01em;">${f.group}</p>`;
+          }
+          // A two-cell table, not float:right: on a phone the label wraps to
+          // two lines and a floated size lands on top of it.
+          return `${heading}
           <a href="${base}/api/download/${r2.makeToken(paymentId, f.key)}"
              style="display:block;background:${C.surface};border:1px solid ${C.line};border-radius:10px;padding:13px 16px;margin-bottom:7px;text-decoration:none;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -280,18 +294,25 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
                 <td align="right" valign="top" style="font-family:${FONT};color:${C.inkSoft};font-size:13px;white-space:nowrap;padding-left:14px;">${f.gb < 0.1 ? "" : f.gb + " GB"}</td>
               </tr>
             </table>
-          </a>`).join("")
+          </a>`;
+        }).join("");
+      })()
       : (product.downloadUrl
         ? `<a href="${product.downloadUrl}" style="display:inline-block;background:${C.clay};color:#ffffff;font-family:${FONT};font-weight:500;font-size:15px;padding:13px 28px;border-radius:10px;text-decoration:none;">
              Download your bundle
            </a>`
         : `<p style="font-family:${FONT};color:${C.inkSoft};font-size:14px;margin:0;line-height:1.6;">Your download link will arrive in a separate email within a few hours. The payment ID below is your proof of purchase.</p>`);
 
+    // Only name the product when the order spans more than one. On a single
+    // purchase the headline already says what arrived, and a label above every
+    // block is the templated-email tic.
+    const heading = products.length > 1
+      ? `<p style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:17px;margin:0 0 12px;letter-spacing:-0.01em;">${product.name}</p>`
+      : "";
+
     return `
       <div style="margin:0 0 26px;">
-        <p style="font-family:${FONT};color:${C.clay};font-weight:500;font-size:12px;margin:0 0 10px;letter-spacing:0.06em;text-transform:uppercase;">
-          ${product.name}
-        </p>
+        ${heading}
         ${body}
       </div>`;
   }).join("");
@@ -310,16 +331,19 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
 
         <!-- Header -->
         <tr><td style="padding:22px 32px;border-bottom:1px solid ${C.line};">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-            <td style="font-family:${FONT};font-size:15px;font-weight:500;color:${C.ink};letter-spacing:-0.01em;">Digital Asset Lab</td>
-            <td align="right" style="font-family:${FONT};font-size:11px;color:${C.inkSoft};letter-spacing:0.08em;text-transform:uppercase;">Order confirmed</td>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+            <td width="30" style="padding-right:11px;">
+              <img src="${base}/assets/mark.png" width="30" height="30" alt="Digital Asset Lab"
+                   style="display:block;width:30px;height:30px;border:0;">
+            </td>
+            <td style="font-family:${FONT};font-size:16px;font-weight:500;color:${C.ink};letter-spacing:-0.01em;">Digital Asset Lab</td>
           </tr></table>
         </td></tr>
 
         <tr><td style="padding:38px 32px 0;">
           <h1 style="font-family:${FONT};font-size:27px;font-weight:500;color:${C.ink};margin:0 0 10px;letter-spacing:-0.02em;line-height:1.2;">Your files are ready</h1>
           <p style="font-family:${FONT};font-size:15px;color:${C.inkSoft};margin:0;line-height:1.65;">
-            Hi ${toName || "there"} — thanks for your purchase. Everything you bought is below, split by part so you only pull what you need.
+            Hi ${toName || "there"}, thanks for your purchase. Everything is below, split by part so you only pull what you need.
           </p>
         </td></tr>
 
@@ -333,21 +357,20 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
             These links work for ${r2.LINK_TTL_DAYS} days and can be used ${r2.MAX_REDEMPTIONS} times each. A download that stops
             partway can be resumed for six hours without using another.
             <a href="${base}/contact.html#resend-form" style="color:${C.clay};text-decoration:none;border-bottom:1px solid ${C.line};">Request a fresh set</a>
-            any time — your purchase never expires.
+            any time. Your purchase never expires.
           </p>
         </td></tr>` : ""}
 
         ${products.map(product => `
         <tr><td style="padding:0 32px 26px;">
           <div style="background:${C.paper};border-radius:12px;padding:20px 22px;">
-            <p style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 12px;">
-              ${product.name} — what's included
+            <p style="font-family:${FONT};color:${C.ink};font-weight:500;font-size:15px;letter-spacing:-0.01em;margin:0 0 12px;">
+              What's included
             </p>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               ${product.includes.map(item => `
               <tr>
-                <td valign="top" style="font-family:${FONT};color:${C.clay};font-size:13px;line-height:1.7;width:16px;">&bull;</td>
-                <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.7;padding-bottom:2px;">${item}</td>
+                <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.75;padding-bottom:3px;">${item}</td>
               </tr>`).join("")}
             </table>
           </div>
@@ -399,7 +422,7 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
   console.log(`Delivery email sent to ${toEmail}`);
 }
 
-async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products) {
+async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId, products, amountPaid) {
   const transporter = createTransporter();
   if (!transporter) return;
 
@@ -407,54 +430,61 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
   if (!ownerEmail) return;
 
   const productNames = products.map((p) => p.name).join(", ");
+  const base = (SITE_URL || "https://digitalassetlab.in").replace(/\/$/, "");
+  // Same rule as the buyer receipt: show what was captured, not the list price.
+  const amountLabel = typeof amountPaid === "number"
+    ? `₹${(amountPaid / 100).toLocaleString("en-IN")}`
+    : totalLabel(products);
 
   const html = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:Inter,Arial,sans-serif;">
-  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;border:3px solid #000;overflow:hidden;">
-    <div style="background:#163300;padding:24px 32px;">
-      <h1 style="color:#9FE870;font-size:22px;font-weight:900;margin:0;">
-        💰 NEW SALE — Digital Asset Lab
-      </h1>
-    </div>
-    <div style="padding:32px;">
-      <p style="color:#163300;font-size:18px;font-weight:900;margin:0 0 24px;">
-        You just made a sale!
-      </p>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr style="border-bottom:2px solid #f5f5f5;">
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Customer Name</td>
-          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${customerName || "—"}</td>
-        </tr>
-        <tr style="border-bottom:2px solid #f5f5f5;">
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Customer Email</td>
-          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${customerEmail}</td>
-        </tr>
-        <tr style="border-bottom:2px solid #f5f5f5;">
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Product${products.length > 1 ? "s" : ""}</td>
-          <td style="padding:12px 0;color:#163300;font-size:14px;font-weight:700;text-align:right;">${productNames}</td>
-        </tr>
-        <tr style="border-bottom:2px solid #f5f5f5;">
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Amount</td>
-          <td style="padding:12px 0;color:#163300;font-size:18px;font-weight:900;text-align:right;">${totalLabel(products)}</td>
-        </tr>
-        <tr>
-          <td style="padding:12px 0;color:#4a5565;font-size:14px;font-weight:600;">Payment ID</td>
-          <td style="padding:12px 0;color:#163300;font-size:13px;font-weight:700;text-align:right;">${paymentId}</td>
-        </tr>
+<body style="margin:0;padding:0;background:${C.paper};">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.paper};">
+    <tr><td align="center" style="padding:36px 14px;">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;background:${C.surface};border:1px solid ${C.line};border-radius:14px;">
+
+        <tr><td style="padding:22px 30px;border-bottom:1px solid ${C.line};">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+            <td width="26" style="padding-right:10px;">
+              <img src="${base}/assets/mark.png" width="26" height="26" alt="Digital Asset Lab"
+                   style="display:block;width:26px;height:26px;border:0;">
+            </td>
+            <td style="font-family:${FONT};font-size:15px;font-weight:500;color:${C.ink};letter-spacing:-0.01em;">Digital Asset Lab</td>
+          </tr></table>
+        </td></tr>
+
+        <tr><td style="padding:32px 30px 0;">
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:14px;margin:0 0 4px;">New sale</p>
+          <p style="font-family:${FONT};color:${C.ink};font-size:34px;font-weight:500;margin:0;letter-spacing:-0.02em;line-height:1.1;">${amountLabel}</p>
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:15px;margin:8px 0 0;line-height:1.6;">${productNames}</p>
+        </td></tr>
+
+        <tr><td style="padding:26px 30px 30px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid ${C.line};">
+            <tr>
+              <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;padding:14px 0 4px;">Customer</td>
+              <td align="right" style="font-family:${FONT};color:${C.ink};font-size:13px;padding:14px 0 4px;">${customerName || customerEmail || "not recorded"}</td>
+            </tr>
+            ${customerName && customerEmail ? `
+            <tr>
+              <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;padding:0 0 4px;">Email</td>
+              <td align="right" style="font-family:${FONT};color:${C.ink};font-size:13px;padding:0 0 4px;">${customerEmail}</td>
+            </tr>` : ""}
+            <tr>
+              <td style="font-family:${FONT};color:${C.inkSoft};font-size:13px;padding:0 0 4px;">Payment ID</td>
+              <td align="right" style="font-family:ui-monospace,Consolas,monospace;color:${C.ink};font-size:12px;padding:0 0 4px;">${paymentId}</td>
+            </tr>
+          </table>
+          <p style="font-family:${FONT};color:${C.inkSoft};font-size:13px;line-height:1.7;margin:18px 0 0;">
+            ${customerEmail ? "Download links have gone out to the customer." : "No email address on the payment, so nothing could be sent. Reach out through Razorpay."}
+          </p>
+        </td></tr>
+
       </table>
-      <div style="margin-top:24px;background:#9FE870;border-radius:12px;padding:16px;text-align:center;border:2px solid #000;">
-        <p style="color:#163300;font-weight:900;font-size:14px;margin:0;">
-          Delivery email sent automatically to the customer ✓
-        </p>
-      </div>
-    </div>
-    <div style="background:#f5f5f5;padding:16px;text-align:center;border-top:2px solid #e0e0e0;">
-      <p style="color:#4a5565;font-size:12px;margin:0;">Digital Asset Lab — Order Notification</p>
-    </div>
-  </div>
+    </td></tr>
+  </table>
 </body>
 </html>
   `.trim();
@@ -462,7 +492,7 @@ async function sendOwnerNotificationEmail(customerEmail, customerName, paymentId
   await transporter.sendMail({
     from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
     to: ownerEmail,
-    subject: `💰 New Sale — ${productNames} · ${totalLabel(products)} from ${customerName || customerEmail}`,
+    subject: `New sale: ${productNames}, ${amountLabel}`,
     html,
   });
 
@@ -874,6 +904,7 @@ app.get("*", (req, res) => {
 
 // Exposed for tests and for previewing the delivery mail without sending it.
 app.sendDeliveryEmail = sendDeliveryEmail;
+app.sendOwnerNotificationEmail = sendOwnerNotificationEmail;
 app.PRODUCTS = PRODUCTS;
 
 // Only listen when run directly (Hostinger/local). On Netlify the app is
