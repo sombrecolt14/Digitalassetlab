@@ -821,6 +821,10 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
+// Exposed for tests and for previewing the delivery mail without sending it.
+app.sendDeliveryEmail = sendDeliveryEmail;
+app.PRODUCTS = PRODUCTS;
+
 // Only listen when run directly (Hostinger/local). On Netlify the app is
 // imported and wrapped by netlify/functions/api.cjs instead.
 if (require.main === module) {
