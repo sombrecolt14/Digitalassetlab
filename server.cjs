@@ -410,9 +410,15 @@ async function sendDeliveryEmail(toEmail, toName, paymentId, products, amountPai
 </html>
   `.trim();
 
+  // Copy every delivery to ourselves. It is the only way to see what a buyer
+  // actually received, and it doubles as proof the message left the server.
+  const ownerCopy = FROM_EMAIL || SMTP_USER;
   await transporter.sendMail({
     from: `"${FROM_NAME || "Digital Asset Lab"}" <${FROM_EMAIL || SMTP_USER}>`,
     to: toEmail,
+    ...(ownerCopy && ownerCopy.toLowerCase() !== String(toEmail).toLowerCase()
+      ? { bcc: ownerCopy }
+      : {}),
     subject: products.length === 1
       ? `✅ Your ${products[0].name} is Ready!`
       : `✅ Your Digital Asset Lab order is ready (${products.length} bundles)`,
@@ -839,12 +845,15 @@ app.post("/api/subscribe", async (req, res) => {
     const transporter = createTransporter();
     const ownerEmail = FROM_EMAIL || SMTP_USER;
     if (transporter && ownerEmail) {
-      transporter.sendMail({
+      // Awaited, like every other send here. A floating promise gets killed
+      // when the Lambda freezes on response and the mail never leaves.
+      await transporter.sendMail({
         from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
         to: ownerEmail,
-        subject: `📬 New subscriber — ${email}`,
+        subject: `New subscriber: ${email}`,
         html: `<p><strong>${email}</strong> just joined the email list from digitalassetlab.in.</p>`,
       }).catch(err => console.error("Subscribe notification error:", err));
+      console.log(`Subscribe notification sent to ${ownerEmail}`);
     } else {
       console.log(`New subscriber (SMTP not configured): ${email}`);
     }
