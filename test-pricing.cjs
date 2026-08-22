@@ -3,7 +3,7 @@
 // charged after a code, and whether a launch-only code still works once the
 // 100 spots are gone.
 const assert = require("node:assert/strict");
-const { PRODUCTS, totalAmount, couponRule, discountFor } = require("./server.cjs").__pricing;
+const { PRODUCTS, totalAmount, couponRule, discountFor, resolveProducts } = require("./server.cjs").__pricing;
 
 const rupees = (paise) => paise / 100;
 const priceOf = (...keys) => totalAmount(keys.map((k) => PRODUCTS[k]));
@@ -42,4 +42,12 @@ assert.equal(after("FREE", true, "architecture"), 1899);
 // Codes apply to part-carts too
 assert.equal(after("NEW15", true, "presentation", "contracts"), 1698);
 
-console.log("pricing ok — bundle 1899, NEW15 1614, NEW10 1709, expiry holds");
+// An empty cart resolves to nothing, never to a default product. Billing a
+// buyer ₹1,899 for a bundle they never chose is the expensive failure here.
+assert.equal(resolveProducts({}), null, "empty body must not resolve");
+assert.equal(resolveProducts({ products: [] }), null, "empty cart must not resolve");
+assert.equal(resolveProducts({ products: ["nope"] }), null, "unknown key must not resolve");
+assert.deepEqual(resolveProducts({ products: ["contracts"] }).keys, ["contracts"]);
+assert.deepEqual(resolveProducts({ product: "architecture" }).keys, ["architecture"], "legacy single key still works");
+
+console.log("pricing ok — bundle 1899, NEW15 1614, NEW10 1709, expiry holds, empty cart resolves to nothing");

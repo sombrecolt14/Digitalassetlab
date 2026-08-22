@@ -182,13 +182,18 @@ const discountFor = (subtotal, percent) =>
   percent ? Math.round((subtotal * percent) / 100 / 100) * 100 : 0;
 
 // Resolve requested product keys (multi-item cart, or legacy single "product")
-// to catalog entries. Returns null if any key is unknown.
+// to catalog entries. Returns null if any key is unknown, or if nothing was
+// asked for — an empty cart must never resolve to a default product, or a
+// buyer whose cart failed to deserialize gets billed for the bundle.
 function resolveProducts(body) {
+  const single = body && body.product;
   let keys = Array.isArray(body && body.products) && body.products.length
     ? body.products.map(String)
-    : [String((body && body.product) || "architecture")];
+    : single
+      ? [String(single)]
+      : [];
   keys = [...new Set(keys)];
-  if (!keys.every((k) => PRODUCTS[k])) return null;
+  if (!keys.length || !keys.every((k) => PRODUCTS[k])) return null;
   return { keys, items: keys.map((k) => PRODUCTS[k]) };
 }
 const totalAmount = (items) => items.reduce((sum, p) => sum + p.amount, 0);
@@ -927,4 +932,4 @@ if (require.main === module) {
 
 module.exports = app;
 // Money rules, exposed for test-pricing.cjs.
-module.exports.__pricing = { PRODUCTS, totalAmount, couponRule, discountFor, LAUNCH_TOTAL };
+module.exports.__pricing = { PRODUCTS, totalAmount, couponRule, discountFor, LAUNCH_TOTAL, resolveProducts };
