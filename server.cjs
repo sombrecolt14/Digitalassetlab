@@ -579,16 +579,16 @@ app.get("/health", (req, res) => {
 // stalled 12 GB download can resume without spending another of the three.
 const linkPage = (title, message, tone) => `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${title} — Digital Asset Lab</title></head>
-<body style="margin:0;font-family:Inter,Arial,sans-serif;background:#f5f5f5;">
-  <div style="max-width:520px;margin:12vh auto;background:#fff;border:3px solid #000;border-radius:16px;padding:40px 32px;text-align:center;">
+<title>${title} — Digital Asset Lab</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&display=swap" rel="stylesheet"></head>
+<body style="margin:0;font-family:${FONT};background:${C.paper};">
+  <div style="max-width:520px;margin:12vh auto;background:${C.surface};border:1px solid ${C.line};border-radius:14px;padding:40px 32px;text-align:center;">
     <div style="font-size:40px;margin-bottom:12px;">${tone}</div>
-    <h1 style="font-size:22px;margin:0 0 12px;color:#163300;">${title}</h1>
-    <p style="color:#4a5565;line-height:1.6;margin:0 0 24px;">${message}</p>
-    <a href="/contact.html#resend-form" style="background:#9FE870;color:#163300;font-weight:800;padding:12px 24px;border-radius:50px;text-decoration:none;border:2px solid #000;display:inline-block;">
+    <h1 style="font-size:22px;margin:0 0 12px;color:${C.ink};font-weight:600;">${title}</h1>
+    <p style="color:${C.inkSoft};line-height:1.6;margin:0 0 24px;">${message}</p>
+    <a href="/contact.html#resend-form" style="display:inline-block;background:${C.clay};color:#ffffff;font-weight:500;font-size:15px;padding:13px 28px;border-radius:10px;text-decoration:none;">
       Send me fresh links
     </a>
-    <p style="color:#8a8a8a;font-size:13px;margin:20px 0 0;">Enter the email you paid with and we will send a new set.</p>
+    <p style="color:${C.inkSoft};font-size:13px;margin:20px 0 0;">Enter the email you paid with and we will send a new set.</p>
   </div>
 </body></html>`;
 
@@ -613,24 +613,24 @@ const limitPage = () => linkPage(
 const confirmPage = (token, file, left) => `<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Download ${file.label} — Digital Asset Lab</title></head>
-<body style="margin:0;font-family:Inter,Arial,sans-serif;background:#f5f5f5;">
-  <div style="max-width:520px;margin:10vh auto;background:#fff;border:3px solid #000;border-radius:16px;padding:40px 32px;text-align:center;">
-    <p style="color:#8a8a8a;font-size:12px;letter-spacing:1px;font-weight:800;margin:0 0 8px;">DIGITAL ASSET LAB</p>
-    <h1 style="font-size:24px;margin:0 0 6px;color:#163300;">${file.label}</h1>
-    <p style="color:#4a5565;margin:0 0 28px;">${file.gb >= 0.1 ? file.gb + " GB &middot; " : ""}ZIP archive</p>
+<title>Download ${file.label} — Digital Asset Lab</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&display=swap" rel="stylesheet"></head>
+<body style="margin:0;font-family:${FONT};background:${C.paper};">
+  <div style="max-width:520px;margin:10vh auto;background:${C.surface};border:1px solid ${C.line};border-radius:14px;padding:40px 32px;text-align:center;">
+    <p style="color:${C.inkSoft};font-size:12px;letter-spacing:1.5px;font-weight:600;margin:0 0 8px;">DIGITAL ASSET LAB</p>
+    <h1 style="font-size:24px;margin:0 0 6px;color:${C.ink};font-weight:600;">${file.label}</h1>
+    <p style="color:${C.inkSoft};margin:0 0 28px;">${file.gb >= 0.1 ? file.gb + " GB &middot; " : ""}ZIP archive</p>
     <form method="POST" action="/api/download/${token}">
-      <button type="submit" style="background:#9FE870;color:#163300;font-weight:900;font-size:17px;padding:15px 40px;border-radius:50px;border:3px solid #000;cursor:pointer;">
+      <button type="submit" style="background:${C.clay};color:#ffffff;font-family:${FONT};font-weight:500;font-size:15px;padding:14px 34px;border-radius:10px;border:0;cursor:pointer;">
         Start download
       </button>
     </form>
-    <p style="color:#4a5565;font-size:13px;line-height:1.6;margin:24px 0 0;">
+    <p style="color:${C.inkSoft};font-size:13px;line-height:1.6;margin:24px 0 0;">
       <b>${left} of ${r2.MAX_REDEMPTIONS}</b> downloads remaining on this link.<br>
       Once started you have six hours to finish it — a download that stops
       partway can be resumed without using another.
     </p>
-    <p style="color:#8a8a8a;font-size:12px;margin:16px 0 0;">
-      Out of downloads? <a href="/contact.html#resend-form" style="color:#163300;">Request a fresh set</a> &mdash; your purchase never expires.
+    <p style="color:${C.inkSoft};font-size:12px;margin:16px 0 0;">
+      Out of downloads? <a href="/contact.html#resend-form" style="color:${C.clay};">Request a fresh set</a> &mdash; your purchase never expires.
     </p>
   </div>
 </body></html>`;
