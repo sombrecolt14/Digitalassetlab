@@ -16,3 +16,19 @@
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+
+# Short, brandable entry points for social bios. Instagram prints the raw URL
+# as the link's label whenever its own title field misbehaves, and a visible
+# query string reads as clutter on an otherwise clean profile. These keep the
+# label short while still handing the UTM tags to analytics on arrival.
+# 302, not 301: the campaign tags should stay swappable without fighting a
+# permanently cached redirect in someone's browser.
+[[redirects]]
+  from = "/ig"
+  to = "/?utm_source=instagram&utm_medium=bio"
+  status = 302
+
+[[redirects]]
+  from = "/ig/*"
+  to = "/:splat?utm_source=instagram&utm_medium=bio"
+  status = 302
