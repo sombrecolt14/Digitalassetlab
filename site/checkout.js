@@ -170,8 +170,7 @@
           if (!s || !s.ok || !cHint) return;
           cHint.hidden = false;
           cHint.innerHTML = s.open
-            ? "First " + s.total + " buyers: use <b>" + s.code + "</b> for 15% off" +
-              (s.sold ? " · <b>" + s.left + " spots left</b>" : "")
+            ? "Use <b>" + s.code + "</b> for 15% off"
             : "Use <b>" + s.code + "</b> for 10% off.";
         })
         .catch(function () {});
