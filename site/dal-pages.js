@@ -252,3 +252,239 @@
     window.__refitComps();
   })();
 })();
+
+/* ── Dense CAD sheets ──────────────────────────────────────────────────────
+   Each .cells[data-cat] is filled at runtime with a grid of plan-view block
+   symbols, the way a template sheet looks when you actually open it: dozens
+   of variants per category rather than a handful of icons. These are drawn,
+   not photographed — nothing here poses as a screenshot of the file. */
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  function n(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
+
+  function pen(g) {
+    return {
+      r: function (x, y, w, h, rx) { g.appendChild(n('rect', { x: x, y: y, width: w, height: h, rx: rx || 0 })); return this; },
+      c: function (x, y, r) { g.appendChild(n('circle', { cx: x, cy: y, r: r })); return this; },
+      e: function (x, y, rx, ry) { g.appendChild(n('ellipse', { cx: x, cy: y, rx: rx, ry: ry })); return this; },
+      l: function (a, b, c2, d) { g.appendChild(n('line', { x1: a, y1: b, x2: c2, y2: d })); return this; },
+      p: function (d) { g.appendChild(n('path', { d: d })); return this; }
+    };
+  }
+
+  var TAU = Math.PI * 2;
+
+  /* block vocabulary — every function draws inside a 0 0 100 100 box */
+  var B = {
+    sofa: function (p, v) {
+      var w = v ? 84 : 70, x = 50 - w / 2;
+      p.r(x, 34, w, 40, 4).r(x, 26, w, 10, 4).r(x, 34, 8, 40, 2).r(x + w - 8, 34, 8, 40, 2);
+      var seats = v ? 3 : 2, iw = (w - 16) / seats;
+      for (var i = 1; i < seats; i++) p.l(x + 8 + iw * i, 36, x + 8 + iw * i, 72);
+      return p;
+    },
+    lsofa: function (p) {
+      p.p('M16 26 H84 V74 H50 V50 H16 Z').r(16, 26, 8, 24, 2).r(76, 26, 8, 48, 2).l(50, 50, 50, 74).l(16, 50, 50, 50);
+      return p;
+    },
+    armchair: function (p) { p.r(28, 32, 44, 40, 4).r(28, 24, 44, 9, 4).r(28, 32, 8, 40, 2).r(64, 32, 8, 40, 2); return p; },
+    stool: function (p, v) { if (v) { p.c(50, 50, 20).c(50, 50, 13); } else { p.r(32, 32, 36, 36, 5).r(38, 38, 24, 24, 3); } return p; },
+    tableR: function (p, v) { p.r(22, 34, 56, 32, v ? 14 : 3).l(30, 34, 30, 66).l(70, 34, 70, 66); return p; },
+    tableC: function (p) { p.c(50, 50, 24).c(50, 50, 16); return p; },
+    dineR: function (p) {
+      p.r(28, 30, 44, 40, 2);
+      for (var i = 0; i < 2; i++) { p.r(30 + i * 22, 18, 16, 10, 2).r(30 + i * 22, 72, 16, 10, 2); }
+      p.r(14, 40, 10, 20, 2).r(76, 40, 10, 20, 2);
+      return p;
+    },
+    dineC: function (p) {
+      p.c(50, 50, 22);
+      for (var a = 0; a < 6; a++) { var t = a * TAU / 6; p.r(50 + Math.cos(t) * 32 - 6, 50 + Math.sin(t) * 32 - 6, 12, 12, 2); }
+      return p;
+    },
+    chair: function (p, v) { p.r(34, 38, 32, 30, v ? 8 : 2).l(34, 36, 66, 36).r(34, 30, 32, 7, 2); return p; },
+    bed: function (p, v) {
+      var w = v ? 62 : 42, x = 50 - w / 2;
+      p.r(x, 20, w, 62, 2).r(x, 20, w, 8, 1).l(x, 44, x + w, 44);
+      if (v) { p.r(x + 3, 22, 26, 12, 2).r(x + w - 29, 22, 26, 12, 2); } else { p.r(x + 4, 22, w - 8, 12, 2); }
+      return p;
+    },
+    wardrobe: function (p, v) {
+      p.r(20, 34, 60, 22, 1).l(50, 34, 50, 56);
+      if (v) { p.p('M20 56 A 30 30 0 0 0 50 26').p('M80 56 A 30 30 0 0 1 50 26'); }
+      return p;
+    },
+    shelf: function (p) { p.r(24, 22, 52, 56, 1); for (var i = 1; i < 4; i++) p.l(24, 22 + i * 14, 76, 22 + i * 14); return p; },
+    desk: function (p) { p.r(18, 34, 64, 24, 1).r(60, 34, 22, 24, 1).r(40, 62, 20, 16, 3).l(40, 60, 60, 60); return p; },
+    tv: function (p) { p.r(16, 44, 68, 16, 1).l(16, 52, 84, 52).r(38, 30, 24, 3, 1); return p; },
+    rug: function (p) { p.r(18, 30, 64, 40, 2).r(24, 36, 52, 28, 1); return p; },
+    lamp: function (p) {
+      p.c(50, 50, 14).c(50, 50, 5);
+      for (var a = 0; a < 8; a++) { var t = a * TAU / 8; p.l(50 + Math.cos(t) * 14, 50 + Math.sin(t) * 14, 50 + Math.cos(t) * 20, 50 + Math.sin(t) * 20); }
+      return p;
+    },
+    sink: function (p, v) {
+      p.r(18, 30, 64, 40, 2);
+      if (v) { p.r(24, 36, 24, 28, 3).r(52, 36, 24, 28, 3); } else { p.r(28, 36, 44, 28, 3); }
+      p.c(50, 26, 3);
+      return p;
+    },
+    hob: function (p, v) {
+      p.r(20, 28, 60, 44, 2);
+      var k = v ? 2 : 4;
+      for (var i = 0; i < k; i++) {
+        var cx = k === 4 ? (i % 2 ? 64 : 36) : 50;
+        var cy = k === 4 ? (i < 2 ? 42 : 58) : (i ? 60 : 40);
+        p.c(cx, cy, 9).c(cx, cy, 3);
+      }
+      return p;
+    },
+    fridge: function (p) { p.r(28, 20, 44, 60, 2).l(28, 44, 72, 44).l(66, 30, 66, 38).l(66, 50, 66, 58); return p; },
+    oven: function (p) { p.r(24, 28, 52, 44, 2).r(30, 40, 40, 26, 2).c(34, 34, 3).c(44, 34, 3); return p; },
+    counter: function (p) { p.r(14, 36, 72, 28, 1).l(14, 44, 86, 44); for (var i = 1; i < 4; i++) p.l(14 + i * 18, 44, 14 + i * 18, 64); return p; },
+    wc: function (p) { p.r(36, 18, 28, 14, 2).e(50, 52, 15, 20).e(50, 52, 10, 14).l(36, 32, 64, 32); return p; },
+    bidet: function (p) { p.e(50, 50, 14, 20).e(50, 52, 9, 14).c(50, 32, 3); return p; },
+    basin: function (p, v) {
+      if (v) { p.r(24, 32, 52, 36, 3).e(50, 50, 18, 12).c(50, 36, 2); }
+      else { p.e(50, 50, 20, 16).e(50, 50, 13, 10).c(50, 34, 2); }
+      return p;
+    },
+    bath: function (p, v) {
+      if (v) { p.p('M20 80 A 60 60 0 0 1 80 20 L80 80 Z').p('M28 74 A 46 46 0 0 1 74 28').c(70, 70, 3); }
+      else { p.r(16, 34, 68, 34, 5).r(22, 39, 56, 24, 4).c(74, 51, 3); }
+      return p;
+    },
+    shower: function (p, v) {
+      if (v) { p.p('M22 78 A 56 56 0 0 0 78 22 L78 78 Z').c(50, 50, 4).l(22, 78, 78, 78); }
+      else { p.r(24, 24, 52, 52, 1).l(24, 24, 76, 76).l(76, 24, 24, 76).c(50, 50, 4); }
+      return p;
+    },
+    towel: function (p) { p.r(26, 44, 48, 5, 2).l(30, 44, 30, 34).l(70, 44, 70, 34); return p; },
+    washer: function (p) { p.r(28, 24, 44, 52, 2).c(50, 54, 14).c(50, 54, 9).l(28, 38, 72, 38); return p; },
+    door: function (p, v) {
+      if (v === 2) {
+        p.l(10, 70, 30, 70).l(70, 70, 90, 70)
+         .p('M30 70 A 20 20 0 0 1 50 50').l(30, 70, 30, 50)
+         .p('M70 70 A 20 20 0 0 0 50 50').l(70, 70, 70, 50);
+      } else if (v === 1) {
+        p.l(14, 70, 34, 70).l(66, 70, 86, 70).l(34, 66, 62, 66).l(38, 74, 66, 74);
+      } else {
+        p.l(12, 74, 32, 74).l(72, 74, 88, 74).p('M32 74 A 40 40 0 0 1 72 34').l(32, 74, 32, 34);
+      }
+      return p;
+    },
+    window: function (p, v) {
+      p.l(10, 40, 90, 40).l(10, 60, 90, 60);
+      if (v === 1) { p.l(10, 50, 90, 50).l(50, 40, 50, 60); }
+      else if (v === 2) { p.l(10, 50, 54, 50).l(46, 50, 90, 50).l(50, 36, 50, 64); }
+      else { p.l(10, 50, 90, 50); }
+      p.l(10, 36, 10, 64).l(90, 36, 90, 64);
+      return p;
+    },
+    tree: function (p, v) {
+      var r = 26, a, t;
+      if (v === 0) {
+        p.c(50, 50, r);
+        for (a = 0; a < 12; a++) { t = a * TAU / 12; p.l(50, 50, 50 + Math.cos(t) * r, 50 + Math.sin(t) * r); }
+      } else if (v === 1) {
+        var d = '';
+        for (var i = 0; i <= 24; i++) {
+          t = i * TAU / 24;
+          var rr = r * (i % 2 ? 0.76 : 1);
+          d += (i ? 'L' : 'M') + (50 + Math.cos(t) * rr).toFixed(1) + ' ' + (50 + Math.sin(t) * rr).toFixed(1) + ' ';
+        }
+        p.p(d + 'Z').c(50, 50, 4);
+      } else if (v === 2) {
+        p.c(50, 50, r).c(50, 50, r * 0.62).c(50, 50, 4);
+      } else {
+        for (var b = 0; b < 7; b++) { t = b * TAU / 7; p.c(50 + Math.cos(t) * 13, 50 + Math.sin(t) * 13, 11); }
+        p.c(50, 50, 4);
+      }
+      return p;
+    },
+    shrub: function (p) { for (var i = 0; i < 5; i++) { var t = i * TAU / 5; p.c(50 + Math.cos(t) * 10, 50 + Math.sin(t) * 10, 9); } return p; },
+    hedge: function (p) { p.r(14, 40, 72, 20, 3); for (var i = 0; i < 6; i++) p.c(20 + i * 12, 50, 7); return p; },
+    palm: function (p) {
+      p.c(50, 50, 3);
+      for (var a = 0; a < 8; a++) {
+        var t = a * TAU / 8;
+        p.p('M50 50 Q' + (50 + Math.cos(t) * 16).toFixed(1) + ' ' + (50 + Math.sin(t) * 16).toFixed(1) + ' ' +
+            (50 + Math.cos(t + 0.25) * 28).toFixed(1) + ' ' + (50 + Math.sin(t + 0.25) * 28).toFixed(1));
+      }
+      return p;
+    },
+    person: function (p, v) { p.c(50, 42, 9); if (v) { p.p('M32 74 A 22 22 0 0 1 68 74'); } else { p.p('M34 76 A 20 18 0 0 1 66 76'); } return p; },
+    car: function (p) { p.r(22, 26, 56, 48, 10).r(30, 36, 40, 18, 3).l(22, 62, 78, 62).r(18, 34, 5, 10, 2).r(77, 34, 5, 10, 2).r(18, 56, 5, 10, 2).r(77, 56, 5, 10, 2); return p; },
+    bike: function (p) { p.c(30, 60, 13).c(70, 60, 13).p('M30 60 L46 40 L70 60').l(46, 40, 60, 40).l(38, 44, 52, 44); return p; },
+    bench: function (p) { p.r(20, 42, 60, 16, 2).l(20, 50, 80, 50).r(20, 36, 60, 5, 2); return p; },
+    planter: function (p) {
+      p.r(30, 30, 40, 40, 3).c(50, 50, 13);
+      for (var a = 0; a < 6; a++) { var t = a * TAU / 6; p.l(50, 50, 50 + Math.cos(t) * 13, 50 + Math.sin(t) * 13); }
+      return p;
+    },
+    paving: function (p) { for (var y = 0; y < 3; y++) for (var x = 0; x < 3; x++) p.r(20 + x * 20 + (y % 2 ? 6 : 0), 26 + y * 16, 17, 13, 1); return p; },
+    stair: function (p) { p.r(30, 18, 40, 64, 1); for (var i = 1; i < 8; i++) p.l(30, 18 + i * 8, 70, 18 + i * 8); p.l(50, 18, 50, 82); return p; }
+  };
+
+  /* layer colours: g = planting, c = glazing. everything else takes the
+     default line colour, the same way a real drawing keeps most of its
+     geometry on one layer. */
+  var CATS = {
+    mixed: [['sofa', 1], ['dineC', 0], ['bed', 1], ['wc', 0], ['tree', 1, 'g'], ['door', 0],
+            ['tableC', 0], ['basin', 0], ['chair', 0], ['window', 1, 'c'], ['stair', 0], ['car', 0],
+            ['shelf', 0], ['hob', 0], ['person', 0], ['bath', 0], ['lsofa', 0], ['shower', 1],
+            ['tree', 3, 'g'], ['fridge', 0], ['armchair', 0], ['tableR', 1], ['bike', 0], ['towel', 0],
+            ['dineR', 0], ['wardrobe', 1], ['sink', 1], ['paving', 0], ['bench', 0], ['lamp', 0]],
+    furniture: [['sofa', 1], ['sofa', 0], ['lsofa', 0], ['armchair', 0], ['chair', 0], ['chair', 1],
+                ['stool', 1], ['stool', 0], ['tableR', 0], ['tableR', 1], ['tableC', 0], ['dineR', 0],
+                ['dineC', 0], ['desk', 0], ['bed', 1], ['bed', 0], ['wardrobe', 1], ['wardrobe', 0],
+                ['shelf', 0], ['tv', 0], ['rug', 0], ['bench', 0], ['lamp', 0], ['sofa', 1],
+                ['armchair', 0], ['tableC', 0], ['chair', 0], ['stool', 1], ['dineR', 0], ['shelf', 0]],
+    bedroom: [['bed', 1], ['bed', 0], ['bed', 1], ['bed', 0], ['wardrobe', 1], ['wardrobe', 0],
+              ['tableR', 0], ['tableC', 0], ['stool', 1], ['desk', 0], ['chair', 0], ['rug', 0],
+              ['lamp', 0], ['shelf', 0], ['bench', 0], ['tv', 0], ['bed', 1], ['tableC', 0],
+              ['wardrobe', 1], ['stool', 0], ['armchair', 0], ['rug', 0], ['lamp', 0], ['bed', 0],
+              ['tableR', 0], ['wardrobe', 0], ['shelf', 0], ['chair', 1], ['bench', 0], ['tableC', 0]],
+    kitchen: [['sink', 1], ['sink', 0], ['hob', 0], ['hob', 1], ['fridge', 0], ['oven', 0],
+              ['washer', 0], ['counter', 0], ['counter', 0], ['tableR', 0], ['chair', 0], ['stool', 1],
+              ['dineR', 0], ['shelf', 0], ['sink', 1], ['hob', 0], ['fridge', 0], ['oven', 0],
+              ['counter', 0], ['dineC', 0], ['chair', 1], ['stool', 0], ['tableC', 0], ['sink', 0],
+              ['hob', 1], ['counter', 0], ['shelf', 0], ['washer', 0], ['chair', 0], ['tableR', 1]],
+    bathroom: [['wc', 0], ['wc', 0], ['bidet', 0], ['basin', 0], ['basin', 1], ['bath', 0],
+               ['bath', 1], ['shower', 0], ['shower', 1], ['towel', 0], ['washer', 0], ['wc', 0],
+               ['basin', 0], ['bath', 0], ['shower', 0], ['bidet', 0], ['towel', 0], ['basin', 1],
+               ['shower', 1], ['wc', 0], ['bath', 1], ['washer', 0], ['basin', 0], ['towel', 0],
+               ['shower', 0], ['wc', 0], ['bidet', 0], ['bath', 0], ['basin', 1], ['shower', 1]],
+    doors: [['door', 0], ['door', 0], ['door', 2], ['door', 1], ['door', 0], ['door', 2],
+            ['window', 0, 'c'], ['window', 1, 'c'], ['window', 2, 'c'], ['window', 0, 'c'],
+            ['window', 1, 'c'], ['window', 2, 'c'], ['door', 0], ['door', 2], ['window', 1, 'c'],
+            ['door', 1], ['window', 0, 'c'], ['door', 0], ['window', 2, 'c'], ['door', 2],
+            ['window', 1, 'c'], ['door', 0], ['window', 0, 'c'], ['door', 1], ['window', 2, 'c'],
+            ['door', 2], ['window', 1, 'c'], ['door', 0], ['window', 0, 'c'], ['door', 0]],
+    landscape: [['tree', 0, 'g'], ['tree', 1, 'g'], ['tree', 2, 'g'], ['tree', 3, 'g'],
+                ['tree', 0, 'g'], ['tree', 1, 'g'], ['shrub', 0, 'g'], ['shrub', 0, 'g'],
+                ['hedge', 0, 'g'], ['palm', 0, 'g'], ['palm', 0, 'g'], ['planter', 0, 'g'],
+                ['person', 0], ['person', 1], ['person', 0], ['person', 1], ['car', 0], ['car', 0],
+                ['bike', 0], ['bench', 0], ['paving', 0], ['tree', 2, 'g'], ['tree', 3, 'g'],
+                ['shrub', 0, 'g'], ['hedge', 0, 'g'], ['person', 0], ['car', 0], ['paving', 0],
+                ['tree', 1, 'g'], ['planter', 0, 'g']]
+  };
+
+  document.querySelectorAll('.cells[data-cat]').forEach(function (host) {
+    var list = CATS[host.getAttribute('data-cat')];
+    if (!list) return;
+    host.innerHTML = '';
+    list.forEach(function (spec) {
+      var fn = B[spec[0]];
+      if (!fn) return;
+      var cell = document.createElement('div');
+      cell.className = 'cc' + (spec[2] ? ' l-' + spec[2] : '');
+      var svg = n('svg', { viewBox: '0 0 100 100' });
+      var g = n('g', {});
+      svg.appendChild(g);
+      fn(pen(g), spec[1]);
+      cell.appendChild(svg);
+      host.appendChild(cell);
+    });
+  });
+})();
