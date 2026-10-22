@@ -842,7 +842,9 @@ app.post("/api/create-order", async (req, res) => {
 
 app.post("/api/subscribe", async (req, res) => {
   try {
-    const { email } = req.body || {};
+    const { email, list } = req.body || {};
+    // Which list the person joined. Only known names, so the subject line cannot be filled with arbitrary text.
+    const listName = list === "studio-tools" ? "Studio tools waitlist" : "email list";
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ ok: false, message: "Invalid email" });
     }
@@ -855,12 +857,12 @@ app.post("/api/subscribe", async (req, res) => {
       await transporter.sendMail({
         from: `"Digital Asset Lab" <${FROM_EMAIL || SMTP_USER}>`,
         to: ownerEmail,
-        subject: `New subscriber: ${email}`,
-        html: `<p><strong>${email}</strong> just joined the email list from digitalassetlab.in.</p>`,
+        subject: `New subscriber (${listName}): ${email}`,
+        html: `<p><strong>${email}</strong> just joined the ${listName} from digitalassetlab.in.</p>`,
       }).catch(err => console.error("Subscribe notification error:", err));
       console.log(`Subscribe notification sent to ${ownerEmail}`);
     } else {
-      console.log(`New subscriber (SMTP not configured): ${email}`);
+      console.log(`New subscriber, ${listName} (SMTP not configured): ${email}`);
     }
 
     return res.json({ ok: true });
