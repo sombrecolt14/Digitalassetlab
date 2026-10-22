@@ -28,21 +28,36 @@
     "}";
   document.head.appendChild(style);
 
-  var wrap = document.createElement("span");
-  wrap.className = "nav-drop";
-  link.parentNode.insertBefore(wrap, link);
-  wrap.appendChild(link);
-  link.setAttribute("aria-haspopup", "true");
+  function drop(a, items) {
+    var wrap = document.createElement("span");
+    wrap.className = "nav-drop";
+    a.parentNode.insertBefore(wrap, a);
+    wrap.appendChild(a);
+    a.setAttribute("aria-haspopup", "true");
+    var menu = document.createElement("div");
+    menu.className = "nav-drop-menu";
+    menu.innerHTML = items;
+    wrap.appendChild(menu);
+    return wrap;
+  }
 
-  var menu = document.createElement("div");
-  menu.className = "nav-drop-menu";
-  menu.innerHTML =
+  var products = drop(link,
     '<a href="/architecture-bundle.html"><b>The Architecture Bundle</b><span class="p">₹1,899</span></a>' +
     '<a href="/presentation-library.html"><b>Presentation Library</b><span class="p">₹1,199</span></a>' +
     '<a href="/drafting-library.html"><b>Drafting Library</b><span class="p">₹1,199</span></a>' +
     '<a href="/contracts-billing.html"><b>Contracts</b><span class="p">₹799</span></a>' +
-    '<a class="all" href="' + link.getAttribute("href") + '">All products →</a>';
-  wrap.appendChild(menu);
+    '<a class="all" href="' + link.getAttribute("href") + '">All products →</a>');
+
+  // Studio tools sit right after Products on every store page.
+  var tools = document.createElement("a");
+  tools.href = "/studio-tools.html";
+  tools.textContent = "Studio tools";
+  products.parentNode.insertBefore(tools, products.nextSibling);
+  drop(tools,
+    '<a href="/budget-planner.html"><b>Budget Planner</b><span class="p">Coming soon</span></a>' +
+    '<a href="/invoice-generator.html"><b>Invoice Generator</b><span class="p">Coming soon</span></a>' +
+    '<a href="/site-tracker.html"><b>Site Tracker</b><span class="p">In development</span></a>' +
+    '<a class="all" href="/studio-tools.html">All studio tools →</a>');
 })();
 
 // ── Live launch offer ──────────────────────────────────────────────────
