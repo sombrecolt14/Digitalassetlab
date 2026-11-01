@@ -157,7 +157,10 @@ async function launchSold() {
 async function launchStatus() {
   const sold = await launchSold();
   const left = Math.max(0, LAUNCH_TOTAL - sold);
-  return { sold, left, total: LAUNCH_TOTAL, open: left > 0, code: left > 0 ? "NEW15" : "NEW10" };
+  // ponytail: launch closed by hand on 1 Nov 2026 — NEW15 now answers
+  // "expired", NEW10 is the advertised code. Flip to `left > 0` to reopen.
+  const open = false;
+  return { sold, left, total: LAUNCH_TOTAL, open, code: open ? "NEW15" : "NEW10" };
 }
 
 // Pure: what a code is worth, given whether launch spots remain.
