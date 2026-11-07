@@ -488,3 +488,16 @@
     });
   });
 })();
+
+// Phone buy bar: visible only while no other buy button is on screen
+// (the hero CTA at the top, the closing band, the footer at the bottom).
+(function () {
+  var bar = document.querySelector('[data-buybar]');
+  if (!bar || !window.IntersectionObserver) return;
+  var onScreen = new Set();
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.isIntersecting ? onScreen.add(e.target) : onScreen.delete(e.target); });
+    bar.classList.toggle('on', onScreen.size === 0);
+  });
+  document.querySelectorAll('.hero-cta, .band, footer.site').forEach(function (el) { io.observe(el); });
+})();
