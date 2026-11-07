@@ -547,7 +547,8 @@
 
   @media (max-width: 940px){
     .hero-grid, .paper-grid, .stack-grid, .band-inner, .book-scene, .sys-grid, .sub-hero-grid, .sector-grid{ grid-template-columns:1fr; }
-    .fan{ height:400px; max-width:520px; margin-inline:auto; }
+    /* width:100% — a centred grid item whose boards are all absolute shrinks to 0px wide */
+    .fan{ width:100%; height:400px; max-width:520px; margin-inline:auto; }
     .filmstrip{ grid-template-columns:repeat(3, 1fr); }
     .sheets{ grid-template-columns:1fr 1fr; }
     .skp-tray{ grid-template-columns:repeat(3, 1fr); }
@@ -566,6 +567,13 @@
     .skp-tray{ grid-template-columns:1fr 1fr; }
     .filmstrip{ grid-template-columns:repeat(2, 1fr); }
     .space-grid{ grid-template-columns:1fr 1fr; }
+    .fan{ display:none; }
+    /* label and note wrapped at different widths side by side; stack them instead */
+    .sector .sbody li, .cat-card li{ flex-direction:column; align-items:flex-start; gap:.1rem; }
+    .cat-card li em{ white-space:normal; }
+    .cat-card h3{ flex-wrap:wrap; row-gap:.25rem; }
+    /* three pages set two columns inline on .check lists; one column on phones */
+    ul.check[style]{ grid-template-columns:1fr !important; }
   }
 
   /* ── mobile nav toggle (shared with the rest of the site) ── */
@@ -609,3 +617,11 @@
     .nav nav a{ padding:.9rem .1rem; font-size:1.02rem; opacity:1; border-top:1px solid oklch(96% 0.015 55 / .18); }
   }
   @media (prefers-reduced-motion: reduce){ .nav nav, .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{ transition:none; } }
+
+  /* questionnaire Google Form walkthrough + editable note */
+  .howto{ margin-top:1.6rem; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); padding:1rem 1.2rem; font-size:.92rem; }
+  .howto summary{ cursor:pointer; font-weight:650; color:var(--ink); }
+  .howto ol{ margin:.9rem 0 0 1.2rem; display:grid; gap:.5rem; color:var(--ink-soft); }
+  .howto b{ color:var(--ink); }
+  .edit-note{ margin-top:.9rem; font-size:.88rem; color:var(--ink-soft); max-width:34rem; }
+  .edit-note b{ color:var(--ink); }

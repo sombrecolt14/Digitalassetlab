@@ -16,12 +16,13 @@
       blurb: "All three libraries: presentation, drafting, contracts",
       href: "/architecture-bundle.html",
       points: [
-        "<b>Walk into the first meeting with the brief already written</b> — send a questionnaire, get the answers back in the client's own words.",
-        "<b>Present boards a client can approve</b>, each one named, palletted and costed, instead of a mood you have to defend.",
-        "<b>Open AutoCAD to a library that's already drawn</b> — one template per category, not a folder of single blocks.",
-        "<b>Send a contract that names the fee, the stages and the revision limit</b> before the work starts.",
-        "<b>One payment, lifetime updates</b>, full commercial licence on client work.",
+        "<b>1,365 CAD blocks and 1,070 SketchUp models</b>Stop redrawing furniture, fixtures and details on every job.",
+        "<b>79 moodboards &amp; palettes, 160+ spec pages</b>Show the client boards they can approve in the first meeting, materials already costed.",
+        "<b>32 client questionnaires</b>The brief comes back in writing, in the client's own words, budget included.",
+        "<b>11 contracts, 155 pages</b>Fee, stages and revision limit agreed before you draw a line.",
+        "<b>One payment, yours for good</b>Every future update free, with a full commercial licence for client work.",
       ],
+      edits: "CAD (.dwg), SketchUp (.skp), questionnaires (Word) and contracts (Canva) are all editable. The moodboards and style decks are print-ready PDFs you present as they are.",
     },
     presentation: {
       label: "The Presentation Library",
@@ -29,11 +30,12 @@
       blurb: "Mood boards, styles, materials and 32 client questionnaires",
       href: "/presentation-library.html",
       points: [
-        "<b>\"Show me something else\" stops being a dead end</b> — enough named boards to answer it in the same meeting.",
-        "<b>Materials carry indicative rates on the page</b>, so the budget conversation happens once, not three weeks later.",
-        "<b>32 client questionnaires</b> in PDF, Word and Google Form — the brief arrives in writing before you draw.",
-        "<b>Print-ready PDFs</b>: open, print, hand it to the client — nothing to set up first.",
+        "<b>79 moodboards &amp; palettes</b>When the client says \"show me something else\", the next board is ready in the same meeting.",
+        "<b>160+ style &amp; material pages, with indicative rates</b>The budget conversation happens once, at the start, not three weeks in.",
+        "<b>32 client questionnaires</b>PDF, editable Word, and a script that builds a Google Form in your own Drive.",
+        "<b>Print-ready PDFs</b>Open, print and hand to the client. Nothing to set up first.",
       ],
+      edits: "The 32 questionnaires are editable (Word, plus the Google Form script). The moodboards and style decks are print-ready PDFs you present as they are.",
     },
     drafting: {
       label: "The Drafting Library",
@@ -41,11 +43,12 @@
       blurb: "CAD block templates, SketchUp models, 1,646 textures",
       href: "/drafting-library.html",
       points: [
-        "<b>No more opening one DWG to get one chair</b> — each category is a single template with the whole library on the sheet.",
-        "<b>1,070 SketchUp models, cleaned and purged</b>, so they drop into a scene without dragging junk geometry with them.",
-        "<b>1,646 seamless textures</b>, sorted by material family, for boards and renders alike.",
-        "<b>Draw the standard details once</b> and stop redrawing them on every project.",
+        "<b>1,365 CAD blocks</b>One template per category: open a single DWG and the whole library is on the sheet.",
+        "<b>1,070 SketchUp models, cleaned and purged</b>They drop into a scene without dragging junk geometry along.",
+        "<b>1,646 seamless textures</b>Sorted by material family, for boards and renders alike.",
+        "<b>Standard details, drawn once</b>Stop redrawing them on every project.",
       ],
+      edits: "Everything here is yours to edit: AutoCAD (.dwg) and SketchUp (.skp) files, and textures as plain image files.",
     },
     contracts: {
       label: "Contracts",
@@ -53,11 +56,12 @@
       blurb: "11 contract templates, 155 typeset pages",
       href: "/contracts-billing.html",
       points: [
-        "<b>Scope, stages and revision limits agreed in writing</b> before work starts, so \"just one more change\" has a price.",
-        "<b>Fee tables tied to deliverables, not dates</b> — payments fall due when you hand something over.",
-        "<b>11 contracts</b> covering clients, staff, vendors, freelancers, consultants, partners and one-off collaborations.",
-        "<b>Written for Indian practice</b>, with jurisdiction and arbitration named. Review once with your advocate, reuse forever.",
+        "<b>11 contracts, 155 typeset pages</b>Clients, staff, vendors, freelancers, consultants, partners and one-off collaborations.",
+        "<b>Scope, stages and revision limits in writing</b>So \"just one more change\" has a price.",
+        "<b>Fee tables tied to deliverables</b>Payments fall due when you hand something over, not on a date that slips.",
+        "<b>Written for Indian practice</b>Jurisdiction and arbitration named. Review once with your advocate, reuse on every job.",
       ],
+      edits: "All 11 contracts are editable Canva templates, with print-ready PDFs alongside.",
     },
   };
   var PARTS = Object.keys(PRODUCTS).filter(function (k) { return k !== BUNDLE; });
@@ -150,10 +154,12 @@
         (PRODUCTS[key].points || []).forEach(function (p) {
           if (seen[p]) return;
           seen[p] = 1;
-          html += "<li>" + p + "</li>";
+          html += "<li><span>" + p + "</span></li>";
         });
       });
       el.innerHTML = html;
+      var ed = document.getElementById("rail-edits");
+      if (ed) ed.innerHTML = "<b>What you can edit</b>" + cart.map(function (k) { return PRODUCTS[k].edits || ""; }).join(" ");
     }
 
     // ── discount code ──

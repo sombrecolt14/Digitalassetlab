@@ -17,6 +17,7 @@
     --paper: oklch(96.8% 0.006 85); --surface: oklch(99% 0.003 85);
     --line: oklch(87% 0.006 250); --clay: oklch(24% 0.008 250); --pop: oklch(56% 0.13 42);
     --on-pop: oklch(98% 0.01 60);
+    --mark: oklch(50% 0.13 42); /* terracotta, a touch darker than --pop so text stays readable: checkout point numbers + headings */
     font-size:16px;
   }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -49,13 +50,17 @@
   .co-grid{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:clamp(1.2rem,2.5vw,2rem); align-items:start; }
   .co-rail{ display:grid; gap:1.2rem; position:sticky; top:5rem; }
   .co-rail .panel h2{ margin-bottom:.8rem; }
-  .rail-list{ list-style:none; display:grid; gap:.7rem; font-size:.9rem; }
-  .rail-list li{ display:flex; gap:.6rem; align-items:flex-start; color:var(--ink-soft); }
+  .rail-list{ list-style:none; counter-reset:pt; display:grid; gap:1rem; font-size:.9rem; line-height:1.45; }
+  .rail-list li{ counter-increment:pt; display:flex; gap:.8rem; align-items:flex-start; color:var(--ink-soft); }
+  /* schedule-style numbers in ink, not a coloured tick */
   .rail-list li::before{
-    content:""; flex:none; width:1.05rem; height:1.05rem; margin-top:.15rem; border-radius:999px;
-    background:var(--pop) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a2b1f' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/.7rem no-repeat;
+    content:counter(pt, decimal-leading-zero); flex:none; width:1.75rem; height:1.75rem; margin-top:-.1rem;
+    display:grid; place-items:center; border:1.5px solid var(--mark); border-radius:999px;
+    font-size:.68rem; font-weight:700; color:var(--mark); font-variant-numeric:tabular-nums;
   }
-  .rail-list li b{ color:var(--ink); font-weight:700; }
+  .rail-list li b{ display:block; color:var(--mark); font-weight:700; margin-bottom:.15rem; }
+  .rail-edits{ margin-top:1.1rem; padding-top:1rem; border-top:1px dashed var(--line); font-size:.84rem; color:var(--ink-soft); line-height:1.45; }
+  .rail-edits b{ display:block; color:var(--ink); font-weight:700; margin-bottom:.15rem; }
   .rail-steps{ list-style:none; counter-reset:s; display:grid; gap:.85rem; font-size:.9rem; color:var(--ink-soft); }
   .rail-steps li{ counter-increment:s; display:flex; gap:.7rem; align-items:flex-start; }
   .rail-steps li::before{
@@ -252,6 +257,7 @@
           <div class="panel">
             <h2>What this actually does</h2>
             <ul class="rail-list" id="rail-points"></ul>
+            <p class="rail-edits" id="rail-edits"></p>
           </div>
           <div class="panel">
             <h2>After you pay</h2>

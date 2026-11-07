@@ -20,11 +20,28 @@
     ".nav-drop-menu a b{ font-weight:650; }" +
     ".nav-drop-menu a .p{ color:var(--ink-soft,#666); font-size:.82rem; font-variant-numeric:tabular-nums; }" +
     ".nav-drop-menu a.all{ border-top:1px solid var(--line,#ddd); margin-top:.3rem; border-radius:0 0 9px 9px; color:var(--ink-soft,#666); font-size:.84rem; }" +
+    /* Phone menu. Every page's own CSS gives `.nav nav a` a top border and padding,
+       which also hit the dropdown rows; these rules (injected last, higher specificity)
+       turn it into one list: a PRODUCTS label, four priced rows, then plain links. */
     "@media (max-width:720px){" +
-    "  .nav-drop{ display:block; }" +
-    "  .nav-drop-menu{ position:static; transform:none; opacity:1; visibility:visible; border:none; box-shadow:none; padding:0 0 0 1.1rem; background:transparent; min-width:0; }" +
-    "  .nav-drop-menu::before{ display:none; }" +
-    "  .nav-drop-menu a.all{ display:none; }" +
+    "  .nav[data-open='true'] nav{ max-height:calc(100svh - 6rem); overflow-y:auto; }" +
+    "  .nav .nav-drop{ display:block; }" +
+    "  .nav .nav-drop-menu{ position:static; transform:none; opacity:1; visibility:visible; border:none; box-shadow:none; padding:0 0 .4rem; background:transparent; min-width:0; }" +
+    /* the desktop hover/focus rule re-applies translateX(-50%) on hover or tap and shoves the list off-screen */
+    "  .nav .nav-drop:hover .nav-drop-menu, .nav .nav-drop:focus-within .nav-drop-menu{ transform:none; }" +
+    "  .nav .nav-drop-menu a:hover{ background:transparent; }" +
+    "  .nav .nav-drop-menu::before{ display:none; }" +
+    "  .nav .nav-drop-menu a.all{ display:none; }" +
+    "  .nav .nav-drop > a{ display:block; border-top:none; padding:1rem 0 .35rem; font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.55; }" +
+    "  .nav .nav-drop-menu a{ color:inherit; border-top:none; border-radius:0; padding:.8rem 0; font-size:1.02rem; }" +
+    "  .nav .nav-drop-menu a + a{ border-top:1px solid color-mix(in oklab, currentColor 14%, transparent); }" +
+    "  .nav .nav-drop-menu a b{ font-weight:600; }" +
+    "  .nav .nav-drop-menu a .p{ color:inherit; opacity:.6; }" +
+    /* Studio tools: nothing to buy yet, so on phones it's one row, not a section. */
+    "  .nav .nav-tools .nav-drop-menu{ display:none; }" +
+    "  .nav .nav-tools > a{ display:flex; justify-content:space-between; align-items:baseline; padding:.9rem .1rem; font-size:1.02rem; font-weight:inherit; letter-spacing:0; text-transform:none; opacity:1;" +
+    "    border-top:1px solid color-mix(in oklab, currentColor 14%, transparent); }" +
+    "  .nav .nav-tools > a::after{ content:'Coming soon'; font-size:.82rem; opacity:.6; }" +
     "}";
   document.head.appendChild(style);
 
@@ -57,7 +74,7 @@
     '<a href="/budget-planner.html"><b>Budget Planner</b><span class="p">Coming soon</span></a>' +
     '<a href="/invoice-generator.html"><b>Invoice Generator</b><span class="p">Coming soon</span></a>' +
     '<a href="/site-tracker.html"><b>Site Tracker</b><span class="p">In development</span></a>' +
-    '<a class="all" href="/studio-tools.html">All studio tools →</a>');
+    '<a class="all" href="/studio-tools.html">All studio tools →</a>').classList.add("nav-tools");
 })();
 
 // ── Live launch offer ──────────────────────────────────────────────────
