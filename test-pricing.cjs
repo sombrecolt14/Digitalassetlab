@@ -19,7 +19,7 @@ assert.equal(rupees(priceOf("presentation", "drafting", "contracts")), 3197);
 
 // The advertised drops
 assert.equal(after("NEW15", true, "architecture"), 1614, "NEW15 on the bundle");
-assert.equal(after("NEW10", true, "architecture"), 1709, "NEW10 on the bundle");
+assert.equal(after("NEW5", true, "architecture"), 1804, "NEW5 on the bundle");
 
 // Codes are case- and whitespace-insensitive, because buyers paste them
 assert.equal(after(" new15 ", true, "architecture"), 1614);
@@ -28,11 +28,11 @@ assert.equal(after(" new15 ", true, "architecture"), 1614);
 assert.equal(discountFor(189900, 15) % 100, 0);
 assert.equal(discountFor(199800, 15), 30000);
 
-// Launch-only expiry: NEW15 dies with the last spot, NEW10 carries on
+// Launch-only expiry: NEW15 dies with the last spot, NEW5 carries on
 assert.equal(couponRule("NEW15", false).valid, false);
 assert.equal(couponRule("NEW15", false).reason, "expired");
 assert.equal(after("NEW15", false, "architecture"), 1899, "expired code charges full price");
-assert.equal(after("NEW10", false, "architecture"), 1709, "NEW10 outlives the launch");
+assert.equal(after("NEW5", false, "architecture"), 1804, "NEW5 outlives the launch");
 
 // Anything else is worth nothing
 assert.equal(couponRule("FREE", true).valid, false);
@@ -50,4 +50,4 @@ assert.equal(resolveProducts({ products: ["nope"] }), null, "unknown key must no
 assert.deepEqual(resolveProducts({ products: ["contracts"] }).keys, ["contracts"]);
 assert.deepEqual(resolveProducts({ product: "architecture" }).keys, ["architecture"], "legacy single key still works");
 
-console.log("pricing ok — bundle 1899, NEW15 1614, NEW10 1709, expiry holds, empty cart resolves to nothing");
+console.log("pricing ok — bundle 1899, NEW15 1614, NEW5 1804, expiry holds, empty cart resolves to nothing");

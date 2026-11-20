@@ -177,7 +177,7 @@
           cHint.hidden = false;
           cHint.innerHTML = s.open
             ? "Use <b>" + s.code + "</b> for 15% off"
-            : "Use <b>" + s.code + "</b> for 10% off.";
+            : "Use <b>" + s.code + "</b> for 5% off.";
         })
         .catch(function () {});
     }
@@ -227,7 +227,7 @@
           });
           var res = await r.json();
           if (res && res.valid) couponWin(res);
-          else if (res && res.reason === "expired") couponFail("The launch code has been used up. Try NEW10 instead.");
+          else if (res && res.reason === "expired") couponFail("The launch code has been used up. Try NEW5 instead.");
           else couponFail("That code isn't valid.");
         } catch (e3) {
           couponFail("Couldn't check that code. Try again in a moment.");

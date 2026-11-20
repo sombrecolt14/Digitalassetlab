@@ -120,7 +120,7 @@ const COUPONS = {
   // Only while launch spots remain.
   NEW15: { percent: 15, launchOnly: true },
   // The standing code once the launch window closes.
-  NEW10: { percent: 10, launchOnly: false },
+  NEW5: { percent: 5, launchOnly: false },
 };
 
 let soldCache = { at: 0, count: null };
@@ -158,9 +158,9 @@ async function launchStatus() {
   const sold = await launchSold();
   const left = Math.max(0, LAUNCH_TOTAL - sold);
   // ponytail: launch closed by hand on 1 Nov 2026 — NEW15 now answers
-  // "expired", NEW10 is the advertised code. Flip to `left > 0` to reopen.
+  // "expired", NEW5 is the advertised code. Flip to `left > 0` to reopen.
   const open = false;
-  return { sold, left, total: LAUNCH_TOTAL, open, code: open ? "NEW15" : "NEW10" };
+  return { sold, left, total: LAUNCH_TOTAL, open, code: open ? "NEW15" : "NEW5" };
 }
 
 // Pure: what a code is worth, given whether launch spots remain.

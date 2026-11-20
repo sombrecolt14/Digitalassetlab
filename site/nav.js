@@ -90,7 +90,7 @@
     .then(function (r) { return r.json(); })
     .then(function (s) {
       if (!s || !s.ok) return;
-      var pct = s.open ? 15 : 10;
+      var pct = s.open ? 15 : 5;
       var html = s.open
         ? 'Launch price <b>₹1,899</b> · code <b>' + s.code + '</b> takes <b>' + pct + "% off</b>"
         : 'Code <b>' + s.code + '</b> takes <b>' + pct + "% off</b>";
