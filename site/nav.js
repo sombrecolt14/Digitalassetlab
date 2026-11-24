@@ -73,7 +73,7 @@
   drop(tools,
     '<a href="/budget-planner.html"><b>Budget Planner</b><span class="p">Coming soon</span></a>' +
     '<a href="/invoice-generator.html"><b>Invoice Generator</b><span class="p">Coming soon</span></a>' +
-    '<a href="/site-tracker.html"><b>Site Tracker</b><span class="p">In development</span></a>' +
+    '<a href="/site-tracker.html"><b>Site Tracker</b><span class="p">Coming soon</span></a>' +
     '<a class="all" href="/studio-tools.html">All studio tools →</a>').classList.add("nav-tools");
 })();
 
